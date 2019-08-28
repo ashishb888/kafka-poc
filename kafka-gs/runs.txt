@@ -1,0 +1,24 @@
+ExternalizableService
+
+RUN 1
+
+2019-08-28 17:41:25.537  INFO 20196 --- [           main] afkaApp$$EnhancerBySpringCGLIB$$8e14b2f3 : run service
+2019-08-28 17:41:25.538  INFO 20196 --- [           main] poc.kafka.service.KafkaService           : main service
+2019-08-28 17:41:25.538  INFO 20196 --- [           main] poc.kafka.service.ExternalizableService  : main service
+2019-08-28 17:41:25.538  INFO 20196 --- [           main] poc.kafka.service.ExternalizableService  : serialization service
+2019-08-28 17:41:25.539  INFO 20196 --- [           main] poc.kafka.service.ExternalizableService  : emp: Employee(name=Ashish, age=21)
+2019-08-28 17:41:25.540  INFO 20196 --- [           main] poc.kafka.service.ExternalizableService  : empBytes: [B@42b02722
+2019-08-28 17:41:25.541  INFO 20196 --- [           main] poc.kafka.service.ExternalizableService  : emp1: Employee(name=Ashish, age=21)
+
+----------==----------
+SerializableService
+
+RUN 1
+
+2019-08-28 18:05:07.900  INFO 11388 --- [           main] afkaApp$$EnhancerBySpringCGLIB$$6b821563 : run service
+2019-08-28 18:05:07.901  INFO 11388 --- [           main] poc.kafka.service.KafkaService           : main service
+2019-08-28 18:05:07.902  INFO 11388 --- [           main] poc.kafka.service.SerializableService    : main service
+2019-08-28 18:05:07.902  INFO 11388 --- [           main] poc.kafka.service.SerializableService    : serialization service
+2019-08-28 18:05:07.903  INFO 11388 --- [           main] poc.kafka.service.SerializableService    : emp: Employee2(name=Ashish, age=21)
+2019-08-28 18:05:07.905  INFO 11388 --- [           main] poc.kafka.service.SerializableService    : empBytes: [B@2e6a5539
+2019-08-28 18:05:07.906  INFO 11388 --- [           main] poc.kafka.service.SerializableService    : emp1: Employee2(name=Ashish, age=21)

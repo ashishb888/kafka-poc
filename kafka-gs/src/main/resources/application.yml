@@ -1,0 +1,6 @@
+spring:
+ application:
+  name: kafka-gs
+
+logging:
+  level:    root: info  file: /var/log/apps/kafka-gs/kafka-gs
