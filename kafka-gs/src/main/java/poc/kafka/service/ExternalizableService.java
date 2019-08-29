@@ -3,6 +3,8 @@ package poc.kafka.service;
 import java.time.Duration;
 import java.util.Arrays;
 import java.util.Properties;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.IntStream;
 
 import org.apache.kafka.clients.consumer.Consumer;
@@ -81,11 +83,51 @@ public class ExternalizableService {
 		return new KafkaConsumer<>(kafkaProps);
 	}
 
+	private void produceToMultiPartitions() {
+		log.info("produceToMultiPartitions service");
+
+		Producer<Integer, Employee> producer = producer();
+
+		IntStream.iterate(0, i -> i + 1).limit(10).forEach(i -> {
+			producer.send(new ProducerRecord<Integer, Employee>("gs2", i, i, new Employee(String.valueOf(i), i)));
+		});
+	}
+
+	private void consumeByGroup() {
+		log.info("consumeByGroup service");
+
+		final int partitions = 10;
+		ExecutorService es = Executors.newFixedThreadPool(partitions);
+
+		for (int i = 0; i < partitions; i++) {
+			int localI = i;
+
+			es.submit(() -> {
+
+				Consumer<Integer, Employee> consumer = consumer();
+				TopicPartition tp = new TopicPartition("gs2", localI);
+
+				consumer.assign(Arrays.asList(tp));
+				consumer.seekToBeginning(Arrays.asList(tp));
+
+				while (true) {
+					ConsumerRecords<Integer, Employee> records = consumer.poll(Duration.ofMillis(10));
+
+					for (ConsumerRecord<Integer, Employee> record : records) {
+						log.info("record: " + record);
+					}
+				}
+			});
+		}
+	}
+
 	private void produceConsume() {
 		log.info("produceConsume service");
-
+		// produceToMultiPartitions();
+		consumeByGroup();
 		// produce();
-		consume();
+		// consume();
+
 	}
 
 	private void serialization() {

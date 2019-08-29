@@ -96,6 +96,100 @@ RUN 4
 2019-08-28 20:02:51.208  INFO 22080 --- [           main] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
 2019-08-28 20:02:57.215  INFO 22080 --- [on(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 
+----------=----------
+RUN 5 consumeByGroup & produceToMultiPartitions
+
+2019-08-29 12:33:58.779  INFO 21692 --- [pool-1-thread-2] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.779  INFO 21692 --- [pool-1-thread-2] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.780  INFO 21692 --- [pool-1-thread-2] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.781  INFO 21692 --- [pool-1-thread-8] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.781  INFO 21692 --- [pool-1-thread-8] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.781  INFO 21692 --- [pool-1-thread-8] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.781  INFO 21692 --- [pool-1-thread-2] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-2, groupId=test-consumers] Subscribed to partition(s): gs2-1
+2019-08-29 12:33:58.781  INFO 21692 --- [pool-1-thread-9] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.781  INFO 21692 --- [pool-1-thread-8] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-10, groupId=test-consumers] Subscribed to partition(s): gs2-7
+2019-08-29 12:33:58.781  INFO 21692 --- [pool-1-thread-9] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.781  INFO 21692 --- [pool-1-thread-9] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-9] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-8, groupId=test-consumers] Subscribed to partition(s): gs2-8
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-1] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-1] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-1] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-4, groupId=test-consumers] Subscribed to partition(s): gs2-0
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-5] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-5] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-5] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-5] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-6, groupId=test-consumers] Subscribed to partition(s): gs2-4
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-3] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.782  INFO 21692 --- [pool-1-thread-3] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.783  INFO 21692 --- [pool-1-thread-3] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.783  INFO 21692 --- [pool-1-thread-3] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-9, groupId=test-consumers] Subscribed to partition(s): gs2-2
+2019-08-29 12:33:58.783  INFO 21692 --- [pool-1-thread-7] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.783  INFO 21692 --- [pool-1-thread-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-4, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-0
+2019-08-29 12:33:58.783  INFO 21692 --- [pool-1-thread-9] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-8, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-8
+2019-08-29 12:33:58.783  INFO 21692 --- [pool-1-thread-7] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.783  INFO 21692 --- [pool-1-thread-8] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-10, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-7
+2019-08-29 12:33:58.783  INFO 21692 --- [pool-1-thread-7] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.784  INFO 21692 --- [ool-1-thread-10] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.784  INFO 21692 --- [ool-1-thread-10] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.784  INFO 21692 --- [pool-1-thread-3] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-9, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-2
+2019-08-29 12:33:58.784  INFO 21692 --- [ool-1-thread-10] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.784  INFO 21692 --- [pool-1-thread-7] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-1, groupId=test-consumers] Subscribed to partition(s): gs2-6
+2019-08-29 12:33:58.784  INFO 21692 --- [ool-1-thread-10] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-7, groupId=test-consumers] Subscribed to partition(s): gs2-9
+2019-08-29 12:33:58.784  INFO 21692 --- [pool-1-thread-6] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.784  INFO 21692 --- [pool-1-thread-6] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.784  INFO 21692 --- [ool-1-thread-10] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-7, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-9
+2019-08-29 12:33:58.784  INFO 21692 --- [pool-1-thread-6] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.784  INFO 21692 --- [pool-1-thread-6] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-3, groupId=test-consumers] Subscribed to partition(s): gs2-5
+2019-08-29 12:33:58.784  INFO 21692 --- [pool-1-thread-6] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-3, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-5
+2019-08-29 12:33:58.784  INFO 21692 --- [pool-1-thread-4] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 12:33:58.785  INFO 21692 --- [pool-1-thread-4] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 12:33:58.785  INFO 21692 --- [pool-1-thread-4] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567062238778
+2019-08-29 12:33:58.785  INFO 21692 --- [pool-1-thread-4] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-5, groupId=test-consumers] Subscribed to partition(s): gs2-3
+2019-08-29 12:33:58.785  INFO 21692 --- [pool-1-thread-7] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-1, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-6
+2019-08-29 12:33:58.785  INFO 21692 --- [pool-1-thread-4] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-5, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-3
+2019-08-29 12:33:58.785  INFO 21692 --- [pool-1-thread-5] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-6, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-4
+2019-08-29 12:33:58.786  INFO 21692 --- [pool-1-thread-2] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-2, groupId=test-consumers] Seeking to EARLIEST offset of partition gs2-1
+2019-08-29 12:33:58.941  INFO 21692 --- [pool-1-thread-8] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-10, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.941  INFO 21692 --- [ool-1-thread-10] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-7, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.941  INFO 21692 --- [pool-1-thread-7] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-1, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.941  INFO 21692 --- [pool-1-thread-4] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-5, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.942  INFO 21692 --- [pool-1-thread-2] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-2, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.943  INFO 21692 --- [pool-1-thread-5] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-6, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.944  INFO 21692 --- [pool-1-thread-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-4, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.945  INFO 21692 --- [pool-1-thread-6] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-3, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.951  INFO 21692 --- [pool-1-thread-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-4, groupId=test-consumers] Resetting offset for partition gs2-0 to offset 0.
+2019-08-29 12:33:58.951  INFO 21692 --- [pool-1-thread-4] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-5, groupId=test-consumers] Resetting offset for partition gs2-3 to offset 0.
+2019-08-29 12:33:58.951  INFO 21692 --- [pool-1-thread-7] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-1, groupId=test-consumers] Resetting offset for partition gs2-6 to offset 0.
+2019-08-29 12:33:58.951  INFO 21692 --- [pool-1-thread-6] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-3, groupId=test-consumers] Resetting offset for partition gs2-5 to offset 0.
+2019-08-29 12:33:58.951  INFO 21692 --- [ool-1-thread-10] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-7, groupId=test-consumers] Resetting offset for partition gs2-9 to offset 0.
+2019-08-29 12:33:58.951  INFO 21692 --- [pool-1-thread-5] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-6, groupId=test-consumers] Resetting offset for partition gs2-4 to offset 0.
+2019-08-29 12:33:58.951  INFO 21692 --- [pool-1-thread-2] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-2, groupId=test-consumers] Resetting offset for partition gs2-1 to offset 0.
+2019-08-29 12:33:58.952  INFO 21692 --- [pool-1-thread-8] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-10, groupId=test-consumers] Resetting offset for partition gs2-7 to offset 0.
+2019-08-29 12:33:58.955  INFO 21692 --- [pool-1-thread-3] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-9, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.957  INFO 21692 --- [pool-1-thread-9] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-8, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 12:33:58.958  INFO 21692 --- [pool-1-thread-3] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-9, groupId=test-consumers] Resetting offset for partition gs2-2 to offset 0.
+2019-08-29 12:33:58.960  INFO 21692 --- [pool-1-thread-9] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-8, groupId=test-consumers] Resetting offset for partition gs2-8 to offset 0.
+2019-08-29 12:33:59.556  INFO 21692 --- [pool-1-thread-6] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 5, leaderEpoch = 0, offset = 0, CreateTime = 1567061851341, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 5, value = Employee(name=5, age=5))
+2019-08-29 12:33:59.556  INFO 21692 --- [ool-1-thread-10] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 9, leaderEpoch = 0, offset = 0, CreateTime = 1567061851342, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 9, value = Employee(name=9, age=9))
+2019-08-29 12:33:59.556  INFO 21692 --- [pool-1-thread-7] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 6, leaderEpoch = 0, offset = 0, CreateTime = 1567061851342, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 6, value = Employee(name=6, age=6))
+2019-08-29 12:33:59.557  INFO 21692 --- [pool-1-thread-1] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 0, leaderEpoch = 0, offset = 0, CreateTime = 1567061851295, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 0, value = Employee(name=0, age=0))
+2019-08-29 12:33:59.557  INFO 21692 --- [pool-1-thread-9] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 8, leaderEpoch = 0, offset = 0, CreateTime = 1567061851342, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 8, value = Employee(name=8, age=8))
+2019-08-29 12:33:59.557  INFO 21692 --- [pool-1-thread-2] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 1, leaderEpoch = 0, offset = 0, CreateTime = 1567061851341, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 1, value = Employee(name=1, age=1))
+2019-08-29 12:33:59.557  INFO 21692 --- [pool-1-thread-3] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 2, leaderEpoch = 0, offset = 0, CreateTime = 1567061851341, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 2, value = Employee(name=2, age=2))
+2019-08-29 12:33:59.558  INFO 21692 --- [pool-1-thread-5] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 4, leaderEpoch = 0, offset = 0, CreateTime = 1567061851341, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 4, value = Employee(name=4, age=4))
+2019-08-29 12:33:59.558  INFO 21692 --- [pool-1-thread-4] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 3, leaderEpoch = 0, offset = 0, CreateTime = 1567061851341, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 3, value = Employee(name=3, age=3))
+2019-08-29 12:33:59.558  INFO 21692 --- [pool-1-thread-8] poc.kafka.service.ExternalizableService  : record: ConsumerRecord(topic = gs2, partition = 7, leaderEpoch = 0, offset = 0, CreateTime = 1567061851342, serialized key size = 4, serialized value size = 14, headers = RecordHeaders(headers = [], isReadOnly = false), key = 7, value = Employee(name=7, age=7))
+2019-08-29 12:34:04.065  INFO 21692 --- [pool-1-thread-8] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-10, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.065  INFO 21692 --- [pool-1-thread-7] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.065  INFO 21692 --- [ool-1-thread-10] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-7, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.065  INFO 21692 --- [pool-1-thread-2] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-2, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.065  INFO 21692 --- [pool-1-thread-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-4, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.066  INFO 21692 --- [pool-1-thread-5] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-6, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.066  INFO 21692 --- [pool-1-thread-6] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-3, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.066  INFO 21692 --- [pool-1-thread-9] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-8, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.066  INFO 21692 --- [pool-1-thread-4] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-5, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:04.066  INFO 21692 --- [pool-1-thread-3] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-9, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 12:34:44.766  INFO 21692 --- [n(10)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 
 ----------==----------
 SerializableService
