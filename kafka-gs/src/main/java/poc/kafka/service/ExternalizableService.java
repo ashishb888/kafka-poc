@@ -19,6 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.java.Log;
+import poc.kafka.domain.Animal;
+import poc.kafka.domain.Cat;
+import poc.kafka.domain.Dog;
 import poc.kafka.domain.Employee;
 import poc.kafka.domain.serialization.EmployeeDeserializer;
 import poc.kafka.domain.serialization.EmployeeSerializer;
@@ -31,6 +34,35 @@ public class ExternalizableService {
 	@Autowired
 	private KafkaProperties kp;
 
+	private void sendDiffTypes() {
+		log.info("sendDiffTypes service");
+
+		Producer<Integer, Animal> producer = animalProducer();
+
+		IntStream.iterate(0, i -> i + 1).limit(10).forEach(i -> {
+			if (i % 2 == 0)
+				producer.send(new ProducerRecord<Integer, Animal>("gs3", i, new Dog(i)));
+			else
+				producer.send(new ProducerRecord<Integer, Animal>("gs3", i, new Cat(i)));
+		});
+	}
+
+	private void consumeDiffTypes() {
+		log.info("consumeDiffTypes service");
+
+		Consumer<Integer, Animal> consumer = animalConsumer();
+		TopicPartition tp = new TopicPartition("gs3", 0);
+		consumer.assign(Arrays.asList(tp));
+
+		while (true) {
+			ConsumerRecords<Integer, Animal> records = consumer.poll(Duration.ofMillis(10));
+
+			records.forEach(r -> {
+				log.info("r: " + r);
+			});
+		}
+	}
+
 	private void produce() {
 		log.info("produce service");
 
@@ -39,6 +71,30 @@ public class ExternalizableService {
 		IntStream.iterate(0, i -> i + 1).limit(10).forEach(i -> {
 			producer.send(new ProducerRecord<Integer, Employee>("gs1", i, new Employee(String.valueOf(i), i)));
 		});
+	}
+
+	private Producer<Integer, Animal> animalProducer() {
+
+		Properties kafkaProps = new Properties();
+
+		kp.getKafkaProducer().forEach((k, v) -> {
+			// log.info("k: " + k + ", v: " + v);
+			kafkaProps.put(k, v);
+		});
+
+		return new KafkaProducer<>(kafkaProps);
+	}
+
+	private Consumer<Integer, Animal> animalConsumer() {
+
+		Properties kafkaProps = new Properties();
+
+		kp.getKafkaConsumer().forEach((k, v) -> {
+			// log.info("k: " + k + ", v: " + v);
+			kafkaProps.put(k, v);
+		});
+
+		return new KafkaConsumer<>(kafkaProps);
 	}
 
 	private Producer<Integer, Employee> producer() {
@@ -123,11 +179,13 @@ public class ExternalizableService {
 
 	private void produceConsume() {
 		log.info("produceConsume service");
+
+		sendDiffTypes();
+		consumeDiffTypes();
 		// produceToMultiPartitions();
-		consumeByGroup();
+		// consumeByGroup();
 		// produce();
 		// consume();
-
 	}
 
 	private void serialization() {

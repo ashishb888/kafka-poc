@@ -16,12 +16,14 @@ kafka:
     auto.offset.reset: 'earliest'
     max.poll.records: 5000
     key.deserializer: 'org.apache.kafka.common.serialization.IntegerDeserializer'
-    value.deserializer: 'poc.kafka.domain.serialization.EmployeeDeserializer'
+    #value.deserializer: 'poc.kafka.domain.serialization.EmployeeDeserializer'
+    value.deserializer: 'poc.kafka.domain.serialization.AnimalDeserializer'
 
   kafkaProducer:
     bootstrap.servers: '172.17.104.231:8092,172.17.104.232:8092,172.17.104.233:8092'
     key.serializer: 'org.apache.kafka.common.serialization.IntegerSerializer'
-    value.serializer: 'poc.kafka.domain.serialization.EmployeeSerializer' 
+    #value.serializer: 'poc.kafka.domain.serialization.EmployeeSerializer'
+    value.serializer: 'poc.kafka.domain.serialization.AnimalSerializer' 
     acks: 'all'
     batch.size: 150000
     buffer.memory: 33554432

@@ -191,6 +191,30 @@ RUN 5 consumeByGroup & produceToMultiPartitions
 2019-08-29 12:34:04.066  INFO 21692 --- [pool-1-thread-3] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-9, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
 2019-08-29 12:34:44.766  INFO 21692 --- [n(10)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 
+----------=----------
+RUN 6 sendDiffTypes & consumeDiffTypes
+
+2019-08-29 15:43:50.000  INFO 6724 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-08-29 15:43:50.000  INFO 6724 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-08-29 15:43:50.000  INFO 6724 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1567073630000
+2019-08-29 15:43:50.001  INFO 6724 --- [           main] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=consumer-1, groupId=test-consumers] Subscribed to partition(s): gs3-0
+2019-08-29 15:43:50.013  INFO 6724 --- [           main] org.apache.kafka.clients.Metadata        : [Consumer clientId=consumer-1, groupId=test-consumers] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-08-29 15:43:50.025  INFO 6724 --- [           main] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=consumer-1, groupId=test-consumers] Discovered group coordinator 172.17.104.232:8092 (id: 2147483640 rack: null)
+2019-08-29 15:43:50.029  INFO 6724 --- [           main] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=consumer-1, groupId=test-consumers] Found no committed offset for partition gs3-0
+2019-08-29 15:43:50.039  INFO 6724 --- [           main] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=consumer-1, groupId=test-consumers] Resetting offset for partition gs3-0 to offset 0.
+2019-08-29 15:43:50.552  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 0, CreateTime = 1567073629852, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 0, value = Dog(legs=0))
+2019-08-29 15:43:50.552  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 1, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 1, value = Cat(legs=1))
+2019-08-29 15:43:50.552  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 2, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 2, value = Dog(legs=2))
+2019-08-29 15:43:50.552  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 3, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 3, value = Cat(legs=3))
+2019-08-29 15:43:50.552  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 4, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 4, value = Dog(legs=4))
+2019-08-29 15:43:50.552  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 5, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 5, value = Cat(legs=5))
+2019-08-29 15:43:50.553  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 6, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 6, value = Dog(legs=6))
+2019-08-29 15:43:50.553  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 7, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 7, value = Cat(legs=7))
+2019-08-29 15:43:50.553  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 8, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 8, value = Dog(legs=8))
+2019-08-29 15:43:50.553  INFO 6724 --- [           main] poc.kafka.service.ExternalizableService  : r: ConsumerRecord(topic = gs3, partition = 0, leaderEpoch = 0, offset = 9, CreateTime = 1567073629938, serialized key size = 4, serialized value size = 87, headers = RecordHeaders(headers = [], isReadOnly = false), key = 9, value = Cat(legs=9))
+2019-08-29 15:44:07.526  INFO 6724 --- [on(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+
+
 ----------==----------
 SerializableService
 
