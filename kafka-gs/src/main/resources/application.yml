@@ -4,3 +4,28 @@ spring:
 
 logging:
   level:    root: info  file: /var/log/apps/kafka-gs/kafka-gs
+
+kafka:
+  kafkaConsumer:
+    bootstrap.servers: '172.17.104.231:8092,172.17.104.232:8092,172.17.104.233:8092'
+    group.id: 'test-consumers'
+    enable.auto.commit: true
+    #auto.commit.interval.ms: 5000
+    fetch.min.bytes: 100000
+    session.timeout.ms: 60000
+    auto.offset.reset: 'earliest'
+    max.poll.records: 5000
+    key.deserializer: 'org.apache.kafka.common.serialization.IntegerDeserializer'
+    value.deserializer: 'poc.kafka.domain.serialization.EmployeeDeserializer'
+
+  kafkaProducer:
+    bootstrap.servers: '172.17.104.231:8092,172.17.104.232:8092,172.17.104.233:8092'
+    key.serializer: 'org.apache.kafka.common.serialization.IntegerSerializer'
+    value.serializer: 'poc.kafka.domain.serialization.EmployeeSerializer' 
+    acks: 'all'
+    batch.size: 150000
+    buffer.memory: 33554432
+    client.id: 8
+    retries: 1
+    linger.ms: 10
+    compression.type: 'lz4'

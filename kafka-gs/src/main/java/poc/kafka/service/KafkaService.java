@@ -21,7 +21,7 @@ public class KafkaService {
 	public void main() {
 		log.info("main service");
 
-		// es.main();
-		ss.main();
+		es.main();
+		// ss.main();
 	}
 }
