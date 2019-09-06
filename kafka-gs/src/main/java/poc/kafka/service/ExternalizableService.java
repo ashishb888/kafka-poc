@@ -29,6 +29,7 @@ import poc.kafka.properties.KafkaProperties;
 
 @Service
 @Log
+@SuppressWarnings({ "unused", "resource" })
 public class ExternalizableService {
 
 	@Autowired

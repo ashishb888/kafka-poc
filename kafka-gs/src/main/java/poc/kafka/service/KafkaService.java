@@ -11,6 +11,7 @@ import lombok.extern.java.Log;
 
 @Service
 @Log
+@SuppressWarnings("unused")
 public class KafkaService {
 
 	@Autowired

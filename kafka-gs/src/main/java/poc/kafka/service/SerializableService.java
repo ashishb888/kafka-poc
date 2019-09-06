@@ -9,6 +9,7 @@ import poc.kafka.domain.serialization.Employee2Serializer;
 
 @Service
 @Log
+@SuppressWarnings("resource")
 public class SerializableService {
 
 	private void serialization() {

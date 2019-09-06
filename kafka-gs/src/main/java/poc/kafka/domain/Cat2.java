@@ -13,6 +13,7 @@ import lombok.extern.java.Log;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@SuppressWarnings("serial")
 public class Cat2 extends Animal2 {
 
 	private int logs;

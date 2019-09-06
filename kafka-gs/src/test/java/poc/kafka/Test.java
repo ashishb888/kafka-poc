@@ -10,6 +10,7 @@ import poc.kafka.domain.Dog2;
 import poc.kafka.domain.serialization.AnimalDeserializer2;
 import poc.kafka.domain.serialization.AnimalSerializer2;
 
+@SuppressWarnings({ "unused", "resource" })
 public class Test {
 
 	public static void main(String[] args) {

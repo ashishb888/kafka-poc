@@ -9,6 +9,7 @@ import org.apache.kafka.common.serialization.Deserializer;
 
 import poc.kafka.domain.Animal;
 
+@SuppressWarnings("unused")
 public class AnimalDeserializer implements Deserializer<Animal> {
 
 //	@Override
