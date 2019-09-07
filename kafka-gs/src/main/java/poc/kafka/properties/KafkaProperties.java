@@ -12,6 +12,7 @@ import lombok.Setter;
 @ConfigurationProperties(prefix = "kafka")
 @Setter
 @Getter
+@SuppressWarnings("unused")
 public class KafkaProperties {
 	private Map<String, String> kafkaConsumer;
 	private Map<String, String> kafkaProducer;

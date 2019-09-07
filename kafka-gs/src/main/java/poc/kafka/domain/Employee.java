@@ -29,4 +29,9 @@ public class Employee implements Externalizable {
 		out.writeObject(name);
 	}
 
+	public Employee(String name) {
+		super();
+		this.name = name;
+	}
+
 }

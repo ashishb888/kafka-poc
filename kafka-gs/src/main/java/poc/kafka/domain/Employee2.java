@@ -9,6 +9,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@SuppressWarnings("unused")
 public class Employee2 implements Serializable {
 
 	private static final long serialVersionUID = -2464237063624173405L;
