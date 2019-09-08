@@ -17,10 +17,13 @@ public class KafkaStreamsService {
 
 	@Autowired
 	private PipeService ps;
+	@Autowired
+	private LineSplitService lss;
 
 	public void main() {
 		log.info("main service");
 
-		ps.main();
+		// ps.main();
+		lss.main();
 	}
 }
