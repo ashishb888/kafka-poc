@@ -15,8 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 @SuppressWarnings("unused")
 public class KafkaStreamsService {
 
+	@Autowired
+	private PipeService ps;
+
 	public void main() {
 		log.info("main service");
 
+		ps.main();
 	}
 }

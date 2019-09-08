@@ -33,7 +33,7 @@
 
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
-			<artifactId>kafka-clients</artifactId>
+			<artifactId>kafka-streams</artifactId>
 		</dependency>
 
 	</dependencies>
