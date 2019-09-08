@@ -1,0 +1,6 @@
+spring:
+ application:
+  name: kafka-streams
+
+logging:
+  level:    root: info  file: /var/log/apps/kafka-streams/kafka-streams
