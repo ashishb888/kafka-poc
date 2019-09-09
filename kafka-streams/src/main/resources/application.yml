@@ -4,3 +4,9 @@ spring:
 
 logging:
   level:    root: info  file: /var/log/apps/kafka-streams/kafka-streams
+
+kafka:
+  kafkaStreams:
+    bootstrap.servers: '172.17.104.231:8092,172.17.104.232:8092,172.17.104.233:8092'
+
+

@@ -19,11 +19,14 @@ public class KafkaStreamsService {
 	private PipeService ps;
 	@Autowired
 	private LineSplitService lss;
+	@Autowired
+	private WordCountService wcs;
 
 	public void main() {
 		log.info("main service");
 
 		// ps.main();
-		lss.main();
+		// lss.main();
+		wcs.main();
 	}
 }
