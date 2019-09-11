@@ -60,4 +60,54 @@ RUN 1
     Sink: KSTREAM-SINK-0000000002 (topic: streams-linesplit-output)
       <-- KSTREAM-FLATMAPVALUES-0000000001
 
+----------==----------
+BranchService
 
+RUN 1 
+
+2019-09-11 19:54:26.003  INFO 12712 --- [           main] poc.kafka.service.BranchService          : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [g3])
+      --> KSTREAM-BRANCH-0000000001
+    Processor: KSTREAM-BRANCH-0000000001 (stores: [])
+      --> KSTREAM-BRANCHCHILD-0000000002, KSTREAM-BRANCHCHILD-0000000003, KSTREAM-BRANCHCHILD-0000000004
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-BRANCHCHILD-0000000002 (stores: [])
+      --> KSTREAM-SINK-0000000005
+      <-- KSTREAM-BRANCH-0000000001
+    Processor: KSTREAM-BRANCHCHILD-0000000003 (stores: [])
+      --> KSTREAM-SINK-0000000006
+      <-- KSTREAM-BRANCH-0000000001
+    Processor: KSTREAM-BRANCHCHILD-0000000004 (stores: [])
+      --> none
+      <-- KSTREAM-BRANCH-0000000001
+    Sink: KSTREAM-SINK-0000000005 (topic: cat)
+      <-- KSTREAM-BRANCHCHILD-0000000002
+    Sink: KSTREAM-SINK-0000000006 (topic: dog)
+      <-- KSTREAM-BRANCHCHILD-0000000003
+
+----------=----------
+BranchService
+
+RUN 2
+
+2019-09-11 20:01:45.448  INFO 8552 --- [           main] poc.kafka.service.BranchService          : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [gs3])
+      --> KSTREAM-BRANCH-0000000001
+    Processor: KSTREAM-BRANCH-0000000001 (stores: [])
+      --> KSTREAM-BRANCHCHILD-0000000002, KSTREAM-BRANCHCHILD-0000000003, KSTREAM-BRANCHCHILD-0000000004
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-BRANCHCHILD-0000000002 (stores: [])
+      --> KSTREAM-SINK-0000000005
+      <-- KSTREAM-BRANCH-0000000001
+    Processor: KSTREAM-BRANCHCHILD-0000000003 (stores: [])
+      --> KSTREAM-SINK-0000000006
+      <-- KSTREAM-BRANCH-0000000001
+    Processor: KSTREAM-BRANCHCHILD-0000000004 (stores: [])
+      --> none
+      <-- KSTREAM-BRANCH-0000000001
+    Sink: KSTREAM-SINK-0000000005 (topic: cat)
+      <-- KSTREAM-BRANCHCHILD-0000000002
+    Sink: KSTREAM-SINK-0000000006 (topic: dog)
+      <-- KSTREAM-BRANCHCHILD-0000000003

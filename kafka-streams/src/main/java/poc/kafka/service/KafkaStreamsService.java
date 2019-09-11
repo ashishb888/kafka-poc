@@ -21,12 +21,15 @@ public class KafkaStreamsService {
 	private LineSplitService lss;
 	@Autowired
 	private WordCountService wcs;
+	@Autowired
+	private BranchService bs;
 
 	public void main() {
 		log.info("main service");
 
 		// ps.main();
 		// lss.main();
-		wcs.main();
+		// wcs.main();
+		bs.main();
 	}
 }
