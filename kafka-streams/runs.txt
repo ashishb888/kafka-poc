@@ -504,3 +504,371 @@ RUN 4
 [KSTREAM-SOURCE-0000000000]: 9, Cat(legs=9)
 2019-09-12 12:13:11.169  INFO 9408 --- [on(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
 
+
+----------=----------
+BranchService dogStream
+
+RUN 4
+
+2019-09-12 14:15:52.291  INFO 32 --- [           main] poc.kafka.KafkaStreamsApp                : Starting KafkaStreamsApp on WSWRVUA05124A with PID 32 (E:\ashishb\git\kafka-poc\kafka-streams\target\classes started by tcs_abhosle in E:\ashishb\git\kafka-poc\kafka-streams)
+2019-09-12 14:15:52.293  INFO 32 --- [           main] poc.kafka.KafkaStreamsApp                : No active profile set, falling back to default profiles: default
+2019-09-12 14:15:52.669  INFO 32 --- [           main] poc.kafka.KafkaStreamsApp                : Started KafkaStreamsApp in 0.688 seconds (JVM running for 1.124)
+2019-09-12 14:15:52.670  INFO 32 --- [           main] poc.kafka.KafkaStreamsApp                : run service
+2019-09-12 14:15:52.670  INFO 32 --- [           main] poc.kafka.service.KafkaStreamsService    : main service
+2019-09-12 14:15:52.671  INFO 32 --- [           main] poc.kafka.service.BranchService          : main service
+2019-09-12 14:15:52.671  INFO 32 --- [           main] poc.kafka.service.BranchService          : dogStream service
+2019-09-12 14:15:52.693  INFO 32 --- [           main] org.apache.kafka.streams.StreamsConfig   : StreamsConfig values: 
+	application.id = dog-service
+	application.server = 
+	bootstrap.servers = [172.17.104.231:8092, 172.17.104.232:8092, 172.17.104.233:8092]
+	buffered.records.per.partition = 1000
+	cache.max.bytes.buffering = 10485760
+	client.id = 
+	commit.interval.ms = 30000
+	connections.max.idle.ms = 540000
+	default.deserialization.exception.handler = class org.apache.kafka.streams.errors.LogAndFailExceptionHandler
+	default.key.serde = class org.apache.kafka.common.serialization.Serdes$IntegerSerde
+	default.production.exception.handler = class org.apache.kafka.streams.errors.DefaultProductionExceptionHandler
+	default.timestamp.extractor = class org.apache.kafka.streams.processor.FailOnInvalidTimestamp
+	default.value.serde = class poc.kafka.domain.serialization.AnimalSerde
+	max.task.idle.ms = 0
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	num.standby.replicas = 0
+	num.stream.threads = 1
+	partition.grouper = class org.apache.kafka.streams.processor.DefaultPartitionGrouper
+	poll.ms = 100
+	processing.guarantee = at_least_once
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	replication.factor = 1
+	request.timeout.ms = 40000
+	retries = 0
+	retry.backoff.ms = 100
+	rocksdb.config.setter = null
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	state.cleanup.delay.ms = 600000
+	state.dir = /tmp/kafka-streams
+	topology.optimization = none
+	upgrade.from = null
+	windowstore.changelog.additional.retention.ms = 86400000
+
+2019-09-12 14:15:52.708  INFO 32 --- [           main] o.a.k.clients.admin.AdminClientConfig    : AdminClientConfig values: 
+	bootstrap.servers = [172.17.104.231:8092, 172.17.104.232:8092, 172.17.104.233:8092]
+	client.dns.lookup = default
+	client.id = dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-admin
+	connections.max.idle.ms = 300000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 120000
+	retries = 5
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = https
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+
+2019-09-12 14:15:52.765  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-09-12 14:15:52.766  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-09-12 14:15:52.766  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1568277952764
+2019-09-12 14:15:52.768  INFO 32 --- [           main] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] Creating restore consumer client
+2019-09-12 14:15:52.771  INFO 32 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = none
+	bootstrap.servers = [172.17.104.231:8092, 172.17.104.232:8092, 172.17.104.233:8092]
+	check.crcs = true
+	client.dns.lookup = default
+	client.id = dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-restore-consumer
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = null
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 1000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [class org.apache.kafka.clients.consumer.RangeAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = https
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2019-09-12 14:15:52.786  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-09-12 14:15:52.786  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-09-12 14:15:52.786  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1568277952786
+2019-09-12 14:15:52.788  INFO 32 --- [           main] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] Creating shared producer client
+2019-09-12 14:15:52.790  INFO 32 --- [           main] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = 1
+	batch.size = 16384
+	bootstrap.servers = [172.17.104.231:8092, 172.17.104.232:8092, 172.17.104.233:8092]
+	buffer.memory = 33554432
+	client.dns.lookup = default
+	client.id = dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-producer
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = false
+	interceptor.classes = []
+	key.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+	linger.ms = 100
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = https
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.apache.kafka.common.serialization.ByteArraySerializer
+
+2019-09-12 14:15:52.802  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-09-12 14:15:52.803  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-09-12 14:15:52.803  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1568277952802
+2019-09-12 14:15:52.808  INFO 32 --- [           main] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] Creating consumer client
+2019-09-12 14:15:52.809  INFO 32 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : ConsumerConfig values: 
+	allow.auto.create.topics = true
+	auto.commit.interval.ms = 5000
+	auto.offset.reset = earliest
+	bootstrap.servers = [172.17.104.231:8092, 172.17.104.232:8092, 172.17.104.233:8092]
+	check.crcs = true
+	client.dns.lookup = default
+	client.id = dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer
+	client.rack = 
+	connections.max.idle.ms = 540000
+	default.api.timeout.ms = 60000
+	enable.auto.commit = false
+	exclude.internal.topics = true
+	fetch.max.bytes = 52428800
+	fetch.max.wait.ms = 500
+	fetch.min.bytes = 1
+	group.id = dog-service
+	group.instance.id = null
+	heartbeat.interval.ms = 3000
+	interceptor.classes = []
+	internal.leave.group.on.close = false
+	isolation.level = read_uncommitted
+	key.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+	max.partition.fetch.bytes = 1048576
+	max.poll.interval.ms = 300000
+	max.poll.records = 1000
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partition.assignment.strategy = [org.apache.kafka.streams.processor.internals.StreamsPartitionAssignor]
+	receive.buffer.bytes = 65536
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	session.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = https
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	value.deserializer = class org.apache.kafka.common.serialization.ByteArrayDeserializer
+
+2019-09-12 14:15:52.821  WARN 32 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : The configuration 'admin.retries' was supplied but isn't a known config.
+2019-09-12 14:15:52.821  WARN 32 --- [           main] o.a.k.clients.consumer.ConsumerConfig    : The configuration 'admin.retry.backoff.ms' was supplied but isn't a known config.
+2019-09-12 14:15:52.821  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-09-12 14:15:52.821  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-09-12 14:15:52.821  INFO 32 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1568277952821
+2019-09-12 14:15:52.827  INFO 32 --- [           main] poc.kafka.service.BranchService          : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [dog])
+      --> KSTREAM-PRINTER-0000000001
+    Processor: KSTREAM-PRINTER-0000000001 (stores: [])
+      --> none
+      <-- KSTREAM-SOURCE-0000000000
+
+
+2019-09-12 14:15:52.827  INFO 32 --- [           main] org.apache.kafka.streams.KafkaStreams    : stream-client [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5] State transition from CREATED to REBALANCING
+2019-09-12 14:15:52.829  INFO 32 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] Starting
+2019-09-12 14:15:52.830  INFO 32 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] State transition from CREATED to STARTING
+2019-09-12 14:15:52.831  INFO 32 --- [-StreamThread-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] Subscribed to pattern: 'dog'
+2019-09-12 14:15:52.902  INFO 32 --- [read-1-producer] org.apache.kafka.clients.Metadata        : [Producer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-producer] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-09-12 14:15:52.991  INFO 32 --- [-StreamThread-1] org.apache.kafka.clients.Metadata        : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] Cluster ID: eRb3igh3Rvu3f4oSC0aiCQ
+2019-09-12 14:15:52.994  INFO 32 --- [-StreamThread-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] Discovered group coordinator 172.17.104.231:8092 (id: 2147483641 rack: null)
+2019-09-12 14:15:53.084  INFO 32 --- [-StreamThread-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] Revoking previously assigned partitions []
+2019-09-12 14:15:53.085  INFO 32 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] State transition from STARTING to PARTITIONS_REVOKED
+2019-09-12 14:15:53.085  INFO 32 --- [-StreamThread-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-restore-consumer, groupId=null] Unsubscribed all topics or patterns and assigned partitions
+2019-09-12 14:15:53.085  INFO 32 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] partition revocation took 0 ms.
+	suspended active tasks: []
+	suspended standby tasks: []
+2019-09-12 14:15:53.085  INFO 32 --- [-StreamThread-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] (Re-)joining group
+2019-09-12 14:15:53.094  INFO 32 --- [-StreamThread-1] o.a.k.s.p.i.StreamsPartitionAssignor     : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer] Assigned tasks to clients as {3b977c92-530e-4047-a67d-6b70f2431bf5=[activeTasks: ([0_0]) standbyTasks: ([]) assignedTasks: ([0_0]) prevActiveTasks: ([]) prevStandbyTasks: ([]) prevAssignedTasks: ([]) capacity: 1]}.
+2019-09-12 14:15:53.099  INFO 32 --- [-StreamThread-1] o.a.k.c.c.internals.AbstractCoordinator  : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] Successfully joined group with generation 1
+2019-09-12 14:15:53.102  INFO 32 --- [-StreamThread-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] Setting newly assigned partitions: dog-0
+2019-09-12 14:15:53.102  INFO 32 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] State transition from PARTITIONS_REVOKED to PARTITIONS_ASSIGNED
+2019-09-12 14:15:53.113  INFO 32 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] partition assignment took 11 ms.
+	current active tasks: [0_0]
+	current standby tasks: []
+	previous active tasks: []
+
+2019-09-12 14:15:53.119  INFO 32 --- [-StreamThread-1] o.a.k.c.c.internals.ConsumerCoordinator  : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] Found no committed offset for partition dog-0
+2019-09-12 14:15:53.140  INFO 32 --- [-StreamThread-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-consumer, groupId=dog-service] Resetting offset for partition dog-0 to offset 0.
+2019-09-12 14:15:53.201  INFO 32 --- [-StreamThread-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-restore-consumer, groupId=null] Unsubscribed all topics or patterns and assigned partitions
+2019-09-12 14:15:53.201  INFO 32 --- [-StreamThread-1] o.a.k.clients.consumer.KafkaConsumer     : [Consumer clientId=dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1-restore-consumer, groupId=null] Unsubscribed all topics or patterns and assigned partitions
+2019-09-12 14:15:53.201  INFO 32 --- [-StreamThread-1] o.a.k.s.p.internals.StreamThread         : stream-thread [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5-StreamThread-1] State transition from PARTITIONS_ASSIGNED to RUNNING
+2019-09-12 14:15:53.201  INFO 32 --- [-StreamThread-1] org.apache.kafka.streams.KafkaStreams    : stream-client [dog-service-3b977c92-530e-4047-a67d-6b70f2431bf5] State transition from REBALANCING to RUNNING
+[KSTREAM-SOURCE-0000000000]: 0, Dog(legs=0)
+[KSTREAM-SOURCE-0000000000]: 2, Dog(legs=2)
+[KSTREAM-SOURCE-0000000000]: 4, Dog(legs=4)
+[KSTREAM-SOURCE-0000000000]: 6, Dog(legs=6)
+[KSTREAM-SOURCE-0000000000]: 8, Dog(legs=8)

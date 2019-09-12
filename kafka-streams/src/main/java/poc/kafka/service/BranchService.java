@@ -132,10 +132,51 @@ public class BranchService {
 
 	}
 
+	private void dogStream() {
+		log.info("dogStream service");
+
+		Properties props = new Properties();
+		props.put(StreamsConfig.APPLICATION_ID_CONFIG, "dog-service");
+		props.put(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG,
+				kp.getKafkaStreams().get(StreamsConfig.BOOTSTRAP_SERVERS_CONFIG));
+		props.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.Integer().getClass());
+		props.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, AnimalSerde.class);
+		props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+
+		final StreamsBuilder builder = new StreamsBuilder();
+
+		KStream<Integer, Animal> source = builder.stream("dog",
+				Consumed.with(Serdes.Integer(), Serdes.serdeFrom(new AnimalSerializer(), new AnimalDeserializer())));
+
+		source.print(Printed.toSysOut());
+
+		final Topology topology = builder.build();
+
+		final KafkaStreams streams = new KafkaStreams(topology, props);
+		final CountDownLatch latch = new CountDownLatch(1);
+
+		log.info("topology: " + topology.describe());
+
+		// attach shutdown handler to catch control-c
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			streams.close();
+			latch.countDown();
+		}));
+
+		try {
+			streams.start();
+			latch.await();
+		} catch (Throwable e) {
+			log.error("", e);
+		}
+
+	}
+
 	public void main() {
 		log.info("main service");
 
 		// branches();
-		catStream();
+		// catStream();
+		dogStream();
 	}
 }
