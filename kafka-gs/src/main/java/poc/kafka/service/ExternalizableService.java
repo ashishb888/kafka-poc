@@ -42,9 +42,9 @@ public class ExternalizableService {
 
 		IntStream.iterate(0, i -> i + 1).limit(10).forEach(i -> {
 			if (i % 2 == 0)
-				producer.send(new ProducerRecord<Integer, Animal>("gs3", i, new Dog(i)));
+				producer.send(new ProducerRecord<Integer, Animal>("gs4", i, new Dog(i)));
 			else
-				producer.send(new ProducerRecord<Integer, Animal>("gs3", i, new Cat(i)));
+				producer.send(new ProducerRecord<Integer, Animal>("gs4", i, new Cat(i)));
 		});
 	}
 

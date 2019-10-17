@@ -18,11 +18,14 @@ public class KafkaService {
 	private ExternalizableService es;
 	@Autowired
 	private SerializableService ss;
+	@Autowired
+	private ConsumerService cs;
 
 	public void main() {
 		log.info("main service");
 
-		es.main();
+		// es.main();
 		// ss.main();
+		cs.main();
 	}
 }
