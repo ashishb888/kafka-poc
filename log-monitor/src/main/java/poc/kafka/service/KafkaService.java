@@ -49,24 +49,21 @@ public class KafkaService {
 			ConsumerRecords<Integer, String> records = consumer.poll(Duration.ofMillis(5));
 
 			for (ConsumerRecord<Integer, String> consumerRecord : records) {
-				// log.debug("consumerRecord: " + consumerRecord.value());
-
 				try {
 					JsonNode root = objectMapper.readTree(consumerRecord.value());
-					String message = root.get("message").asText();
 					JsonNode fields = root.with("fields");
-					String app = fields.get("application").asText().toUpperCase();
 					JsonNode host = root.with("host");
+
 					String hostname = host.get("hostname").asText().toUpperCase();
-					log.info("message: " + message);
-					log.info("app: " + app);
-					log.info("fields: " + fields);
-					log.info("host: " + host);
-					log.info("hostname: " + hostname);
+					String message = root.get("message").asText();
+					String app = fields.get("application").asText().toUpperCase();
+
+					log.debug("message: " + message);
+					log.debug("app: " + app);
+					log.debug("hostname: " + hostname);
 
 					sendMail(ap.getMail().get("from"), ap.getMail().get("to"),
 							MessageFormat.format(ap.getMail().get("subject"), app, hostname), message);
-
 				} catch (IOException e) {
 					log.error(e.getMessage(), e);
 				}
@@ -79,10 +76,12 @@ public class KafkaService {
 
 		try {
 			SimpleMailMessage message = new SimpleMailMessage();
+
 			message.setFrom(from);
 			message.setTo(to);
 			message.setSubject(subject);
 			message.setText(text);
+
 			mailSender.send(message);
 		} catch (MailException e) {
 			log.error(e.getMessage(), e);
@@ -90,6 +89,7 @@ public class KafkaService {
 	}
 
 	private Consumer<Integer, String> consumer() {
+		log.debug("consumer service");
 
 		Properties kafkaProps = new Properties();
 
