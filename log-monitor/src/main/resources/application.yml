@@ -15,8 +15,8 @@ logging:
 
 app:
   mail:
-    from: tcs_abhosle@vendor.nse.co.in
-    to: tcs_abhosle@vendor.nse.co.in
+    from: abc@xyz.com
+    to: pqr@xyz.com
     subject: '{0} service is having some issues on {1} server'
 
 kafka:
