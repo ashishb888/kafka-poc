@@ -11,7 +11,6 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -67,6 +66,8 @@ public class KafkaService {
 
 					sendMail(MessageFormat.format(ap.getMail().get("subject"), app, hostname), message,
 							ap.getMail().get("from"), ap.getMail().get("to").split("\\,"));
+
+					log.debug("Mail sent");
 				} catch (IOException e) {
 					log.error(e.getMessage(), e);
 				}
@@ -76,19 +77,16 @@ public class KafkaService {
 
 	private void sendMail(String subject, String text, String from, String... to) {
 		log.debug("sendMail service");
+		log.debug("to: " + Arrays.toString(to));
 
-		try {
-			SimpleMailMessage message = new SimpleMailMessage();
+		SimpleMailMessage message = new SimpleMailMessage();
 
-			message.setFrom(from);
-			message.setTo(to);
-			message.setSubject(subject);
-			message.setText(text);
+		message.setFrom(from);
+		message.setTo(to);
+		message.setSubject(subject);
+		message.setText(text);
 
-			mailSender.send(message);
-		} catch (MailException e) {
-			log.error(e.getMessage(), e);
-		}
+		mailSender.send(message);
 	}
 
 	private Consumer<Integer, String> consumer() {
