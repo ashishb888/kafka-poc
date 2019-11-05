@@ -29,3 +29,6 @@ kafka:
     key.deserializer: 'org.apache.kafka.common.serialization.IntegerDeserializer'
     value.deserializer: 'org.apache.kafka.common.serialization.StringDeserializer'
 
+  metaData:
+    topic: ps1-cap17 #Topic to consume data
+    poll: 5 #millis

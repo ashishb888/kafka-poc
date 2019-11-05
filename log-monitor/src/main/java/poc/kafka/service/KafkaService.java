@@ -42,11 +42,14 @@ public class KafkaService {
 	private void start() {
 		log.debug("start service");
 
+		String topic = kp.getMetaData().get("topic");
+		long pollMillis = Long.valueOf(kp.getMetaData().get("poll"));
+
 		Consumer<Integer, String> consumer = consumer();
-		consumer.subscribe(Arrays.asList("filebeat"));
+		consumer.subscribe(Arrays.asList(topic));
 
 		while (true) {
-			ConsumerRecords<Integer, String> records = consumer.poll(Duration.ofMillis(5));
+			ConsumerRecords<Integer, String> records = consumer.poll(Duration.ofMillis(pollMillis));
 
 			for (ConsumerRecord<Integer, String> consumerRecord : records) {
 				try {
