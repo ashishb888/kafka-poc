@@ -2,7 +2,8 @@ spring:
  application:
   name: log-monitor
 
- mail:  host: 172.17.6.199
+ mail:
+  host: 172.17.6.199
   port: 25
   properties:
     mail.smtp.auth: false
@@ -15,13 +16,13 @@ logging:
 
 app:
   mail:
-    from: abc@xyz.com
-    to: pqr@xyz.com
+    from: support@xyz.com
+    to: test1@xyz.com,test2@xyz.com,test3@xyz.com
     subject: '{0} service is having some issues on {1} server'
 
 kafka:
   kafkaConsumer:
-    bootstrap.servers: '172.17.5.36:7092'
+    bootstrap.servers: 'localhost:7092'
     group.id: 'test-consumers'
     fetch.min.bytes: 100000
     session.timeout.ms: 60000
@@ -30,5 +31,5 @@ kafka:
     value.deserializer: 'org.apache.kafka.common.serialization.StringDeserializer'
 
   metaData:
-    topic: ps1-cap17 #Topic to consume data
+    topic: log-monitor #Topic to consume data
     poll: 5 #millis

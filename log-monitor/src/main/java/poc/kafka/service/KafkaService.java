@@ -65,8 +65,8 @@ public class KafkaService {
 					log.debug("app: " + app);
 					log.debug("hostname: " + hostname);
 
-					sendMail(ap.getMail().get("from"), ap.getMail().get("to"),
-							MessageFormat.format(ap.getMail().get("subject"), app, hostname), message);
+					sendMail(MessageFormat.format(ap.getMail().get("subject"), app, hostname), message,
+							ap.getMail().get("from"), ap.getMail().get("to").split("\\,"));
 				} catch (IOException e) {
 					log.error(e.getMessage(), e);
 				}
@@ -74,7 +74,7 @@ public class KafkaService {
 		}
 	}
 
-	private void sendMail(String from, String to, String subject, String text) {
+	private void sendMail(String subject, String text, String from, String... to) {
 		log.debug("sendMail service");
 
 		try {
