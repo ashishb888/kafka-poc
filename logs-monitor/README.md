@@ -4,7 +4,7 @@
 
 ###### Architectural diagram 
 
-![](https://github.com/ashishb888/kafka-poc/blob/master/log-monitor/diagrams/log-monitor.PNG)
+![](https://github.com/ashishb888/kafka-poc/blob/master/logs-monitor/diagrams/logs-monitor.PNG)
 
 ###### Technologies stack
 
@@ -20,4 +20,4 @@ Kafka 2.3.0
 ` mvn package `
 
 ###### Run
-` nohup $JAVA_HOME/bin/java -jar log-monitor-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 & `
+` nohup $JAVA_HOME/bin/java -jar logs-monitor-0.0.1-SNAPSHOT.jar > /dev/null 2>&1 & `

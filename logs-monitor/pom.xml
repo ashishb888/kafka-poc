@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>poc.kafka</groupId>
-	<artifactId>log-monitor</artifactId>
+	<artifactId>logs-monitor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>log-monitor</name>
-	<description>log-monitor</description>
+	<name>logs-monitor</name>
+	<description>logs-monitor</description>
 
 	<properties>
 		<maven.compiler.source>1.8</maven.compiler.source>
