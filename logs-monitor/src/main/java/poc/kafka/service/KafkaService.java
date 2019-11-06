@@ -43,6 +43,10 @@ public class KafkaService {
 
 		String topic = kp.getMetaData().get("topic");
 		long pollMillis = Long.valueOf(kp.getMetaData().get("poll"));
+		String subject = ap.getMail().get("subject");
+		String from = ap.getMail().get("from");
+		String[] to = ap.getMail().get("to").split("\\,");
+		boolean emailEnabled = Boolean.valueOf(ap.getMail().get("enabled"));
 
 		Consumer<Integer, String> consumer = consumer();
 		consumer.subscribe(Arrays.asList(topic));
@@ -64,8 +68,8 @@ public class KafkaService {
 					log.debug("app: " + app);
 					log.debug("hostname: " + hostname);
 
-					sendMail(MessageFormat.format(ap.getMail().get("subject"), app, hostname), message,
-							ap.getMail().get("from"), ap.getMail().get("to").split("\\,"));
+					if (emailEnabled)
+						sendMail(MessageFormat.format(subject, app, hostname), message, from, to);
 
 					log.debug("Mail sent");
 				} catch (IOException e) {

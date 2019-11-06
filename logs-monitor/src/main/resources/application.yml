@@ -16,9 +16,10 @@ logging:
 
 app:
   mail:
+    enabled: true
     from: support@xyz.com
     to: test1@xyz.com,test2@xyz.com,test3@xyz.com
-    subject: '{0} service is having some issues on {1} server'
+    subject: '{0} service error on {1} server'
 
 kafka:
   kafkaConsumer:
