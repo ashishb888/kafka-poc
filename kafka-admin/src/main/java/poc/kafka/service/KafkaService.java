@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutionException;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsOptions;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
+import org.apache.kafka.clients.admin.DeleteTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,10 +21,24 @@ import poc.kafka.properties.KafkaProperties;
 
 @Service
 @Slf4j
+@SuppressWarnings("unused")
 public class KafkaService {
 
 	@Autowired
 	private KafkaProperties kp;
+
+	private void deleteTopic() {
+		log.debug("deleteTopic service");
+
+		AdminClient adminClient = adminClient();
+		DeleteTopicsResult topicsResult = adminClient.deleteTopics(Collections.singleton("ac-test"));
+
+		try {
+			topicsResult.all().get();
+		} catch (InterruptedException | ExecutionException e) {
+			log.error(e.getMessage(), e);
+		}
+	}
 
 	private void createTopic() {
 		log.debug("createTopic service");
@@ -56,7 +71,8 @@ public class KafkaService {
 	private void start() {
 		log.debug("start service");
 
-		createTopic();
+		// createTopic();
+		deleteTopic();
 	}
 
 	public void main() {

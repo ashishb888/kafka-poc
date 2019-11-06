@@ -1,3 +1,5 @@
+KafkaService createTopic RUN 1
+
 [user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --list  --bootstrap-server localhost:7092  | grep ac-test
 
 After running application
@@ -17,3 +19,11 @@ Topic:ac-test   PartitionCount:10       ReplicationFactor:1     Configs:segment.
         Topic: ac-test  Partition: 7    Leader: 0       Replicas: 0     Isr: 0
         Topic: ac-test  Partition: 8    Leader: 0       Replicas: 0     Isr: 0
         Topic: ac-test  Partition: 9    Leader: 0       Replicas: 0     Isr: 0
+
+        
+----------==----------
+
+KafkaService deleteTopic RUN 1
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --list  --bootstrap-server localhost:7092  | grep ac-test
+[user@host kafka_2.12-2.3.0]$
