@@ -2,12 +2,14 @@ package poc.kafka.service;
 
 import java.util.Collections;
 import java.util.Properties;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsOptions;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.DeleteTopicsResult;
+import org.apache.kafka.clients.admin.ListTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +28,20 @@ public class KafkaService {
 
 	@Autowired
 	private KafkaProperties kp;
+
+	private void listTopics() {
+		log.debug("listTopics service");
+
+		AdminClient adminClient = adminClient();
+		ListTopicsResult topicsResult = adminClient.listTopics();
+
+		try {
+			Set<String> topicNames = topicsResult.names().get();
+			log.debug("topicNames: " + topicNames);
+		} catch (InterruptedException | ExecutionException e) {
+			log.error(e.getMessage(), e);
+		}
+	}
 
 	private void deleteTopic() {
 		log.debug("deleteTopic service");
@@ -72,7 +88,8 @@ public class KafkaService {
 		log.debug("start service");
 
 		// createTopic();
-		deleteTopic();
+		// deleteTopic();
+		listTopics();
 	}
 
 	public void main() {

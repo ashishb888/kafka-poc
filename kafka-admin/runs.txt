@@ -27,3 +27,10 @@ KafkaService deleteTopic RUN 1
 
 [user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --list  --bootstrap-server localhost:7092  | grep ac-test
 [user@host kafka_2.12-2.3.0]$
+
+
+----------==----------
+
+KafkaService listTopics RUN 1
+
+2019-11-06 13:05:57.171 DEBUG 18972 --- [           main] poc.kafka.service.KafkaService           : topicNames: [ps1-cap21, ps1-bigcap3, ps1-bigcap2, ps1-cap20, sk2-out, ps1-bigcap1]
