@@ -1,6 +1,6 @@
 spring:
  application:
-  name: log-monitor
+  name: logs-monitor
 
  mail:
   host: 172.17.6.199
@@ -12,7 +12,7 @@ spring:
 logging:
   level:
     root: info
-    poc.kafka: debug  file: /var/tmp/apps/log-monitor/log-monitor
+    poc.kafka: debug  file: /var/tmp/apps/logs-monitor/logs-monitor
 
 app:
   mail:
