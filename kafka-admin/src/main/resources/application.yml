@@ -1,0 +1,22 @@
+spring:
+ application:
+  name: kafka-admin
+
+logging:
+  level:
+    root: info
+    poc.kafka: debug  file: /var/tmp/apps/kafka-admin/kafka-admin
+
+app:
+  props:
+    key: value
+
+kafka:
+  kafkaConsumer:
+    bootstrap.servers: '172.17.5.36:7092'
+    request.timeout.ms: 120000
+    retries: 5
+
+  metaData:
+    topic: kafka-admin #Topic to consume data
+    poll: 5 #millis
