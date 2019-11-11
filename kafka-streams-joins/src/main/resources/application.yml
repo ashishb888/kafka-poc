@@ -1,0 +1,12 @@
+spring:
+ application:
+  name: kafka-streams-joins
+
+logging:
+  level:    root: info  file: /var/log/apps/kafka-streams-joins/kafka-streams-joins
+
+kafka:
+  kafkaStreams:
+    bootstrap.servers: 'kafka1:8092,kafka2:8092,kafka3:8092'
+
+

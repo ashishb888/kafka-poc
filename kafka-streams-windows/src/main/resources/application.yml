@@ -1,0 +1,12 @@
+spring:
+ application:
+  name: kafka-streams-windows
+
+logging:
+  level:    root: info  file: /var/log/apps/kafka-streams-windows/kafka-streams-windows
+
+kafka:
+  kafkaStreams:
+    bootstrap.servers: 'kafka1:8092,kafka2:8092,kafka3:8092'
+
+
