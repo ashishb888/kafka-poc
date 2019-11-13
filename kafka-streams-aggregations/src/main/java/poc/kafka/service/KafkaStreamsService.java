@@ -51,7 +51,7 @@ public class KafkaStreamsService {
 
 		result.toStream().peek((k, v) -> {
 			log.debug("k: " + k + ", v:" + v);
-		}).to(topic + "-out1", Produced.with(Serdes.String(), Serdes.Double()));
+		}).to(topic + "-out", Produced.with(Serdes.String(), Serdes.Double()));
 
 		final Topology topology = builder.build();
 		final KafkaStreams streams = new KafkaStreams(topology, configs());
@@ -88,9 +88,6 @@ public class KafkaStreamsService {
 		kp.getKafkaStreams().forEach((k, v) -> {
 			configs.put(k, v);
 		});
-
-		configs.put(StreamsConfig.DEFAULT_KEY_SERDE_CLASS_CONFIG, Serdes.String().getClass());
-		configs.put(StreamsConfig.DEFAULT_VALUE_SERDE_CLASS_CONFIG, Serdes.Double().getClass());
 
 		return configs;
 	}

@@ -10,10 +10,10 @@ logging:
 kafka:
   kafkaStreams:
     bootstrap.servers: '172.17.5.36:7092'
-    application.id: 'kafka-streams-aggregations'
+    application.id: 'kafka-streams-aggregations3'
+    default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    default.value.serde: org.apache.kafka.common.serialization.Serdes$DoubleSerde
     #processing.guarantee: at_least_once
   
   metaData:
     topic: ksa1 #Topic to cosume data from
-
-
