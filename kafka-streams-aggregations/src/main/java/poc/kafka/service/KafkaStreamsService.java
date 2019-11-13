@@ -109,6 +109,43 @@ public class KafkaStreamsService {
 		}
 	}
 
+	private void groupByMin() throws Exception {
+		log.debug("groupByMin service");
+
+		final StreamsBuilder builder = new StreamsBuilder();
+		String topic = kp.getMetaData().get("topic");
+
+		KStream<String, StockTrade> source = builder.stream(topic, Consumed.with(Serdes.String(),
+				Serdes.serdeFrom(new StockTradeSerializer(), new StockTradeDeserializer())));
+
+		KTable<String, Double> result = source.map((k, v) -> KeyValue.pair(k, v.getTotTrdVal())).groupByKey()
+				.reduce((min, curVal) -> min > curVal ? curVal : min);
+
+		log.debug("queryableStoreName: " + result.queryableStoreName());
+
+		result.toStream().peek((k, v) -> {
+			log.debug("k: " + k + ", v:" + v);
+		}).to(topic + "-out");
+
+		final Topology topology = builder.build();
+		final KafkaStreams streams = new KafkaStreams(topology, configs());
+		final CountDownLatch latch = new CountDownLatch(1);
+
+		log.info("topology: " + topology.describe());
+
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			streams.close();
+			latch.countDown();
+		}, "streams-shutdown-hook"));
+
+		try {
+			streams.start();
+			latch.await();
+		} catch (Throwable e) {
+			log.error("", e);
+		}
+	}
+
 	private Properties configs() {
 		Properties configs = new Properties();
 
@@ -121,7 +158,8 @@ public class KafkaStreamsService {
 
 	private void stream() throws Exception {
 		// groupByMax();
-		groupBySum();
+		// groupBySum();
+		groupByMin();
 	}
 
 	private void start() {

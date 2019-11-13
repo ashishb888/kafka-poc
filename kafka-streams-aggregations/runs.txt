@@ -49,6 +49,35 @@ KafkaStreamsService RUN 1
 
 KafkaStreamsService groupBySum RUN 1
 
+2019-11-13 17:02:19.776  INFO 16936 --- [           main] poc.kafka.service.KafkaStreamsService    : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [ksa1])
+      --> KSTREAM-MAP-0000000001
+    Processor: KSTREAM-MAP-0000000001 (stores: [])
+      --> KSTREAM-FILTER-0000000005
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-FILTER-0000000005 (stores: [])
+      --> KSTREAM-SINK-0000000004
+      <-- KSTREAM-MAP-0000000001
+    Sink: KSTREAM-SINK-0000000004 (topic: KSTREAM-AGGREGATE-STATE-STORE-0000000002-repartition)
+      <-- KSTREAM-FILTER-0000000005
+
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000006 (topics: [KSTREAM-AGGREGATE-STATE-STORE-0000000002-repartition])
+      --> KSTREAM-AGGREGATE-0000000003
+    Processor: KSTREAM-AGGREGATE-0000000003 (stores: [KSTREAM-AGGREGATE-STATE-STORE-0000000002])
+      --> KTABLE-TOSTREAM-0000000007
+      <-- KSTREAM-SOURCE-0000000006
+    Processor: KTABLE-TOSTREAM-0000000007 (stores: [])
+      --> KSTREAM-PEEK-0000000008
+      <-- KSTREAM-AGGREGATE-0000000003
+    Processor: KSTREAM-PEEK-0000000008 (stores: [])
+      --> KSTREAM-SINK-0000000009
+      <-- KTABLE-TOSTREAM-0000000007
+    Sink: KSTREAM-SINK-0000000009 (topic: ksa1-out)
+      <-- KSTREAM-PEEK-0000000008
+
+
 2019-11-13 17:02:19.776 DEBUG 14732 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 08-JAN-2019, v:2.6091056914742984E11
 2019-11-13 17:02:19.777 DEBUG 14732 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 09-JAN-2019, v:2.9799929142622034E11
 2019-11-13 17:02:19.778 DEBUG 14732 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 07-JAN-2019, v:2.4601737642964978E11
@@ -59,3 +88,45 @@ KafkaStreamsService groupBySum RUN 1
 08-JAN-2019     2.6091056914742984E11
 09-JAN-2019     2.9799929142622034E11
 07-JAN-2019     2.4601737642964978E11
+
+----------==----------
+
+KafkaStreamsService groupByMin RUN 1
+
+2019-11-13 17:28:49.390  INFO 17036 --- [           main] poc.kafka.service.KafkaStreamsService    : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [ksa1])
+      --> KSTREAM-MAP-0000000001
+    Processor: KSTREAM-MAP-0000000001 (stores: [])
+      --> KSTREAM-FILTER-0000000005
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-FILTER-0000000005 (stores: [])
+      --> KSTREAM-SINK-0000000004
+      <-- KSTREAM-MAP-0000000001
+    Sink: KSTREAM-SINK-0000000004 (topic: KSTREAM-REDUCE-STATE-STORE-0000000002-repartition)
+      <-- KSTREAM-FILTER-0000000005
+
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000006 (topics: [KSTREAM-REDUCE-STATE-STORE-0000000002-repartition])
+      --> KSTREAM-REDUCE-0000000003
+    Processor: KSTREAM-REDUCE-0000000003 (stores: [KSTREAM-REDUCE-STATE-STORE-0000000002])
+      --> KTABLE-TOSTREAM-0000000007
+      <-- KSTREAM-SOURCE-0000000006
+    Processor: KTABLE-TOSTREAM-0000000007 (stores: [])
+      --> KSTREAM-PEEK-0000000008
+      <-- KSTREAM-REDUCE-0000000003
+    Processor: KSTREAM-PEEK-0000000008 (stores: [])
+      --> KSTREAM-SINK-0000000009
+      <-- KTABLE-TOSTREAM-0000000007
+    Sink: KSTREAM-SINK-0000000009 (topic: ksa1-out)
+      <-- KSTREAM-PEEK-0000000008
+
+
+2019-11-13 17:29:19.608 DEBUG 17036 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 08-JAN-2019, v:3.75
+2019-11-13 17:29:19.610 DEBUG 17036 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 09-JAN-2019, v:1.25
+2019-11-13 17:29:19.610 DEBUG 17036 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 07-JAN-2019, v:1.0
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.DoubleDeserializer --topic ksa1-out
+08-JAN-2019     3.75
+09-JAN-2019     1.25
+07-JAN-2019     1.0
