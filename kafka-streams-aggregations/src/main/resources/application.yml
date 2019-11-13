@@ -3,10 +3,17 @@ spring:
   name: kafka-streams-aggregations
 
 logging:
-  level:    root: info  file: /var/log/apps/kafka-streams-aggregations/kafka-streams-aggregations
+  level:    root: info
+    poc.kafka: debug
+      file: /var/log/apps/kafka-streams-aggregations/kafka-streams-aggregations
 
 kafka:
   kafkaStreams:
-    bootstrap.servers: 'kafka1:8092,kafka2:8092,kafka3:8092'
+    bootstrap.servers: '172.17.5.36:7092'
+    application.id: 'kafka-streams-aggregations'
+    #processing.guarantee: at_least_once
+  
+  metaData:
+    topic: ksa1 #Topic to cosume data from
 
 

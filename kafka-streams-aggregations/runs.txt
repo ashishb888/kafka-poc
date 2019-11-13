@@ -1,0 +1,48 @@
+KafkaStreamsService RUN 1
+
+2019-11-13 13:21:19.387  INFO 19212 --- [           main] poc.kafka.service.KafkaStreamsService    : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [ksa1])
+      --> KSTREAM-MAP-0000000001
+    Processor: KSTREAM-MAP-0000000001 (stores: [])
+      --> KSTREAM-FILTER-0000000005
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-FILTER-0000000005 (stores: [])
+      --> KSTREAM-SINK-0000000004
+      <-- KSTREAM-MAP-0000000001
+    Sink: KSTREAM-SINK-0000000004 (topic: KSTREAM-REDUCE-STATE-STORE-0000000002-repartition)
+      <-- KSTREAM-FILTER-0000000005
+
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000006 (topics: [KSTREAM-REDUCE-STATE-STORE-0000000002-repartition])
+      --> KSTREAM-REDUCE-0000000003
+    Processor: KSTREAM-REDUCE-0000000003 (stores: [KSTREAM-REDUCE-STATE-STORE-0000000002])
+      --> KTABLE-TOSTREAM-0000000007
+      <-- KSTREAM-SOURCE-0000000006
+    Processor: KTABLE-TOSTREAM-0000000007 (stores: [])
+      --> KSTREAM-PEEK-0000000008
+      <-- KSTREAM-REDUCE-0000000003
+    Processor: KSTREAM-PEEK-0000000008 (stores: [])
+      --> KSTREAM-SINK-0000000009
+      <-- KTABLE-TOSTREAM-0000000007
+    Sink: KSTREAM-SINK-0000000009 (topic: ksa1-out1)
+      <-- KSTREAM-PEEK-0000000008
+      
+
+2019-11-13 13:21:49.656 DEBUG 19212 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 08-JAN-2019, v:8.0807185982E9
+2019-11-13 13:21:49.661  WARN 19212 --- [read-1-producer] org.apache.kafka.clients.NetworkClient   : [Producer clientId=kafka-streams-aggregations2-6ee17ad8-aa1e-4063-936a-a479bdea20ee-StreamThread-1-producer] Error while fetching metadata with correlation id 15 : {ksa1-out1=LEADER_NOT_AVAILABLE}
+2019-11-13 13:21:49.762 DEBUG 19212 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 09-JAN-2019, v:1.22997380748E10
+2019-11-13 13:21:49.762 DEBUG 19212 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 07-JAN-2019, v:7.71776961175E9
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer --topic ksa1-out1
+08-JAN-2019     4755267254833328947
+09-JAN-2019     4757746211951634022
+07-JAN-2019     4754886675236913152
+
+[user@host kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic kafka-streams-aggregations2-KSTREAM-REDUCE-STATE-STORE-0000000002-changelog  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
+3
+
+[user@host kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic kafka-streams-aggregations2-KSTREAM-REDUCE-STATE-STORE-0000000002-repartition  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
+5733
+
+----------==----------
