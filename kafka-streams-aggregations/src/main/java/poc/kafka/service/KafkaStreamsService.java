@@ -51,7 +51,7 @@ public class KafkaStreamsService {
 
 		result.toStream().peek((k, v) -> {
 			log.debug("k: " + k + ", v:" + v);
-		}).to(topic + "-out", Produced.with(Serdes.String(), Serdes.Double()));
+		}).to(topic + "-out");
 
 		final Topology topology = builder.build();
 		final KafkaStreams streams = new KafkaStreams(topology, configs());
