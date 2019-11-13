@@ -34,7 +34,7 @@ KafkaStreamsService RUN 1
 2019-11-13 13:21:49.762 DEBUG 19212 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 09-JAN-2019, v:1.22997380748E10
 2019-11-13 13:21:49.762 DEBUG 19212 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 07-JAN-2019, v:7.71776961175E9
 
-[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.LongDeserializer --topic ksa1-out1
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.DoubleDeserializer --topic ksa1-out1
 08-JAN-2019     4755267254833328947
 09-JAN-2019     4757746211951634022
 07-JAN-2019     4754886675236913152
@@ -46,3 +46,16 @@ KafkaStreamsService RUN 1
 5733
 
 ----------==----------
+
+KafkaStreamsService groupBySum RUN 1
+
+2019-11-13 17:02:19.776 DEBUG 14732 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 08-JAN-2019, v:2.6091056914742984E11
+2019-11-13 17:02:19.777 DEBUG 14732 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 09-JAN-2019, v:2.9799929142622034E11
+2019-11-13 17:02:19.778 DEBUG 14732 --- [-StreamThread-1] poc.kafka.service.KafkaStreamsService    : k: 07-JAN-2019, v:2.4601737642964978E11
+
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --from-beginning --formatter kafka.tools.DefaultMessageFormatter --property print.key=true --property print.value=true --property key.deserializer=org.apache.kafka.common.serialization.StringDeserializer --property value.deserializer=org.apache.kafka.common.serialization.DoubleDeserializer --topic ksa1-out
+
+08-JAN-2019     2.6091056914742984E11
+09-JAN-2019     2.9799929142622034E11
+07-JAN-2019     2.4601737642964978E11

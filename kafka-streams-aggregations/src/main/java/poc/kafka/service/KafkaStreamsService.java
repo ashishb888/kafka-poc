@@ -35,8 +35,8 @@ public class KafkaStreamsService {
 	@Autowired
 	private KafkaProperties kp;
 
-	private void stream() throws Exception {
-		log.debug("stream service");
+	private void groupByMax() throws Exception {
+		log.debug("groupByMax service");
 
 		final StreamsBuilder builder = new StreamsBuilder();
 		String topic = kp.getMetaData().get("topic");
@@ -72,13 +72,40 @@ public class KafkaStreamsService {
 		}
 	}
 
-	private void start() {
-		log.debug("start service");
+	private void groupBySum() throws Exception {
+		log.debug("groupBySum service");
+
+		final StreamsBuilder builder = new StreamsBuilder();
+		String topic = kp.getMetaData().get("topic");
+
+		KStream<String, StockTrade> source = builder.stream(topic, Consumed.with(Serdes.String(),
+				Serdes.serdeFrom(new StockTradeSerializer(), new StockTradeDeserializer())));
+
+		KTable<String, Double> result = source.map((k, v) -> KeyValue.pair(k, v.getTotTrdVal())).groupByKey()
+				.aggregate(() -> 0.0, (aggKey, curVal, aggVal) -> aggVal + curVal);
+
+		log.debug("queryableStoreName: " + result.queryableStoreName());
+
+		result.toStream().peek((k, v) -> {
+			log.debug("k: " + k + ", v:" + v);
+		}).to(topic + "-out");
+
+		final Topology topology = builder.build();
+		final KafkaStreams streams = new KafkaStreams(topology, configs());
+		final CountDownLatch latch = new CountDownLatch(1);
+
+		log.info("topology: " + topology.describe());
+
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			streams.close();
+			latch.countDown();
+		}, "streams-shutdown-hook"));
 
 		try {
-			stream();
-		} catch (Exception e) {
-			log.error(e.getMessage(), e);
+			streams.start();
+			latch.await();
+		} catch (Throwable e) {
+			log.error("", e);
 		}
 	}
 
@@ -90,6 +117,21 @@ public class KafkaStreamsService {
 		});
 
 		return configs;
+	}
+
+	private void stream() throws Exception {
+		// groupByMax();
+		groupBySum();
+	}
+
+	private void start() {
+		log.debug("start service");
+
+		try {
+			stream();
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
 	}
 
 	public void main() {
