@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import poc.kafka.domain.KCString;
 import poc.kafka.domain.Person;
+import poc.kafka.domain.Schema;
 import poc.kafka.properties.KafkaProperties;
 
 @Service
@@ -42,6 +44,56 @@ public class ProducerService {
 		producer.close();
 	}
 
+	private void produceString() {
+		log.debug("produceString service");
+
+		String topic = kp.getMetaData().get("topic");
+		log.debug("topic: " + topic);
+		int records = Integer.valueOf(kp.getMetaData().get("records"));
+
+		Producer<Integer, String> producer = stringProducer();
+
+		for (int i = 0; i < records; i++) {
+			producer.send(new ProducerRecord<Integer, String>(topic, i, "p" + i));
+
+			count.getAndIncrement();
+		}
+
+		producer.close();
+	}
+
+	private void produceKCString() {
+		log.debug("produceKCString service");
+
+		String topic = kp.getMetaData().get("topic");
+		log.debug("topic: " + topic);
+		int records = Integer.valueOf(kp.getMetaData().get("records"));
+
+		Producer<Integer, KCString> producer = stringKCProducer();
+
+		for (int i = 0; i < records; i++) {
+			producer.send(new ProducerRecord<Integer, KCString>(topic, i,
+					new KCString(new Schema("string", false), "p" + i)));
+
+			count.getAndIncrement();
+		}
+
+		producer.close();
+	}
+
+	private Producer<Integer, KCString> stringKCProducer() {
+		log.debug("stingProducer service");
+
+		Properties kafkaProps = new Properties();
+
+		kp.getKafkaProducer().forEach((k, v) -> {
+			log.debug("k: " + k + ", v: " + v);
+			kafkaProps.put(k, v);
+		});
+
+		return new KafkaProducer<>(kafkaProps);
+	}
+
 	private void timer() {
 		log.debug("timer service");
 
@@ -65,10 +117,25 @@ public class ProducerService {
 		return new KafkaProducer<>(kafkaProps);
 	}
 
+	private Producer<Integer, String> stringProducer() {
+		log.debug("stingProducer service");
+
+		Properties kafkaProps = new Properties();
+
+		kp.getKafkaProducer().forEach((k, v) -> {
+			log.debug("k: " + k + ", v: " + v);
+			kafkaProps.put(k, v);
+		});
+
+		return new KafkaProducer<>(kafkaProps);
+	}
+
 	public void main() {
 		log.debug("main service");
 
 		timer();
-		produce();
+		// produce();
+		// produceString();
+		produceKCString();
 	}
 }
