@@ -1,0 +1,41 @@
+spring:
+ application:
+  name: kafka-utility
+
+logging:
+  level:
+    root: info
+    poc.kafka: debug  file: /var/tmp/apps/kafka-utility/kafka-utility
+
+kafka:
+  kafkaConsumer:
+    bootstrap.servers: '172.17.104.231:8092,172.17.104.232:8092,172.17.104.233:8092'
+    group.id: 'test-consumers'
+    enable.auto.commit: true
+    #auto.commit.interval.ms: 5000
+    fetch.min.bytes: 100000
+    session.timeout.ms: 60000
+    auto.offset.reset: 'earliest'
+    max.poll.records: 5000
+    key.deserializer: 'org.apache.kafka.common.serialization.ShortDeserializer'
+    value.deserializer: 'org.apache.kafka.common.serialization.ByteBufferDeserializer'
+
+  kafkaProducer:
+    #Kafka configuration changes according to the use cases
+    bootstrap.servers: '172.17.5.36:7092' #Brokers
+    acks: 'all'
+    batch.size: 150000
+    buffer.memory: 33554432
+    client.id: 8
+    retries: 1
+    linger.ms: 10
+    compression.type: 'lz4'
+    key.serializer: 'org.apache.kafka.common.serialization.IntegerSerializer'
+    #value.serializer: 'assignments.kafka.common.serialization.StockTradeSerializer'
+    value.serializer: 'poc.kafka.serialization.PersonSerializer'
+    
+  metaData:
+    topic: ggkc1-SQL_PUBLIC_PERSON
+    partitions: 0
+    records: 10
+    
