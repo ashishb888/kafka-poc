@@ -15,11 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 public class KafkaService {
 
 	@Autowired
-	private FileSourceConnectorService fs;
+	private FileSourceConnectorService fscs;
+	@Autowired
+	private IgniteSourceConnectorService iscs;
 
 	public void main() {
 		log.debug("main service");
 
-		fs.main();
+		// fscs.main();
+		iscs.main();
 	}
 }

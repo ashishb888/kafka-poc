@@ -65,3 +65,29 @@ p8
 p9
 
 ----------==----------
+IgniteSourceConnectorService RUN 1
+
+2019-12-13 15:00:48.677  INFO 996 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-12-13 15:00:48.678  INFO 996 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-12-13 15:00:48.678  INFO 996 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1576229448676
+2019-12-13 15:00:48.780  INFO 996 --- [work-thread | 8] org.apache.kafka.clients.Metadata        : [Producer clientId=8] Cluster ID: cMdW_kXwRq6Mxrigqjo55g
+2019-12-13 15:00:48.987  INFO 996 --- [           main] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=8] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2019-12-13 15:00:58.552 DEBUG 996 --- [pool-1-thread-1] p.k.s.IgniteSourceConnectorService       : count: 10
+2019-12-13 15:01:08.552 DEBUG 996 --- [pool-1-thread-1] p.k.s.IgniteSourceConnectorService       : count: 10
+2019-12-13 15:01:18.551 DEBUG 996 --- [pool-1-thread-1] p.k.s.IgniteSourceConnectorService       : count: 10
+2019-12-13 15:01:19.602  INFO 996 --- [n(10)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+
+[[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --property print.key=true --from-beginning --topic {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":0,"name":"p0"}}^C
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --property print.key=true --from-beginning --topic kci1
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --property print.key=true --from-beginning --topic kci1
+{"schema":{"type":"int32","optional":false},"payload":0}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":0,"name":"p0"}}
+{"schema":{"type":"int32","optional":false},"payload":1}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":1,"name":"p1"}}
+{"schema":{"type":"int32","optional":false},"payload":2}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":2,"name":"p2"}}
+{"schema":{"type":"int32","optional":false},"payload":3}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":3,"name":"p3"}}
+{"schema":{"type":"int32","optional":false},"payload":4}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":4,"name":"p4"}}
+{"schema":{"type":"int32","optional":false},"payload":5}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":5,"name":"p5"}}
+{"schema":{"type":"int32","optional":false},"payload":6}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":6,"name":"p6"}}
+{"schema":{"type":"int32","optional":false},"payload":7}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":7,"name":"p7"}}
+{"schema":{"type":"int32","optional":false},"payload":8}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":8,"name":"p8"}}
+{"schema":{"type":"int32","optional":false},"payload":9}        {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}]},"payload":{"cityId":9,"name":"p9"}}
+
