@@ -1,0 +1,67 @@
+FileSourceConnectorService RUN 1
+
+
+2019-12-13 12:20:19.638  INFO 6256 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-12-13 12:20:19.639  INFO 6256 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-12-13 12:20:19.639  INFO 6256 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1576219819637
+2019-12-13 12:20:19.816  WARN 6256 --- [work-thread | 8] org.apache.kafka.clients.NetworkClient   : [Producer clientId=8] Error while fetching metadata with correlation id 1 : {kc15=LEADER_NOT_AVAILABLE}
+2019-12-13 12:20:19.819  INFO 6256 --- [work-thread | 8] org.apache.kafka.clients.Metadata        : [Producer clientId=8] Cluster ID: cMdW_kXwRq6Mxrigqjo55g
+2019-12-13 12:20:20.485  INFO 6256 --- [           main] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=8] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2019-12-13 12:20:29.461 DEBUG 6256 --- [pool-1-thread-1] poc.kafka.service.ProducerService        : count: 10
+2019-12-13 12:20:34.512  INFO 6256 --- [on(4)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --from-beginning --topic kc15
+{"schema":{"type":"string","optional":false},"payload":"p0"}
+{"schema":{"type":"string","optional":false},"payload":"p1"}
+{"schema":{"type":"string","optional":false},"payload":"p2"}
+{"schema":{"type":"string","optional":false},"payload":"p3"}
+{"schema":{"type":"string","optional":false},"payload":"p4"}
+{"schema":{"type":"string","optional":false},"payload":"p5"}
+{"schema":{"type":"string","optional":false},"payload":"p6"}
+{"schema":{"type":"string","optional":false},"payload":"p7"}
+{"schema":{"type":"string","optional":false},"payload":"p8"}
+{"schema":{"type":"string","optional":false},"payload":"p9"}
+^CProcessed a total of 10 messages
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/connect-file-sink.properties
+name=local-file-kc151
+connector.class=FileStreamSink
+tasks.max=1
+file=/var/tmp/kc15-sink1.txt
+topics=kc15
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/connect-standalone.properties
+bootstrap.servers=localhost:7092
+
+key.converter=org.apache.kafka.connect.converters.ByteArrayConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+
+#key.converter.schemas.enable=true
+value.converter.schemas.enable=true
+
+offset.storage.file.filename=/tmp/connect.offsets
+# Flush much faster than normal, which is useful for testing/debugging
+offset.flush.interval.ms=10000
+
+# plugin.path=/usr/local/share/java,/usr/local/share/kafka/plugins,/opt/connectors,
+#plugin.path=
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/connect-standalone.sh config/connect-standalone.properties config/connect-file-sink.properties
+
+[hdpusr@hdpdev6 ~]$ tail -f /var/tmp/kc15-sink1.txt
+p0
+p1
+p2
+p3
+p4
+p5
+p6
+p7
+p8
+p9
+
+----------==----------
