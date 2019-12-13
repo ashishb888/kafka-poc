@@ -38,7 +38,7 @@ kafka:
     value.serializer: 'poc.kafka.serialization.ValueSerializer'
     
   metaData:
-    topic: kci1
+    topic: kci2
     partitions: 0
     records: 10
     

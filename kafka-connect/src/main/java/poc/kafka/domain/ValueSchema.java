@@ -17,4 +17,5 @@ public class ValueSchema {
 	private String type;
 	private boolean optional;
 	private Schema2 fields[];
+	private String name;
 }

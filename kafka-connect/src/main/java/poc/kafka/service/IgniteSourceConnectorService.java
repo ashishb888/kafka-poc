@@ -44,7 +44,7 @@ public class IgniteSourceConnectorService {
 			Schema2[] fields = { new Schema2("int32", false, "cityId"), new Schema2("string", false, "name") };
 
 			producer.send(new ProducerRecord<Key, Value>(topic, new Key(new KeySchema("int32", false), i),
-					new Value(new ValueSchema("struct", false, fields), new Person(i, "p" + i))));
+					new Value(new ValueSchema("struct", false, fields, "Person"), new Person(i, "p" + i))));
 
 			count.getAndIncrement();
 		}
