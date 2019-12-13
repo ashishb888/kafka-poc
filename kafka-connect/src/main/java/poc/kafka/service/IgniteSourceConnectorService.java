@@ -13,11 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
-import poc.kafka.domain.KCString;
 import poc.kafka.domain.Key;
 import poc.kafka.domain.KeySchema;
 import poc.kafka.domain.Person;
-import poc.kafka.domain.Schema;
 import poc.kafka.domain.Schema2;
 import poc.kafka.domain.Value;
 import poc.kafka.domain.ValueSchema;
