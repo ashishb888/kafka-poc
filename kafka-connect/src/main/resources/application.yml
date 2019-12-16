@@ -36,10 +36,11 @@ kafka:
     #value.serializer: 'org.apache.kafka.common.serialization.StringSerializer'
     #key.serializer: 'poc.kafka.serialization.KeySchemalessSerializer'
     #value.serializer: 'poc.kafka.serialization.ValueSchemalessSerializer'
-    value.serializer: 'poc.kafka.serialization.PersionSerializer'
+    #value.serializer: 'poc.kafka.serialization.PersonSerializer'
+    value.serializer: 'poc.kafka.serialization.PersonBinarySerializer'
     
   metaData:
-    topic: kcisl2
+    topic: kcisl4
     partitions: 0
     records: 10
     
