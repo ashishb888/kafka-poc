@@ -566,3 +566,157 @@ With Arrays.toString
 2019-12-16 15:49:16.572  INFO 182581 --- [           main] poc.ignite.service.ConnectService        : k: [B@7bd4937b,v: [B@21e360a
 2019-12-16 15:49:16.572  INFO 182581 --- [           main] poc.ignite.service.ConnectService        : k: [0, 0, 0, 9],v: [-84, -19, 0, 5, 115, 114, 0, 29, 112, 111, 99, 46, 107, 97, 102, 107, 97, 46, 100, 111, 109, 97, 105, 110, 46, 80, 101, 114, 115, 111, 110, 66, 105, 110, 97, 114, 121, -52, -44, -39, -61, -122, 1, -107, 55, 2, 0, 2, 73, 0, 6, 99, 105, 116, 121, 73, 100, 76, 0, 4, 110, 97, 109, 101, 116, 0, 18, 76, 106, 97, 118, 97, 47, 108, 97, 110, 103, 47, 83, 116, 114, 105, 110, 103, 59, 120, 112, 0, 0, 0, 9, 116, 0, 2, 112, 57]
 
+
+----------==----------
+IgniteSourceConnectorService RUN 6
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic kcisl5  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
+10
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --property print.key=true --from-beginning --topic kcisl5
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":0,"cityId":0}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":0,"cityId":0,"name":"p0"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":1,"cityId":1}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":1,"cityId":1,"name":"p1"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":2,"cityId":2}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":2,"cityId":2,"name":"p2"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":3,"cityId":3}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":3,"cityId":3,"name":"p3"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":4,"cityId":4}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":4,"cityId":4,"name":"p4"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":5,"cityId":5}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":5,"cityId":5,"name":"p5"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":6,"cityId":6}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":6,"cityId":6,"name":"p6"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":7,"cityId":7}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":7,"cityId":7,"name":"p7"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":8,"cityId":8}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":8,"cityId":8,"name":"p8"}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person1Key"},"payload":{"id":9,"cityId":9}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"}],"name":"Person1"},"payload":{"id":9,"cityId":9,"name":"p9"}}
+^CProcessed a total of 10 messages
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$
+
+
+[hdpusr@hdpdev6 gridgain-connect]$ $IGNITE_HOME/bin/sqlline.sh --verbose=true -u jdbc:ignite:thin://hdpdev6:10900
+issuing: !connect jdbc:ignite:thin://hdpdev6:10900 '' '' org.apache.ignite.IgniteJdbcThinDriver
+Connecting to jdbc:ignite:thin://hdpdev6:10900
+Connected to: Apache Ignite (version 8.7.6#20190704-sha1:6449a674)
+Driver: Apache Ignite Thin JDBC Driver (version 8.7.6#20190704-sha1:6449a674)
+Autocommit status: true
+Transaction isolation: TRANSACTION_REPEATABLE_READ
+sqlline version 1.3.0
+0: jdbc:ignite:thin://hdpdev6:10900> !tables
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+|           TABLE_CAT            |          TABLE_SCHEM           |           TABLE_NAME           |           TABLE_TYPE           |            REMARKS             |            TYPE_CAT          |
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+0: jdbc:ignite:thin://hdpdev6:10900> CREATE TABLE IF NOT EXISTS Person1 (
+. . . . . . . . . . . . . . . . . .> id int,
+. . . . . . . . . . . . . . . . . .> cityId int,
+. . . . . . . . . . . . . . . . . .> name varchar,
+. . . . . . . . . . . . . . . . . .> PRIMARY KEY (id, cityId)
+. . . . . . . . . . . . . . . . . .> ) WITH "template=partitioned,backups=1,affinity_key=cityId, key_type=Person1Key, value_type=Person1";
+No rows affected (0.288 seconds)
+0: jdbc:ignite:thin://hdpdev6:10900> !tables
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+|           TABLE_CAT            |          TABLE_SCHEM           |           TABLE_NAME           |           TABLE_TYPE           |            REMARKS             |            TYPE_CAT          |
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+|                                | PUBLIC                         | PERSON1                        | TABLE                          |                                |                              |
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+0: jdbc:ignite:thin://hdpdev6:10900> !tables
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+|           TABLE_CAT            |          TABLE_SCHEM           |           TABLE_NAME           |           TABLE_TYPE           |            REMARKS             |            TYPE_CAT          |
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+|                                | PUBLIC                         | PERSON1                        | TABLE                          |                                |                              |
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
++--------------------------------+--------------------------------+--------------------------------+
+No rows selected (0.009 seconds)
+0: jdbc:ignite:thin://hdpdev6:10900> select * from PERSON1;
++--------------------------------+--------------------------------+--------------------------------+
+|               ID               |             CITYID             |              NAME              |
++--------------------------------+--------------------------------+--------------------------------+
+| 2                              | 2                              | p2                             |
+| 9                              | 9                              | p9                             |
+| 4                              | 4                              | p4                             |
+| 6                              | 6                              | p6                             |
+| 1                              | 1                              | p1                             |
+| 8                              | 8                              | p8                             |
+| 3                              | 3                              | p3                             |
+| 5                              | 5                              | p5                             |
+| 0                              | 0                              | p0                             |
+| 7                              | 7                              | p7                             |
++--------------------------------+--------------------------------+--------------------------------+
+10 rows selected (0.022 seconds)
+0: jdbc:ignite:thin://hdpdev6:10900>
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/gg-connect-standalone.properties
+key.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=true
+value.converter.schemas.enable=true
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/connect-gg-sink.properties
+topics=kcisl5
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/connect-gg-sink.properties
+topics=Person1
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/connect-gg-sink.properties
+topics=SQL_PUBLIC_PERSON1
+
+[hdpusr@hdpdev6 gridgain-enterprise-8.7.6]$ ./bin/ignitevisorcmd.sh
+visor> cache
+Time of the snapshot: 2019-12-16 17:31:36
++=====================================================================================================================================================================+
+|         Name(@)         |    Mode     | Nodes | Total entries (Heap / Off-heap) | Primary entries (Heap / Off-heap) |   Hits    |  Misses   |   Reads   |  Writes   |
++=====================================================================================================================================================================+
+| kcisl5(@c0)             | PARTITIONED | 1     | 10 (0 / 10)                     | min: 10 (0 / 10)                  | min: 0    | min: 0    | min: 0    | min: 0    |
+|                         |             |       |                                 | avg: 10.00 (0.00 / 10.00)         | avg: 0.00 | avg: 0.00 | avg: 0.00 | avg: 0.00 |
+|                         |             |       |                                 | max: 10 (0 / 10)                  | max: 0    | max: 0    | max: 0    | max: 0    |
++-------------------------+-------------+-------+---------------------------------+-----------------------------------+-----------+-----------+-----------+-----------+
+| Person1(@c1)            | PARTITIONED | 1     | 10 (0 / 10)                     | min: 10 (0 / 10)                  | min: 0    | min: 0    | min: 0    | min: 0    |
+|                         |             |       |                                 | avg: 10.00 (0.00 / 10.00)         | avg: 0.00 | avg: 0.00 | avg: 0.00 | avg: 0.00 |
+|                         |             |       |                                 | max: 10 (0 / 10)                  | max: 0    | max: 0    | max: 0    | max: 0    |
++-------------------------+-------------+-------+---------------------------------+-----------------------------------+-----------+-----------+-----------+-----------+
+| SQL_PUBLIC_PERSON1(@c2) | PARTITIONED | 1     | 0 (0 / 0)                       | min: 0 (0 / 0)                    | min: 0    | min: 0    | min: 0    | min: 0    |
+|                         |             |       |                                 | avg: 0.00 (0.00 / 0.00)           | avg: 0.00 | avg: 0.00 | avg: 0.00 | avg: 0.00 |
+|                         |             |       |                                 | max: 0 (0 / 0)                    | max: 0    | max: 0    | max: 0    | max: 0    |
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Use "-a" flag to see detailed statistics.
+visor>
+
+
+[hdpusr@hdpdev6 web-agent]$  ./ignite-web-agent.sh
+Web console: http://172.17.5.36:3000/notebook/5def87b3b479b1570c8ae054#paragraph-1
+
+kcisl5
+
+Key Class,Key,Value Class,Value
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=783939265, id=3, cityId=3]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=277475945, name=p3, id=3, cityId=3]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1023485407, id=4, cityId=4]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-2030009590, name=p4, id=4, cityId=4]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1703603359, id=2, cityId=2]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-1710005816, name=p2, id=2, cityId=2]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=1911245985, id=0, cityId=0]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-1390002042, name=p0, id=0, cityId=0]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=103821313, id=1, cityId=1]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=597479719, name=p1, id=1, cityId=1]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=1464057217, id=5, cityId=5]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-42527829, name=p5, id=5, cityId=5]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1470674175, id=9, cityId=9]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-682535377, name=p9, id=9, cityId=9]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-343367455, id=6, cityId=6]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=1944953932, name=p6, id=6, cityId=6]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=2144175169, id=7, cityId=7]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-362531603, name=p7, id=7, cityId=7]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=336750497, id=8, cityId=8]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=1624950158, name=p8, id=8, cityId=8]"
+
+
+Person1
+
+Key Class,Key,Value Class,Value
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=783939265, id=3, cityId=3]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=277475945, name=p3, id=3, cityId=3]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1023485407, id=4, cityId=4]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-2030009590, name=p4, id=4, cityId=4]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1703603359, id=2, cityId=2]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-1710005816, name=p2, id=2, cityId=2]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=1911245985, id=0, cityId=0]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-1390002042, name=p0, id=0, cityId=0]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=103821313, id=1, cityId=1]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=597479719, name=p1, id=1, cityId=1]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=1464057217, id=5, cityId=5]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-42527829, name=p5, id=5, cityId=5]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1470674175, id=9, cityId=9]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-682535377, name=p9, id=9, cityId=9]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-343367455, id=6, cityId=6]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=1944953932, name=p6, id=6, cityId=6]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=2144175169, id=7, cityId=7]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-362531603, name=p7, id=7, cityId=7]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=336750497, id=8, cityId=8]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=1624950158, name=p8, id=8, cityId=8]"
+
+SQL_PUBLIC_PERSON1
+
+Key Class,Key,Value Class,Value
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=1911245985, id=0, cityId=0]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-1390002042, name=p0, id=0, cityId=0]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=103821313, id=1, cityId=1]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=597479719, name=p1, id=1, cityId=1]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1703603359, id=2, cityId=2]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-1710005816, name=p2, id=2, cityId=2]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=783939265, id=3, cityId=3]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=277475945, name=p3, id=3, cityId=3]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1023485407, id=4, cityId=4]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-2030009590, name=p4, id=4, cityId=4]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=1464057217, id=5, cityId=5]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-42527829, name=p5, id=5, cityId=5]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-343367455, id=6, cityId=6]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=1944953932, name=p6, id=6, cityId=6]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=2144175169, id=7, cityId=7]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-362531603, name=p7, id=7, cityId=7]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=336750497, id=8, cityId=8]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=1624950158, name=p8, id=8, cityId=8]"
+"o.a.i.i.binary.BinaryObjectImpl","Person1Key [hash=-1470674175, id=9, cityId=9]","o.a.i.i.binary.BinaryObjectImpl","Person1 [hash=-682535377, name=p9, id=9, cityId=9]"

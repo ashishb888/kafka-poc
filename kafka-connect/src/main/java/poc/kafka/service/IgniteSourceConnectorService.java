@@ -14,12 +14,16 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import poc.kafka.domain.Key;
+import poc.kafka.domain.Key1;
 import poc.kafka.domain.KeySchema;
 import poc.kafka.domain.KeySchemaless;
 import poc.kafka.domain.Person;
+import poc.kafka.domain.Person1;
+import poc.kafka.domain.Person1Key;
 import poc.kafka.domain.PersonBinary;
 import poc.kafka.domain.Schema2;
 import poc.kafka.domain.Value;
+import poc.kafka.domain.Value1;
 import poc.kafka.domain.ValueSchema;
 import poc.kafka.domain.ValueSchemaless;
 import poc.kafka.properties.KafkaProperties;
@@ -31,6 +35,43 @@ public class IgniteSourceConnectorService {
 	@Autowired
 	private KafkaProperties kp;
 	private AtomicInteger count = new AtomicInteger(0);
+
+	private void produce1() {
+		log.debug("produce1 service");
+
+		String topic = kp.getMetaData().get("topic");
+		log.debug("topic: " + topic);
+		int records = Integer.valueOf(kp.getMetaData().get("records"));
+
+		Producer<Key1, Value1> producer = producer1();
+
+		for (int i = 0; i < records; i++) {
+			Schema2[] keyFields = { new Schema2("int32", false, "id"), new Schema2("int32", false, "cityId") };
+			Schema2[] fields = { new Schema2("int32", false, "id"), new Schema2("int32", false, "cityId"),
+					new Schema2("string", false, "name") };
+
+			producer.send(new ProducerRecord<Key1, Value1>(topic,
+					new Key1(new ValueSchema("struct", false, keyFields, "Person1Key"), new Person1Key(i, i)),
+					new Value1(new ValueSchema("struct", false, fields, "Person1"), new Person1(i, i, "p" + i))));
+
+			count.getAndIncrement();
+		}
+
+		producer.close();
+	}
+
+	private Producer<Key1, Value1> producer1() {
+		log.debug("producer1 service");
+
+		Properties kafkaProps = new Properties();
+
+		kp.getKafkaProducer().forEach((k, v) -> {
+			log.debug("k: " + k + ", v: " + v);
+			kafkaProps.put(k, v);
+		});
+
+		return new KafkaProducer<>(kafkaProps);
+	}
 
 	private void produceSchemaless2() {
 		log.debug("produceSchemaless2 service");
@@ -177,6 +218,8 @@ public class IgniteSourceConnectorService {
 		// produce();
 		// produceSchemaless();
 		// produceSchemaless1();
-		produceSchemaless2();
+		// produceSchemaless2();
+		// produce1();
+		produce1();
 	}
 }
