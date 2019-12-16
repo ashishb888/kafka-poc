@@ -7,7 +7,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import poc.kafka.domain.Person;
 
-public class PersionSerializer implements Serializer<Person> {
+public class PersonSerializer implements Serializer<Person> {
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 
