@@ -42,7 +42,7 @@ kafka:
     value.serializer: 'poc.kafka.serialization.Value1Serializer'
     
   metaData:
-    topic: SQL_PUBLIC_PERSON1
+    topic: person-test
     partitions: 0
     records: 10
     
