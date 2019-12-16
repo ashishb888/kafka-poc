@@ -31,6 +31,37 @@ public class IgniteSourceConnectorService {
 	private KafkaProperties kp;
 	private AtomicInteger count = new AtomicInteger(0);
 
+	private void produceSchemaless1() {
+		log.debug("produceSchemaless1 service");
+
+		String topic = kp.getMetaData().get("topic");
+		log.debug("topic: " + topic);
+		int records = Integer.valueOf(kp.getMetaData().get("records"));
+
+		Producer<Integer, Person> producer = producerSchemaless1();
+
+		for (int i = 0; i < records; i++) {
+			producer.send(new ProducerRecord<Integer, Person>(topic, i, new Person(i, "p" + i)));
+
+			count.getAndIncrement();
+		}
+
+		producer.close();
+	}
+
+	private Producer<Integer, Person> producerSchemaless1() {
+		log.debug("producerSchemaless1 service");
+
+		Properties kafkaProps = new Properties();
+
+		kp.getKafkaProducer().forEach((k, v) -> {
+			log.debug("k: " + k + ", v: " + v);
+			kafkaProps.put(k, v);
+		});
+
+		return new KafkaProducer<>(kafkaProps);
+	}
+
 	private void produce() {
 		log.debug("produce service");
 
@@ -112,6 +143,7 @@ public class IgniteSourceConnectorService {
 
 		timer();
 		// produce();
-		produceSchemaless();
+		// produceSchemaless();
+		produceSchemaless1();
 	}
 }

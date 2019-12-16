@@ -30,15 +30,16 @@ kafka:
     retries: 1
     linger.ms: 10
     compression.type: 'lz4'
-    #key.serializer: 'org.apache.kafka.common.serialization.IntegerSerializer'
+    key.serializer: 'org.apache.kafka.common.serialization.IntegerSerializer'
     #value.serializer: 'assignments.kafka.common.serialization.StockTradeSerializer'
     #value.serializer: 'poc.kafka.serialization.KCStringSerializer'
     #value.serializer: 'org.apache.kafka.common.serialization.StringSerializer'
-    key.serializer: 'poc.kafka.serialization.KeySchemalessSerializer'
-    value.serializer: 'poc.kafka.serialization.ValueSchemalessSerializer'
+    #key.serializer: 'poc.kafka.serialization.KeySchemalessSerializer'
+    #value.serializer: 'poc.kafka.serialization.ValueSchemalessSerializer'
+    value.serializer: 'poc.kafka.serialization.PersionSerializer'
     
   metaData:
-    topic: kcisl1
+    topic: kcisl2
     partitions: 0
     records: 10
     
