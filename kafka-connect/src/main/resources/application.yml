@@ -34,11 +34,11 @@ kafka:
     #value.serializer: 'assignments.kafka.common.serialization.StockTradeSerializer'
     #value.serializer: 'poc.kafka.serialization.KCStringSerializer'
     #value.serializer: 'org.apache.kafka.common.serialization.StringSerializer'
-    key.serializer: 'poc.kafka.serialization.KeySerializer'
-    value.serializer: 'poc.kafka.serialization.ValueSerializer'
+    key.serializer: 'poc.kafka.serialization.KeySchemalessSerializer'
+    value.serializer: 'poc.kafka.serialization.ValueSchemalessSerializer'
     
   metaData:
-    topic: kci2
+    topic: kcisl1
     partitions: 0
     records: 10
     

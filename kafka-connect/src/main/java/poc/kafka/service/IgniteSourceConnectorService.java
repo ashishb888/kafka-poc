@@ -15,10 +15,12 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 import poc.kafka.domain.Key;
 import poc.kafka.domain.KeySchema;
+import poc.kafka.domain.KeySchemaless;
 import poc.kafka.domain.Person;
 import poc.kafka.domain.Schema2;
 import poc.kafka.domain.Value;
 import poc.kafka.domain.ValueSchema;
+import poc.kafka.domain.ValueSchemaless;
 import poc.kafka.properties.KafkaProperties;
 
 @Service
@@ -50,6 +52,38 @@ public class IgniteSourceConnectorService {
 		producer.close();
 	}
 
+	private void produceSchemaless() {
+		log.debug("produceSchemaless service");
+
+		String topic = kp.getMetaData().get("topic");
+		log.debug("topic: " + topic);
+		int records = Integer.valueOf(kp.getMetaData().get("records"));
+
+		Producer<KeySchemaless, ValueSchemaless> producer = producerSchemaless();
+
+		for (int i = 0; i < records; i++) {
+			producer.send(new ProducerRecord<KeySchemaless, ValueSchemaless>(topic, new KeySchemaless(i),
+					new ValueSchemaless(new Person(i, "p" + i))));
+
+			count.getAndIncrement();
+		}
+
+		producer.close();
+	}
+
+	private Producer<KeySchemaless, ValueSchemaless> producerSchemaless() {
+		log.debug("producerSchemaless service");
+
+		Properties kafkaProps = new Properties();
+
+		kp.getKafkaProducer().forEach((k, v) -> {
+			log.debug("k: " + k + ", v: " + v);
+			kafkaProps.put(k, v);
+		});
+
+		return new KafkaProducer<>(kafkaProps);
+	}
+
 	private Producer<Key, Value> producer() {
 		log.debug("producer service");
 
@@ -77,6 +111,7 @@ public class IgniteSourceConnectorService {
 		log.debug("main service");
 
 		timer();
-		produce();
+		// produce();
+		produceSchemaless();
 	}
 }

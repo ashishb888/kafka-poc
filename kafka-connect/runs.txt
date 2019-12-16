@@ -216,3 +216,80 @@ sqlline version 1.3.0
 [hdpusr@hdpdev6 gridgain-web-console-direct-install-8.7.6-linux]$ nohup ./gridgain-web-console-linux --server:port 3000 > /dev/null 2>&1 &
 [hdpusr@hdpdev6 ~]$ cd /opt/ngs/ashishb/packages/gridgain-web-console-direct-install-8.7.6-linux/web-agent/
 
+----------==----------
+IgniteSourceConnectorService RUN 3
+
+2019-12-16 12:38:05.170  INFO 9716 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2019-12-16 12:38:05.171  INFO 9716 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2019-12-16 12:38:05.171  INFO 9716 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1576480085169
+2019-12-16 12:38:05.269  INFO 9716 --- [work-thread | 8] org.apache.kafka.clients.Metadata        : [Producer clientId=8] Cluster ID: cMdW_kXwRq6Mxrigqjo55g
+2019-12-16 12:38:05.391  INFO 9716 --- [           main] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=8] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2019-12-16 12:38:15.050 DEBUG 9716 --- [pool-1-thread-1] p.k.s.IgniteSourceConnectorService       : count: 10
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic kcisl1  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
+10
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --from-beginning --topic kcisl1
+{"payload":{"cityId":0,"name":"p0"}}
+{"payload":{"cityId":1,"name":"p1"}}
+{"payload":{"cityId":2,"name":"p2"}}
+{"payload":{"cityId":3,"name":"p3"}}
+{"payload":{"cityId":4,"name":"p4"}}
+{"payload":{"cityId":5,"name":"p5"}}
+{"payload":{"cityId":6,"name":"p6"}}
+{"payload":{"cityId":7,"name":"p7"}}
+{"payload":{"cityId":8,"name":"p8"}}
+{"payload":{"cityId":9,"name":"p9"}}
+^CProcessed a total of 10 messages
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --property print.key=true --from-beginning --topic kcisl1
+{"payload":0}   {"payload":{"cityId":0,"name":"p0"}}
+{"payload":1}   {"payload":{"cityId":1,"name":"p1"}}
+{"payload":2}   {"payload":{"cityId":2,"name":"p2"}}
+{"payload":3}   {"payload":{"cityId":3,"name":"p3"}}
+{"payload":4}   {"payload":{"cityId":4,"name":"p4"}}
+{"payload":5}   {"payload":{"cityId":5,"name":"p5"}}
+{"payload":6}   {"payload":{"cityId":6,"name":"p6"}}
+{"payload":7}   {"payload":{"cityId":7,"name":"p7"}}
+{"payload":8}   {"payload":{"cityId":8,"name":"p8"}}
+{"payload":9}   {"payload":{"cityId":9,"name":"p9"}}
+^CProcessed a total of 10 messages
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/gg-connect-standalone.properties
+bootstrap.servers=localhost:7092
+
+key.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=false
+value.converter.schemas.enable=false
+#key.converter=org.apache.kafka.connect.converters.ByteArrayConverter
+#key.converter=org.apache.kafka.connect.storage.StringConverter
+#value.converter=org.apache.kafka.connect.converters.StringConverter
+#value.converter=org.apache.kafka.connect.converters.ByteArrayConverter
+offset.storage.file.filename=/tmp/connect.offsets
+offset.flush.interval.ms=10000
+plugin.path=/opt/ngs/ashishb/packages/kafka_2.12-2.3.0/plugins/gridgain-kafka-connect
+rest.port=8083
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/connect-gg-sink.properties
+name=gridgain-quickstart2
+topics=kcisl1
+tasks.max=1
+connector.class=org.gridgain.kafka.sink.IgniteSinkConnector
+igniteCfg=/opt/ngs/ashishb/packages/gridgain-enterprise-8.7.6/config/ignite-server-sink.xml
+
+
+[hdpusr@hdpdev6 gridgain-enterprise-8.7.6]$ ./bin/ignitevisorcmd.sh
+
+visor> cache
+Time of the snapshot: 2019-12-16 12:47:44
++=========================================================================================================================================================+
+|   Name(@)   |    Mode     | Nodes | Total entries (Heap / Off-heap) | Primary entries (Heap / Off-heap) |   Hits    |  Misses   |   Reads   |  Writes   |
++=========================================================================================================================================================+
+| kcisl1(@c0) | PARTITIONED | 1     | 10 (0 / 10)                     | min: 10 (0 / 10)                  | min: 0    | min: 0    | min: 0    | min: 0    |
+|             |             |       |                                 | avg: 10.00 (0.00 / 10.00)         | avg: 0.00 | avg: 0.00 | avg: 0.00 | avg: 0.00 |
+|             |             |       |                                 | max: 10 (0 / 10)                  | max: 0    | max: 0    | max: 0    | max: 0    |
++---------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Use "-a" flag to see detailed statistics.
+visor>
+
