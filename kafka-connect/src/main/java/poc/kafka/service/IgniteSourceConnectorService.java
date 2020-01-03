@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import poc.kafka.domain.Key;
 import poc.kafka.domain.Key1;
 import poc.kafka.domain.Key2;
+import poc.kafka.domain.Key3;
 import poc.kafka.domain.KeySchema;
 import poc.kafka.domain.KeySchemaless;
 import poc.kafka.domain.Person;
@@ -28,11 +29,14 @@ import poc.kafka.domain.Person1;
 import poc.kafka.domain.Person1Key;
 import poc.kafka.domain.Person2;
 import poc.kafka.domain.Person2Key;
+import poc.kafka.domain.Person3;
+import poc.kafka.domain.Person3Key;
 import poc.kafka.domain.PersonBinary;
 import poc.kafka.domain.Schema2;
 import poc.kafka.domain.Value;
 import poc.kafka.domain.Value1;
 import poc.kafka.domain.Value2;
+import poc.kafka.domain.Value3;
 import poc.kafka.domain.ValueSchema;
 import poc.kafka.domain.ValueSchemaless;
 import poc.kafka.properties.KafkaProperties;
@@ -44,6 +48,56 @@ public class IgniteSourceConnectorService {
 	@Autowired
 	private KafkaProperties kp;
 	private AtomicInteger count = new AtomicInteger(0);
+
+	private void produce3WithDates() {
+		log.debug("produce3WithDates service");
+
+		String topic = kp.getMetaData().get("topic");
+		log.debug("topic: " + topic);
+		int records = Integer.valueOf(kp.getMetaData().get("records"));
+
+		Producer<Key3, Value3> producer = producer3WithDates();
+
+		Schema2[] keyFields = { new Schema2("int32", false, "id"), new Schema2("int32", false, "cityId") };
+		Schema2[] fields = { new Schema2("int32", false, "id"), new Schema2("int32", false, "cityId"),
+				new Schema2("string", false, "name"),
+				new Schema2("int32", false, "aDate", "org.apache.kafka.connect.data.Date"),
+				new Schema2("int64", false, "aTimestamp", "org.apache.kafka.connect.data.Timestamp") };
+
+		Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+
+		int d = org.apache.kafka.connect.data.Date.fromLogical(
+				SchemaBuilder.int32().name("org.apache.kafka.connect.data.Date").schema(), calendar.getTime());
+		long t = Timestamp.fromLogical(SchemaBuilder.int64().name("org.apache.kafka.connect.data.Timestamp").schema(),
+				new Date());
+
+		for (int i = 0; i < records; i++) {
+			producer.send(new ProducerRecord<Key3, Value3>(topic,
+					new Key3(new ValueSchema("struct", false, keyFields, "Person3Key"), new Person3Key(i, i)),
+					new Value3(new ValueSchema("struct", false, fields, "Person3"), new Person3(i, i, "p" + i, d, t))));
+
+			count.getAndIncrement();
+		}
+
+		producer.close();
+	}
+
+	private Producer<Key3, Value3> producer3WithDates() {
+		log.debug("producer3WithDates service");
+
+		Properties kafkaProps = new Properties();
+
+		kp.getKafkaProducer().forEach((k, v) -> {
+			log.debug("k: " + k + ", v: " + v);
+			kafkaProps.put(k, v);
+		});
+
+		return new KafkaProducer<>(kafkaProps);
+	}
 
 	private void produce2WithDates() {
 		log.debug("produceWithDates service");
@@ -303,6 +357,7 @@ public class IgniteSourceConnectorService {
 		// produceSchemaless2();
 		// produce1();
 		// produce1();
-		produce2WithDates();
+		// produce2WithDates();
+		produce3WithDates();
 	}
 }

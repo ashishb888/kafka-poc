@@ -17,16 +17,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @JsonInclude(Include.NON_NULL)
-public class Schema2 {
-	private String type;
-	private boolean optional;
-	private String field;
-	private String name;
-
-	public Schema2(String type, boolean optional, String field) {
-		super();
-		this.type = type;
-		this.optional = optional;
-		this.field = field;
-	}
+public class Key3 {
+	private ValueSchema schema;
+	private Person3Key payload;
 }

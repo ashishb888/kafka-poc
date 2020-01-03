@@ -17,16 +17,10 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @JsonInclude(Include.NON_NULL)
-public class Schema2 {
-	private String type;
-	private boolean optional;
-	private String field;
+public class Person3 {
+	private int id;
+	private int cityId;
 	private String name;
-
-	public Schema2(String type, boolean optional, String field) {
-		super();
-		this.type = type;
-		this.optional = optional;
-		this.field = field;
-	}
+	private int aDate;
+	private long aTimestamp;
 }

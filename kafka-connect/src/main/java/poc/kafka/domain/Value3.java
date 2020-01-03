@@ -1,8 +1,5 @@
 package poc.kafka.domain;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.JsonInclude.Include;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,10 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@JsonInclude(Include.NON_NULL)
-public class ValueSchema {
-	private String type;
-	private boolean optional;
-	private Schema2 fields[];
-	private String name;
+public class Value3 {
+	private ValueSchema schema;
+	private Person3 payload;
 }

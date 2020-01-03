@@ -897,3 +897,138 @@ No rows affected (0.316 seconds)
 +--------------------------------+--------------------------------+
 1 row selected (0.032 seconds)
 0: jdbc:ignite:thin://host:10900>
+
+
+----------==----------
+IgniteSourceConnectorService RUN 11
+
+2020-01-03 16:10:58.525 DEBUG 13492 --- [           main] poc.kafka.KafkaApp                       : Running with Spring Boot v2.1.6.RELEASE, Spring v5.1.8.RELEASE
+2020-01-03 16:10:58.526  INFO 13492 --- [           main] poc.kafka.KafkaApp                       : No active profile set, falling back to default profiles: default
+2020-01-03 16:10:58.927  INFO 13492 --- [           main] poc.kafka.KafkaApp                       : Started KafkaApp in 0.702 seconds (JVM running for 1.132)
+2020-01-03 16:10:58.928 DEBUG 13492 --- [           main] poc.kafka.KafkaApp                       : run service
+2020-01-03 16:10:58.928 DEBUG 13492 --- [           main] poc.kafka.service.KafkaService           : main service
+2020-01-03 16:10:58.928 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : main service
+2020-01-03 16:10:58.928 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : timer service
+2020-01-03 16:10:58.929 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : produce3WithDates service
+2020-01-03 16:10:58.930 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : topic: personwithdate5
+2020-01-03 16:10:58.930 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : producer3WithDates service
+2020-01-03 16:10:58.930 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: bootstrap.servers, v: 172.17.5.36:7092
+2020-01-03 16:10:58.930 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: acks, v: all
+2020-01-03 16:10:58.930 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: batch.size, v: 150000
+2020-01-03 16:10:58.930 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: buffer.memory, v: 33554432
+2020-01-03 16:10:58.930 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: client.id, v: 8
+2020-01-03 16:10:58.931 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: retries, v: 1
+2020-01-03 16:10:58.931 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: linger.ms, v: 10
+2020-01-03 16:10:58.931 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: compression.type, v: lz4
+2020-01-03 16:10:58.931 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: key.serializer, v: poc.kafka.serialization.Key3Serializer
+2020-01-03 16:10:58.931 DEBUG 13492 --- [           main] p.k.s.IgniteSourceConnectorService       : k: value.serializer, v: poc.kafka.serialization.Value3Serializer
+2020-01-03 16:10:58.942  INFO 13492 --- [           main] o.a.k.clients.producer.ProducerConfig    : ProducerConfig values: 
+	acks = all
+	batch.size = 150000
+	bootstrap.servers = [172.17.5.36:7092]
+	buffer.memory = 33554432
+	client.dns.lookup = default
+	client.id = 8
+	compression.type = lz4
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = false
+	interceptor.classes = []
+	key.serializer = class poc.kafka.serialization.Key3Serializer
+	linger.ms = 10
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.class = class org.apache.kafka.clients.producer.internals.DefaultPartitioner
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 1
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.mechanism = GSSAPI
+	security.protocol = PLAINTEXT
+	send.buffer.bytes = 131072
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = https
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class poc.kafka.serialization.Value3Serializer
+
+2020-01-03 16:10:59.049  INFO 13492 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2020-01-03 16:10:59.050  INFO 13492 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2020-01-03 16:10:59.050  INFO 13492 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1578048059048
+2020-01-03 16:10:59.160  INFO 13492 --- [work-thread | 8] org.apache.kafka.clients.Metadata        : [Producer clientId=8] Cluster ID: cMdW_kXwRq6Mxrigqjo55g
+2020-01-03 16:10:59.339  INFO 13492 --- [           main] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=8] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2020-01-03 16:11:08.930 DEBUG 13492 --- [pool-1-thread-1] p.k.s.IgniteSourceConnectorService       : count: 10
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --property print.key=true --from-beginning --topic personwithdate5
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":0,"cityId":0}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":0,"cityId":0,"name":"p0","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":1,"cityId":1}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":1,"cityId":1,"name":"p1","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":2,"cityId":2}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":2,"cityId":2,"name":"p2","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":3,"cityId":3}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":3,"cityId":3,"name":"p3","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":4,"cityId":4}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":4,"cityId":4,"name":"p4","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":5,"cityId":5}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":5,"cityId":5,"name":"p5","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":6,"cityId":6}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":6,"cityId":6,"name":"p6","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":7,"cityId":7}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":7,"cityId":7,"name":"p7","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":8,"cityId":8}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":8,"cityId":8,"name":"p8","adate":18264,"atimestamp":1578048059055}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"}],"name":"Person3Key"},"payload":{"id":9,"cityId":9}} {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id"},{"type":"int32","optional":false,"field":"cityId"},{"type":"string","optional":false,"field":"name"},{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person3"},"payload":{"id":9,"cityId":9,"name":"p9","adate":18264,"atimestamp":1578048059055}}
+^CProcessed a total of 10 messages
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/connect-standalone.sh config/gg-connect-standalone.properties config/connect-gg-sink.properties
+
+org.apache.kafka.connect.errors.ConnectException: Tolerance exceeded in error handler
+        at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(RetryWithToleranceOperator.java:178)
+        at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execute(RetryWithToleranceOperator.java:104)
+        at org.apache.kafka.connect.runtime.WorkerSinkTask.convertAndTransformRecord(WorkerSinkTask.java:487)
+        at org.apache.kafka.connect.runtime.WorkerSinkTask.convertMessages(WorkerSinkTask.java:464)
+        at org.apache.kafka.connect.runtime.WorkerSinkTask.poll(WorkerSinkTask.java:320)
+        at org.apache.kafka.connect.runtime.WorkerSinkTask.iteration(WorkerSinkTask.java:224)
+        at org.apache.kafka.connect.runtime.WorkerSinkTask.execute(WorkerSinkTask.java:192)
+        at org.apache.kafka.connect.runtime.WorkerTask.doRun(WorkerTask.java:177)
+        at org.apache.kafka.connect.runtime.WorkerTask.run(WorkerTask.java:227)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+        at java.lang.Thread.run(Thread.java:748)
+Caused by: java.lang.NullPointerException
+        at org.apache.kafka.connect.json.JsonConverter.convertToConnect(JsonConverter.java:701)
+        at org.apache.kafka.connect.json.JsonConverter.access$000(JsonConverter.java:61)
+        at org.apache.kafka.connect.json.JsonConverter$12.convert(JsonConverter.java:181)
+        at org.apache.kafka.connect.json.JsonConverter.convertToConnect(JsonConverter.java:745)
+        at org.apache.kafka.connect.json.JsonConverter.toConnectData(JsonConverter.java:363)
+        at org.apache.kafka.connect.runtime.WorkerSinkTask.lambda$convertAndTransformRecord$1(WorkerSinkTask.java:487)
+        at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndRetry(RetryWithToleranceOperator.java:128)
+        at org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(RetryWithToleranceOperator.java:162)
