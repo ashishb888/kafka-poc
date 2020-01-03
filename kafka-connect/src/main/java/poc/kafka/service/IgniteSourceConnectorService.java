@@ -83,8 +83,8 @@ public class IgniteSourceConnectorService {
 
 		Schema2[] keyFields = { new Schema2("int32", false, "id", "org.apache.kafka.connect.data.Date"),
 				new Schema2("int64", false, "cityId", "org.apache.kafka.connect.data.Timestamp") };
-		Schema2[] fields = { new Schema2("int32", false, "aDate", "org.apache.kafka.connect.data.Date"),
-				new Schema2("int64", false, "aTimestamp", "org.apache.kafka.connect.data.Timestamp") };
+		Schema2[] fields = { new Schema2("int32", false, "id", "org.apache.kafka.connect.data.Date"),
+				new Schema2("int64", false, "cityId", "org.apache.kafka.connect.data.Timestamp") };
 
 		int d = org.apache.kafka.connect.data.Date.fromLogical(
 				SchemaBuilder.int32().name("org.apache.kafka.connect.data.Date").schema(), calendar.getTime());

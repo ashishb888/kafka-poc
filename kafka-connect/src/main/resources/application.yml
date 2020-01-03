@@ -44,7 +44,7 @@ kafka:
     value.serializer: 'poc.kafka.serialization.Value2Serializer'    
     
   metaData:
-    topic: personwithdate3
+    topic: personwithdate4
     partitions: 0
     records: 10
     

@@ -810,3 +810,90 @@ IgniteSourceConnectorService RUN 9
 {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578041748041}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578041748041}}
 {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578041748041}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578041748041}}
 {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578041748041}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"aDate","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"aTimestamp","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578041748041}}
+
+
+----------==----------
+IgniteSourceConnectorService RUN 10
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ #./bin/connect-standalone.sh config/gg-connect-standalone.properties config/connect-gg-sink.properties
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/gg-connect-standalone.properties
+bootstrap.servers=localhost:7092
+key.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=true
+value.converter.schemas.enable=true
+
+#key.converter=org.apache.kafka.connect.converters.ByteArrayConverter
+#key.converter=org.apache.kafka.connect.storage.StringConverter
+#value.converter=org.apache.kafka.connect.converters.StringConverter
+#value.converter=org.apache.kafka.connect.converters.ByteArrayConverter
+
+offset.storage.file.filename=/tmp/connect.offsets
+# Flush much faster than normal, which is useful for testing/debugging
+offset.flush.interval.ms=10000
+
+
+plugin.path=/opt/ngs/ashishb/packages/kafka_2.12-2.3.0/plugins/gridgain-kafka-connect
+rest.port=8083
+
+----------
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ cat config/connect-gg-sink.properties
+name=gridgain-quickstart5
+topics=personwithdate4
+tasks.max=1
+connector.class=org.gridgain.kafka.sink.IgniteSinkConnector
+igniteCfg=/opt/ngs/ashishb/packages/gridgain-enterprise-8.7.6/config/ignite-server-sink.xml
+
+----------
+
+[hdpusr@hdpdev6 kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --property print.key=true --from-beginning --topic personwithdate4
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+{"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2Key"},"payload":{"id":18264,"cityId":1578042320456}}    {"schema":{"type":"struct","optional":false,"fields":[{"type":"int32","optional":false,"field":"id","name":"org.apache.kafka.connect.data.Date"},{"type":"int64","optional":false,"field":"cityId","name":"org.apache.kafka.connect.data.Timestamp"}],"name":"Person2"},"payload":{"id":18264,"cityId":1578042320456}}
+
+
+0: jdbc:ignite:thin://hdpdev6:10900> CREATE TABLE IF NOT EXISTS Person (id other, cityId timestamp, PRIMARY KEY (id)) WITH "template=partitioned,backups=1,affinity_key=id, key_type=Person2Key, value_type=Person2, cache_name=personwithdate4";
+No rows affected (0.316 seconds)
+0: jdbc:ignite:thin://hdpdev6:10900> !tables
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+|           TABLE_CAT            |          TABLE_SCHEM           |           TABLE_NAME           |           TABLE_TYPE           |            REMARKS             |            TYPE_CAT          |
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+|                                | PUBLIC                         | PERSON                         | TABLE                          |                                |                              |
++--------------------------------+--------------------------------+--------------------------------+--------------------------------+--------------------------------+------------------------------+
+0: jdbc:ignite:thin://hdpdev6:10900> select count(*) from PERSON;
++--------------------------------+
+|            COUNT(*)            |
++--------------------------------+
+| 0                              |
++--------------------------------+
+1 row selected (0.071 seconds)
+0: jdbc:ignite:thin://hdpdev6:10900> select count(*) from PERSON;
++--------------------------------+
+|            COUNT(*)            |
++--------------------------------+
+| 1                              |
++--------------------------------+
+1 row selected (0.007 seconds)
+0: jdbc:ignite:thin://hdpdev6:10900> select count(*) from PERSON;
++--------------------------------+
+|            COUNT(*)            |
++--------------------------------+
+| 1                              |
++--------------------------------+
+1 row selected (0.007 seconds)
+0: jdbc:ignite:thin://hdpdev6:10900> select * from PERSON;
++--------------------------------+--------------------------------+
+|               ID               |             CITYID             |
++--------------------------------+--------------------------------+
+| Fri Jan 03 05:30:00 IST 2020   | 2020-01-03 14:35:20.456        |
++--------------------------------+--------------------------------+
+1 row selected (0.032 seconds)
+0: jdbc:ignite:thin://hdpdev6:10900>
