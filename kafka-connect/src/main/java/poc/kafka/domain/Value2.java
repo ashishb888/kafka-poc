@@ -13,16 +13,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Schema2 {
-	private String type;
-	private boolean optional;
-	private String field;
-	private String name;
-
-	public Schema2(String type, boolean optional, String field) {
-		super();
-		this.type = type;
-		this.optional = optional;
-		this.field = field;
-	}
+public class Value2 {
+	private ValueSchema schema;
+	private Person2 payload;
 }

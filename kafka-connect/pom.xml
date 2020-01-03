@@ -31,6 +31,14 @@
 			<artifactId>lombok</artifactId>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.apache.kafka/connect-api -->
+		<dependency>
+			<groupId>org.apache.kafka</groupId>
+			<artifactId>connect-api</artifactId>
+			<version>${kafka.version}</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>org.apache.kafka</groupId>
 			<artifactId>kafka-clients</artifactId>

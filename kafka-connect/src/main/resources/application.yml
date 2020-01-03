@@ -38,11 +38,13 @@ kafka:
     #value.serializer: 'poc.kafka.serialization.ValueSchemalessSerializer'
     #value.serializer: 'poc.kafka.serialization.PersonSerializer'
     #value.serializer: 'poc.kafka.serialization.PersonBinarySerializer'
-    key.serializer: 'poc.kafka.serialization.Key1Serializer'
-    value.serializer: 'poc.kafka.serialization.Value1Serializer'
+    #key.serializer: 'poc.kafka.serialization.Key1Serializer'
+    #value.serializer: 'poc.kafka.serialization.Value1Serializer'
+    key.serializer: 'poc.kafka.serialization.Key2Serializer'
+    value.serializer: 'poc.kafka.serialization.Value2Serializer'    
     
   metaData:
-    topic: person-test
+    topic: personwithdate3
     partitions: 0
     records: 10
     

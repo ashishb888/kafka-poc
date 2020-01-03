@@ -13,16 +13,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-public class Schema2 {
-	private String type;
-	private boolean optional;
-	private String field;
-	private String name;
-
-	public Schema2(String type, boolean optional, String field) {
-		super();
-		this.type = type;
-		this.optional = optional;
-		this.field = field;
-	}
+public class Person2 {
+	private int id;
+	private long cityId;
+//	private String name;
+//	private int aDate;
+//	private long aTimestamp;
 }
