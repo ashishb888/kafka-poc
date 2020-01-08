@@ -1,0 +1,8 @@
+spring:
+ application:
+  name: kafka-connect-spooldir
+
+logging:
+  level:
+    root: info
+    poc.kafka: debug  file: /var/tmp/apps/kafka-connect-spooldir/kafka-connect-spooldir
