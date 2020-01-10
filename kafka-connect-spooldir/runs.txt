@@ -1,0 +1,162 @@
+RUN 1
+
+[user@host kafka_2.12-2.3.0]$ head ../csv-spooldir-source.csv
+id,first_name,last_name,email,gender,ip_address,last_login,account_balance,country,favorite_color
+1,Frayda,Kunat,fkunat0@wsj.com,Female,40.250.180.131,2015-10-31T13:31:50Z,2128.53,CN,#cca4df
+2,Wheeler,Bernon,wbernon1@flickr.com,Male,9.13.238.133,2017-09-20T09:01:09Z,804.96,HR,#1412d2
+3,Berrie,Murrish,bmurrish2@meetup.com,Female,72.103.166.214,2018-10-15T07:00:30Z,602.95,TH,#1b0a7d
+4,Gerard,Ruprecht,gruprecht3@about.me,Male,178.61.92.238,2018-08-13T00:09:46Z,22294.78,CN,#9ef43d
+5,Dagmar,Cosgreave,dcosgreave4@last.fm,Female,142.182.89.2,2014-06-18T11:45:46Z,19905.06,SE,#9b18d6
+6,Ellissa,D'Arrigo,edarrigo5@ucla.edu,Female,93.200.26.181,2015-06-21T00:12:45Z,24824.76,CZ,#8c4576
+7,Ashli,Brightie,abrightie6@google.com,Female,236.9.59.231,2017-07-02T08:42:28Z,10781.88,ID,#da84d2
+8,Niel,Stivens,nstivens7@naver.com,Male,43.217.205.55,2019-03-15T07:30:59Z,20884.22,TH,#d86eac
+9,Carina,Kenson,ckenson8@sciencedaily.com,Female,100.37.48.8,2017-03-12T09:15:38Z,21648.55,AF,#9fb5d9
+[user@host kafka_2.12-2.3.0]$
+
+[user@host kafka_2.12-2.3.0]$ cat config/spooldir-connect-standalone.properties
+bootstrap.servers=localhost:7092
+key.converter=org.apache.kafka.connect.json.JsonConverter
+value.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=true
+value.converter.schemas.enable=true
+offset.storage.file.filename=/tmp/connect.offsets
+offset.flush.interval.ms=10000
+plugin.path=/opt/ngs/ashishb/packages/kafka_2.12-2.3.0/plugins/jcustenborder-kafka-connect-spooldir-1.0.41
+rest.port=8083
+[user@host kafka_2.12-2.3.0]$ cat config/spooldir-source.properties
+name=CsvSchemaSpoolDir1
+tasks.max=1
+connector.class=com.github.jcustenborder.kafka.connect.spooldir.SpoolDirCsvSourceConnector
+input.path=/var/tmp/ashishb/connect/spooldir/data
+input.file.pattern=csv-spooldir-source.csv
+error.path=/var/tmp/ashishb/connect/spooldir/error
+finished.path=/var/tmp/ashishb/connect/spooldir/finished
+halt.on.error=false
+topic=spooldir-csv
+csv.first.row.as.header=true
+key.schema={\n  \"name\" : \"com.example.users.UserKey\",\n  \"type\" : \"STRUCT\",\n  \"isOptional\" : false,\n  \"fieldSchemas\" : {\n    \"id\" : {\n      \"type\" : \"INT64\",\n      \"isOptional\" : false\n    }\n  }\n}
+value.schema={\n  \"name\" : \"com.example.users.User\",\n  \"type\" : \"STRUCT\",\n  \"isOptional\" : false,\n  \"fieldSchemas\" : {\n    \"id\" : {\n      \"type\" : \"INT64\",\n      \"isOptional\" : false\n    },\n    \"first_name\" : {\n      \"type\" : \"STRING\",\n      \"isOptional\" : true\n    },\n    \"last_name\" : {\n      \"type\" : \"STRING\",\n      \"isOptional\" : true\n    },\n    \"email\" : {\n      \"type\" : \"STRING\",\n      \"isOptional\" : true\n    },\n    \"gender\" : {\n      \"type\" : \"STRING\",\n      \"isOptional\" : true\n    },\n    \"ip_address\" : {\n      \"type\" : \"STRING\",\n      \"isOptional\" : true\n    },\n    \"last_login\" : {\n      \"type\" : \"STRING\",\n      \"isOptional\" : true\n    },\n    \"account_balance\" : {\n      \"name\" : \"org.apache.kafka.connect.data.Decimal\",\n      \"type\" : \"BYTES\",\n      \"version\" : 1,\n      \"parameters\" : {\n        \"scale\" : \"2\"\n      },\n      \"isOptional\" : true\n    },\n    \"country\" : {\n      \"type\" : \"STRING\",\n      \"isOptional\" : true\n    },\n    \"favorite_color\" : {\n      \"type\" : \"STRING\",\n      \"isOptional\" : true\n    }\n  }\n}
+
+[user@host kafka_2.12-2.3.0]$
+
+
+[user@host kafka_2.12-2.3.0]$ ./bin/connect-standalone.sh config/spooldir-connect-standalone.properties config/spooldir-source.properties
+[2020-01-10 11:39:42,300] INFO Checking if directory input.path '/var/tmp/ashishb/connect/spooldir/data' exists. (com.github.jcustenborder.kafka.connect.spooldir.AbstractSourceTask:51)
+[2020-01-10 11:39:42,300] INFO Checking to ensure input.path '/var/tmp/ashishb/connect/spooldir/data' is writable  (com.github.jcustenborder.kafka.connect.spooldir.AbstractSourceTask:71)
+[2020-01-10 11:39:42,301] INFO Checking if directory error.path '/var/tmp/ashishb/connect/spooldir/error' exists. (com.github.jcustenborder.kafka.connect.spooldir.AbstractSourceTask:51)
+[2020-01-10 11:39:42,301] INFO Checking to ensure error.path '/var/tmp/ashishb/connect/spooldir/error' is writable  (com.github.jcustenborder.kafka.connect.spooldir.AbstractSourceTask:71)
+[2020-01-10 11:39:42,301] INFO Checking if directory finished.path '/var/tmp/ashishb/connect/spooldir/finished' exists. (com.github.jcustenborder.kafka.connect.spooldir.AbstractSourceTask:51)
+[2020-01-10 11:39:42,302] INFO Checking to ensure finished.path '/var/tmp/ashishb/connect/spooldir/finished' is writable  (com.github.jcustenborder.kafka.connect.spooldir.AbstractSourceTask:71)
+[2020-01-10 11:39:42,333] INFO WorkerSourceTask{id=CsvSchemaSpoolDir1-0} Source task finished initialization and start (org.apache.kafka.connect.runtime.WorkerSourceTask:200)
+[2020-01-10 11:39:42,333] INFO Searching for file(s) in /var/tmp/ashishb/connect/spooldir/data (com.github.jcustenborder.kafka.connect.spooldir.InputFileDequeue:51)
+[2020-01-10 11:39:42,335] INFO Found 1 file(s) to process (com.github.jcustenborder.kafka.connect.spooldir.InputFileDequeue:86)
+[2020-01-10 11:39:42,340] INFO Creating processing flag /var/tmp/ashishb/connect/spooldir/data/csv-spooldir-source.csv.PROCESSING (com.github.jcustenborder.kafka.connect.spooldir.InputFile:76)
+[2020-01-10 11:39:42,342] INFO Opening /var/tmp/ashishb/connect/spooldir/data/csv-spooldir-source.csv (com.github.jcustenborder.kafka.connect.spooldir.AbstractSourceTask:206)
+[2020-01-10 11:39:42,368] INFO configure() - field names from header row. fields = id, first_name, last_name, email, gender, ip_address, last_login, account_balance, country, favorite_color (com.github.jcustenborder.kafka.connect.spooldir.SpoolDirCsvSourceTask:64)
+[2020-01-10 11:39:42,383] INFO [Producer clientId=connector-producer-CsvSchemaSpoolDir1-0] Cluster ID: cMdW_kXwRq6Mxrigqjo55g (org.apache.kafka.clients.Metadata:266)
+[2020-01-10 11:39:42,436] WARN [Producer clientId=connector-producer-CsvSchemaSpoolDir1-0] Error while fetching metadata with correlation id 3 : {spooldir-csv=LEADER_NOT_AVAILABLE} (org.apache.kafka.clients.NetworkClient:1051)
+[2020-01-10 11:39:42,679] INFO Finished processing 1000 record(s) in 0 second(s). (com.github.jcustenborder.kafka.connect.spooldir.AbstractSourceTask:168)
+[2020-01-10 11:39:42,679] INFO Closing /var/tmp/ashishb/connect/spooldir/data/csv-spooldir-source.csv (com.github.jcustenborder.kafka.connect.spooldir.InputFile:90)
+
+
+[user@host kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic spooldir-csv  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
+1000
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --property print.key=true --from-beginning --topic spooldir-csv
+
+{
+    "schema": {
+        "type": "struct",
+        "fields": [
+            {
+                "type": "int64",
+                "optional": false,
+                "field": "id"
+            }
+        ],
+        "optional": false,
+        "name": "com.example.users.UserKey"
+    },
+    "payload": {
+        "id": 1
+    }
+}   
+
+{
+    "schema": {
+        "type": "struct",
+        "fields": [
+            {
+                "type": "int64",
+                "optional": false,
+                "field": "id"
+            },
+            {
+                "type": "string",
+                "optional": true,
+                "field": "first_name"
+            },
+            {
+                "type": "string",
+                "optional": true,
+                "field": "last_name"
+            },
+            {
+                "type": "string",
+                "optional": true,
+                "field": "email"
+            },
+            {
+                "type": "string",
+                "optional": true,
+                "field": "gender"
+            },
+            {
+                "type": "string",
+                "optional": true,
+                "field": "ip_address"
+            },
+            {
+                "type": "string",
+                "optional": true,
+                "field": "last_login"
+            },
+            {
+                "type": "bytes",
+                "optional": true,
+                "name": "org.apache.kafka.connect.data.Decimal",
+                "version": 1,
+                "parameters": {
+                    "scale": "2"
+                },
+                "field": "account_balance"
+            },
+            {
+                "type": "string",
+                "optional": true,
+                "field": "country"
+            },
+            {
+                "type": "string",
+                "optional": true,
+                "field": "favorite_color"
+            }
+        ],
+        "optional": false,
+        "name": "com.example.users.User"
+    },
+    "payload": {
+        "id": 1,
+        "first_name": "Frayda",
+        "last_name": "Kunat",
+        "email": "fkunat0@wsj.com",
+        "gender": "Female",
+        "ip_address": "40.250.180.131",
+        "last_login": "2015-10-31T13:31:50Z",
+        "account_balance": "Az91",
+        "country": "CN",
+        "favorite_color": "#cca4df"
+    }
+}
+
+----------==----------
