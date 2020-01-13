@@ -3,10 +3,13 @@ spring:
   name: kafka-streams-joins
 
 logging:
-  level:    root: info  file: /var/log/apps/kafka-streams-joins/kafka-streams-joins
+  level:    root: info
+    poc.kafka: debug  file: /var/log/apps/kafka-streams-joins/kafka-streams-joins
 
 kafka:
   kafkaStreams:
     bootstrap.servers: 'kafka1:8092,kafka2:8092,kafka3:8092'
-
+    application.id: 'kafka-streams-joins'
+    default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    default.value.serde: org.apache.kafka.common.serialization.Serdes$DoubleSerde
 
