@@ -50,3 +50,19 @@ Start application only with customer producer
 [user@host kafka_2.12-2.3.0]$
 
 ----------=----------
+RUN 4: 1 instance (2 producers & 1 stream application)
+
+2020-01-14 18:28:09.050  INFO 5636 --- [-StreamThread-1] org.apache.kafka.streams.KafkaStreams    : stream-client [kafka-streams-joins2-51d5a8eb-b808-4926-948a-8131e8787118] State transition from REBALANCING to RUNNING
+2020-01-14 18:28:16.617 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 1, v: Customer(customerId=1, orderId=1, customerName=c1, city=Nerul, country=India)
+2020-01-14 18:28:36.796 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 3, v: Customer(customerId=3, orderId=3, customerName=c3, city=Nerul, country=USA)
+2020-01-14 18:28:46.619 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 4, v: Customer(customerId=4, orderId=4, customerName=c4, city=Sanpada, country=UK)
+2020-01-14 18:28:46.722 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 2, v: Customer(customerId=2, orderId=2, customerName=c2, city=Nerul, country=Japan)
+2020-01-14 18:28:56.724 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 2, v: Customer(customerId=2, orderId=2, customerName=c2, city=Nerul, country=Japan)
+2020-01-14 18:29:06.723 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 4, v: Customer(customerId=4, orderId=4, customerName=c4, city=Sanpada, country=UK)
+2020-01-14 18:29:16.724 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 5, v: Customer(customerId=5, orderId=5, customerName=c5, city=Kamothe, country=UK)
+2020-01-14 18:29:26.723 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 3, v: Customer(customerId=3, orderId=3, customerName=c3, city=Nerul, country=USA)
+2020-01-14 18:29:36.723 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 7, v: Customer(customerId=7, orderId=7, customerName=c7, city=Nerul, country=Japan)
+2020-01-14 18:29:46.606  INFO 5636 --- [stomer-producer] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=8] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2020-01-14 18:29:56.723 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 7, v: Customer(customerId=7, orderId=7, customerName=c7, city=Nerul, country=Japan)
+2020-01-14 18:30:06.723 DEBUG 5636 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 9, v: Customer(customerId=9, orderId=9, customerName=c9, city=Nerul, country=Japan)
+2020-01-14 18:35:00.819  INFO 5636 --- [on(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.

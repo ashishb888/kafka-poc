@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
+import java.util.Random;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -35,11 +36,13 @@ public class ProducerService {
 			Producer<Long, Order> producer = orderProducer();
 			long records = Long.valueOf(kp.getMetaData().get("records"));
 			// String topic = kp.getMetaData().get("topic");
-			String topic = "order3";
+			String topic = "order4";
 
 			for (long i = 0; i < records; i++) {
+				long customerId = new Random().longs(0, 10).boxed().findFirst().get();
+
 				producer.send(new ProducerRecord<Long, Order>(topic, i,
-						new Order(i, i, i, new Date(System.currentTimeMillis()), i)));
+						new Order(i, customerId, i, new Date(System.currentTimeMillis()), i)));
 
 				Thread.sleep(10000);
 			}
@@ -68,9 +71,10 @@ public class ProducerService {
 
 		try {
 			Producer<Long, Customer> producer = customerProducer();
-			long records = Long.valueOf(kp.getMetaData().get("records"));
+			// long records = Long.valueOf(kp.getMetaData().get("records"));
 			// String topic = kp.getMetaData().get("topic");
-			String topic = "customer3";
+			long records = 10L;
+			String topic = "customer4";
 			List<String> cities = Arrays.asList("Kamothe", "Kharghar", "Vashi", "Sanpada", "Nerul");
 			List<String> countries = Arrays.asList("India", "USA", "UK", "Japan");
 
@@ -106,7 +110,12 @@ public class ProducerService {
 	public void main() {
 		log.debug("main service");
 
-		produceCustomers();
-		// produceOrders();
+		new Thread(() -> {
+			produceCustomers();
+		}, "customer-producer").start();
+
+		new Thread(() -> {
+			produceOrders();
+		}, "order-producer").start();
 	}
 }

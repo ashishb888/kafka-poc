@@ -41,8 +41,8 @@ public class InnerJoinService {
 
 		final StreamsBuilder builder = new StreamsBuilder();
 		// String topic = kp.getMetaData().get("topic");
-		final String customerTopic = "customer3";
-		final String orderTopic = "order3";
+		final String customerTopic = "customer4";
+		final String orderTopic = "order4";
 
 		Serde<Customer> customerSerde = Serdes.serdeFrom(new CustomerSerializer(), new CustomerDeserializer());
 		Serde<Order> orderSerde = Serdes.serdeFrom(new OrderSerializer(), new OrderDeserializer());
