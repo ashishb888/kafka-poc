@@ -14,10 +14,13 @@ import lombok.extern.slf4j.Slf4j;
 public class KafkaStreamsService {
 	@Autowired
 	private InnerJoinService ijs;
+	@Autowired
+	private ProducerService ps;
 
 	public void main() {
 		log.debug("main service");
 
-		ijs.main();
+		// ijs.main();
+		ps.main();
 	}
 }
