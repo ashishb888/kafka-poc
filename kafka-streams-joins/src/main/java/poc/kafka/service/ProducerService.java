@@ -1,5 +1,6 @@
 package poc.kafka.service;
 
+import java.sql.Date;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import poc.kafka.domain.Customer;
+import poc.kafka.domain.Order;
 import poc.kafka.properties.KafkaProperties;
 
 /**
@@ -25,6 +27,36 @@ public class ProducerService {
 
 	@Autowired
 	private KafkaProperties kp;
+
+	private void produceOrders() {
+		log.debug("produceOrders service");
+
+		try {
+			Producer<Long, Order> producer = orderProducer();
+			long records = Long.valueOf(kp.getMetaData().get("records"));
+			String topic = kp.getMetaData().get("topic");
+
+			for (long i = 0; i < records; i++) {
+				producer.send(new ProducerRecord<Long, Order>(topic, i,
+						new Order(i, i, i, new Date(System.currentTimeMillis()), i)));
+			}
+
+			producer.close();
+		} catch (Exception e) {
+			log.error(e.getMessage(), e);
+		}
+	}
+
+	private Producer<Long, Order> orderProducer() {
+		log.debug("orderProducer service");
+
+		Properties configs = new Properties();
+		kp.getKafkaProducer().forEach((k, v) -> {
+			configs.put(k, v);
+		});
+
+		return new KafkaProducer<>(configs);
+	}
 
 	private void produceCustomers() {
 		log.debug("produceCustomers service");
@@ -65,6 +97,7 @@ public class ProducerService {
 	public void main() {
 		log.debug("main service");
 
-		produceCustomers();
+		// produceCustomers();
+		produceOrders();
 	}
 }

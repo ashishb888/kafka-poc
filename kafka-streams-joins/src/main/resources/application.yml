@@ -23,8 +23,8 @@ kafka:
     linger.ms: 10
     compression.type: 'lz4'
     key.serializer: 'org.apache.kafka.common.serialization.LongSerializer'
-    value.serializer: 'poc.kafka.domain.serialization.CustomerSerializer'
+    value.serializer: 'poc.kafka.domain.serialization.OrderSerializer'
   
   metaData:
-    topic: customer2 #Topic to send data
+    topic: order2 #Topic to send data
     records: 100

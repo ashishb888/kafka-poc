@@ -4,3 +4,7 @@ ProducerService: RUN 1
 100
 
 ----------=----------
+ProducerService: RUN 2
+
+[user@host kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic order2  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
+100
