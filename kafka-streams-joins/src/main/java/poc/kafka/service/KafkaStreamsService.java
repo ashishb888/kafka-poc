@@ -16,11 +16,14 @@ public class KafkaStreamsService {
 	private InnerJoinService ijs;
 	@Autowired
 	private ProducerService ps;
+	@Autowired
+	private LeftJoinService ljs;
 
 	public void main() {
 		log.debug("main service");
 
 		ps.main();
-		ijs.main();
+		// ijs.main();
+		ljs.main();
 	}
 }

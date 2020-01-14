@@ -36,7 +36,7 @@ public class ProducerService {
 			Producer<Long, Order> producer = orderProducer();
 			long records = Long.valueOf(kp.getMetaData().get("records"));
 			// String topic = kp.getMetaData().get("topic");
-			String topic = "order4";
+			String topic = "order5";
 
 			for (long i = 0; i < records; i++) {
 				long customerId = new Random().longs(0, 10).boxed().findFirst().get();
@@ -74,7 +74,7 @@ public class ProducerService {
 			// long records = Long.valueOf(kp.getMetaData().get("records"));
 			// String topic = kp.getMetaData().get("topic");
 			long records = 10L;
-			String topic = "customer4";
+			String topic = "customer5";
 			List<String> cities = Arrays.asList("Kamothe", "Kharghar", "Vashi", "Sanpada", "Nerul");
 			List<String> countries = Arrays.asList("India", "USA", "UK", "Japan");
 
