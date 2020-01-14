@@ -8,3 +8,45 @@ ProducerService: RUN 2
 
 [user@host kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic order2  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
 100
+
+----------=----------
+RUN 3: 3 instances (2 producers & 1 stream application)
+
+Create topics
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --bootstrap-server localhost:7092 --create --topic customer3 --partitions 1 --replication-factor 1
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --bootstrap-server localhost:7092 --create --topic customer3 --partitions 1 --replication-factor 1
+
+----------
+
+Start application only with streams 
+
+2020-01-14 17:42:16.986  INFO 12660 --- [-StreamThread-1] o.a.k.c.c.internals.SubscriptionState    : [Consumer clientId=kafka-streams-joins2-167f1f03-53ff-4623-87f7-18364e286917-StreamThread-1-consumer, groupId=kafka-streams-joins2] Resetting offset for partition order3-0 to offset 0.
+2020-01-14 17:42:39.471 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 0, v: Customer(customerId=0, orderId=0, customerName=c0, city=Vashi, country=India)
+2020-01-14 17:42:49.466 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 1, v: Customer(customerId=1, orderId=1, customerName=c1, city=Sanpada, country=India)
+2020-01-14 17:42:59.466 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 2, v: Customer(customerId=2, orderId=2, customerName=c2, city=Kharghar, country=UK)
+2020-01-14 17:43:09.467 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 3, v: Customer(customerId=3, orderId=3, customerName=c3, city=Kamothe, country=Japan)
+2020-01-14 17:43:19.469 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 4, v: Customer(customerId=4, orderId=4, customerName=c4, city=Kharghar, country=UK)
+2020-01-14 17:43:29.469 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 5, v: Customer(customerId=5, orderId=5, customerName=c5, city=Kharghar, country=India)
+2020-01-14 17:43:39.469 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 6, v: Customer(customerId=6, orderId=6, customerName=c6, city=Kamothe, country=USA)
+2020-01-14 17:43:49.471 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 7, v: Customer(customerId=7, orderId=7, customerName=c7, city=Kharghar, country=UK)
+2020-01-14 17:43:59.472 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 8, v: Customer(customerId=8, orderId=8, customerName=c8, city=Kharghar, country=UK)
+2020-01-14 17:44:09.472 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 9, v: Customer(customerId=9, orderId=9, customerName=c9, city=Kharghar, country=Japan)
+2020-01-14 17:44:19.239  INFO 12660 --- [on(3)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+2020-01-14 17:44:19.471 DEBUG 12660 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 10, v: Customer(customerId=10, orderId=10, customerName=c10, city=Sanpada, country=India)
+
+----------
+
+Start application only with order producer 
+
+[user@host kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic order3  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
+12
+
+----------
+Start application only with customer producer
+
+[user@host kafka_2.12-2.3.0]$ $KAFKA_HOME/bin/kafka-run-class.sh kafka.tools.GetOffsetShell --broker-list  localhost:7092  --topic customer3  --time -1 --offsets 1 | awk -F ":" '{sum += $3} END {print sum'}
+19
+[user@host kafka_2.12-2.3.0]$
+
+----------=----------

@@ -34,11 +34,14 @@ public class ProducerService {
 		try {
 			Producer<Long, Order> producer = orderProducer();
 			long records = Long.valueOf(kp.getMetaData().get("records"));
-			String topic = kp.getMetaData().get("topic");
+			// String topic = kp.getMetaData().get("topic");
+			String topic = "order3";
 
 			for (long i = 0; i < records; i++) {
 				producer.send(new ProducerRecord<Long, Order>(topic, i,
 						new Order(i, i, i, new Date(System.currentTimeMillis()), i)));
+
+				Thread.sleep(10000);
 			}
 
 			producer.close();
@@ -55,6 +58,8 @@ public class ProducerService {
 			configs.put(k, v);
 		});
 
+		configs.put("value.serializer", "poc.kafka.domain.serialization.OrderSerializer");
+
 		return new KafkaProducer<>(configs);
 	}
 
@@ -64,7 +69,8 @@ public class ProducerService {
 		try {
 			Producer<Long, Customer> producer = customerProducer();
 			long records = Long.valueOf(kp.getMetaData().get("records"));
-			String topic = kp.getMetaData().get("topic");
+			// String topic = kp.getMetaData().get("topic");
+			String topic = "customer3";
 			List<String> cities = Arrays.asList("Kamothe", "Kharghar", "Vashi", "Sanpada", "Nerul");
 			List<String> countries = Arrays.asList("India", "USA", "UK", "Japan");
 
@@ -75,6 +81,7 @@ public class ProducerService {
 				producer.send(new ProducerRecord<Long, Customer>(topic, i,
 						new Customer(i, i, "c" + i, cities.get(0), countries.get(0))));
 
+				Thread.sleep(10000);
 			}
 
 			producer.close();
@@ -91,13 +98,15 @@ public class ProducerService {
 			configs.put(k, v);
 		});
 
+		configs.put("value.serializer", "poc.kafka.domain.serialization.CustomerSerializer");
+
 		return new KafkaProducer<>(configs);
 	}
 
 	public void main() {
 		log.debug("main service");
 
-		// produceCustomers();
-		produceOrders();
+		produceCustomers();
+		// produceOrders();
 	}
 }

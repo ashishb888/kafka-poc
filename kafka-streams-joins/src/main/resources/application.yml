@@ -8,8 +8,8 @@ logging:
 
 kafka:
   kafkaStreams:
-    bootstrap.servers: 'kafka1:8092,kafka2:8092,kafka3:8092'
-    application.id: 'kafka-streams-joins'
+    bootstrap.servers: '172.17.5.36:7092'
+    application.id: 'kafka-streams-joins2'
     default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
     default.value.serde: org.apache.kafka.common.serialization.Serdes$DoubleSerde
 
@@ -23,8 +23,9 @@ kafka:
     linger.ms: 10
     compression.type: 'lz4'
     key.serializer: 'org.apache.kafka.common.serialization.LongSerializer'
-    value.serializer: 'poc.kafka.domain.serialization.OrderSerializer'
-  
+    #value.serializer: 'poc.kafka.domain.serialization.OrderSerializer'
+    value.serializer: 'poc.kafka.domain.serialization.CustomerSerializer'
+    
   metaData:
     topic: order2 #Topic to send data
     records: 100
