@@ -124,6 +124,7 @@ public class ProducerService {
 
 			try {
 				orderLatch.await();
+				Thread.sleep(5000);
 			} catch (InterruptedException e) {
 				log.error(e.getMessage(), e);
 			}

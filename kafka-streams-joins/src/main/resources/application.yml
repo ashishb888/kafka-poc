@@ -18,7 +18,7 @@ kafka:
     acks: 'all'
     batch.size: 150000
     buffer.memory: 33554432
-    client.id: 8
+    #client.id: 8
     retries: 1
     linger.ms: 10
     compression.type: 'lz4'

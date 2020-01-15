@@ -55,7 +55,7 @@ public class LeftJoinService {
 				.selectKey((k, v) -> v.getCustomerId());
 
 		KStream<Long, CustomerOrder> joinedStream = orderStream.leftJoin(customerStream,
-				(order, customer) -> new CustomerOrder(customer, order), JoinWindows.of(Duration.ofSeconds(60)),
+				(order, customer) -> new CustomerOrder(customer, order), JoinWindows.of(Duration.ofSeconds(120)),
 				Joined.with(longSerde, orderSerde, customerSerde));
 
 		joinedStream.peek((k, v) -> {
