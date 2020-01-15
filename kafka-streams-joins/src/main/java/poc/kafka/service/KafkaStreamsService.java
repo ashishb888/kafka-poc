@@ -23,7 +23,7 @@ public class KafkaStreamsService {
 		log.debug("main service");
 
 		ps.main();
-		// ijs.main();
-		ljs.main();
+		ijs.main();
+		// ljs.main();
 	}
 }

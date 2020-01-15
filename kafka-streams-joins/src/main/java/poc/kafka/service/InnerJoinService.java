@@ -18,12 +18,14 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import poc.kafka.domain.Customer;
+import poc.kafka.domain.CustomerOrder;
 import poc.kafka.domain.Order;
 import poc.kafka.domain.serialization.CustomerDeserializer;
 import poc.kafka.domain.serialization.CustomerSerializer;
 import poc.kafka.domain.serialization.OrderDeserializer;
 import poc.kafka.domain.serialization.OrderSerializer;
 import poc.kafka.properties.KafkaProperties;
+import poc.kafka.service.constants.Constants;
 
 /**
  * @author ashishb888
@@ -41,8 +43,8 @@ public class InnerJoinService {
 
 		final StreamsBuilder builder = new StreamsBuilder();
 		// String topic = kp.getMetaData().get("topic");
-		final String customerTopic = "customer4";
-		final String orderTopic = "order4";
+		final String customerTopic = Constants.CUSTOMER_TOPIC;
+		final String orderTopic = Constants.ORDER_TOPIC;
 
 		Serde<Customer> customerSerde = Serdes.serdeFrom(new CustomerSerializer(), new CustomerDeserializer());
 		Serde<Order> orderSerde = Serdes.serdeFrom(new OrderSerializer(), new OrderDeserializer());
@@ -52,8 +54,9 @@ public class InnerJoinService {
 		KStream<Long, Order> orderStream = builder.stream(orderTopic, Consumed.with(longSerde, orderSerde))
 				.selectKey((k, v) -> v.getCustomerId());
 
-		KStream<Long, Customer> joinedStream = customerStream.join(orderStream, (customer, order) -> customer,
-				JoinWindows.of(Duration.ofSeconds(60)), Joined.with(longSerde, customerSerde, orderSerde));
+		KStream<Long, CustomerOrder> joinedStream = orderStream.join(customerStream,
+				(order, customer) -> new CustomerOrder(customer, order), JoinWindows.of(Duration.ofSeconds(120)),
+				Joined.with(longSerde, orderSerde, customerSerde));
 
 		joinedStream.peek((k, v) -> {
 			log.debug("k: " + k + ", v: " + v);
