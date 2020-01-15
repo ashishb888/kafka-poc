@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Properties;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -17,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import poc.kafka.domain.Customer;
 import poc.kafka.domain.Order;
 import poc.kafka.properties.KafkaProperties;
+import poc.kafka.service.constants.Constants;
 
 /**
  * @author ashishb888
@@ -28,6 +30,7 @@ public class ProducerService {
 
 	@Autowired
 	private KafkaProperties kp;
+	private CountDownLatch orderLatch = new CountDownLatch(1);
 
 	private void produceOrders() {
 		log.debug("produceOrders service");
@@ -36,7 +39,7 @@ public class ProducerService {
 			Producer<Long, Order> producer = orderProducer();
 			long records = Long.valueOf(kp.getMetaData().get("records"));
 			// String topic = kp.getMetaData().get("topic");
-			String topic = "order5";
+			String topic = Constants.ORDER_TOPIC;
 
 			for (long i = 0; i < records; i++) {
 				long customerId = new Random().longs(0, 10).boxed().findFirst().get();
@@ -74,7 +77,7 @@ public class ProducerService {
 			// long records = Long.valueOf(kp.getMetaData().get("records"));
 			// String topic = kp.getMetaData().get("topic");
 			long records = 10L;
-			String topic = "customer5";
+			String topic = Constants.CUSTOMER_TOPIC;
 			List<String> cities = Arrays.asList("Kamothe", "Kharghar", "Vashi", "Sanpada", "Nerul");
 			List<String> countries = Arrays.asList("India", "USA", "UK", "Japan");
 
@@ -85,10 +88,13 @@ public class ProducerService {
 				producer.send(new ProducerRecord<Long, Customer>(topic, i,
 						new Customer(i, i, "c" + i, cities.get(0), countries.get(0))));
 
-				Thread.sleep(10000);
+				// Thread.sleep(10000);
 			}
 
 			producer.close();
+
+			orderLatch.countDown();
+
 		} catch (Exception e) {
 			log.error(e.getMessage(), e);
 		}
@@ -115,6 +121,13 @@ public class ProducerService {
 		}, "customer-producer").start();
 
 		new Thread(() -> {
+
+			try {
+				orderLatch.await();
+			} catch (InterruptedException e) {
+				log.error(e.getMessage(), e);
+			}
+
 			produceOrders();
 		}, "order-producer").start();
 	}

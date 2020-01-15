@@ -25,6 +25,7 @@ import poc.kafka.domain.serialization.CustomerSerializer;
 import poc.kafka.domain.serialization.OrderDeserializer;
 import poc.kafka.domain.serialization.OrderSerializer;
 import poc.kafka.properties.KafkaProperties;
+import poc.kafka.service.constants.Constants;
 
 /**
  * @author ashishb888
@@ -42,8 +43,8 @@ public class LeftJoinService {
 
 		final StreamsBuilder builder = new StreamsBuilder();
 		// String topic = kp.getMetaData().get("topic");
-		final String customerTopic = "customer5";
-		final String orderTopic = "order5";
+		final String customerTopic = Constants.CUSTOMER_TOPIC;
+		final String orderTopic = Constants.ORDER_TOPIC;
 
 		Serde<Customer> customerSerde = Serdes.serdeFrom(new CustomerSerializer(), new CustomerDeserializer());
 		Serde<Order> orderSerde = Serdes.serdeFrom(new OrderSerializer(), new OrderDeserializer());
