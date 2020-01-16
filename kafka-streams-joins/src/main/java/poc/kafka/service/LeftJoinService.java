@@ -88,6 +88,8 @@ public class LeftJoinService {
 		kp.getKafkaStreams().forEach((k, v) -> {
 			configs.put(k, v);
 		});
+		
+		configs.put("application.id", "kafka-streams-joins-left");
 
 		return configs;
 	}

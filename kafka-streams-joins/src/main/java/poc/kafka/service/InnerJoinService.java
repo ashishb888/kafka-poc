@@ -89,6 +89,8 @@ public class InnerJoinService {
 			configs.put(k, v);
 		});
 
+		configs.put("application.id", "kafka-streams-joins-inner");
+
 		return configs;
 	}
 

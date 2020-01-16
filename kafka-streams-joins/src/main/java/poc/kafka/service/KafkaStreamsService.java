@@ -18,6 +18,8 @@ public class KafkaStreamsService {
 	private ProducerService ps;
 	@Autowired
 	private LeftJoinService ljs;
+	@Autowired
+	private RightJoinService rjs;
 
 	public void main() {
 		log.debug("main service");
@@ -25,5 +27,6 @@ public class KafkaStreamsService {
 		ps.main();
 		ijs.main();
 		// ljs.main();
+		// rjs.main();
 	}
 }
