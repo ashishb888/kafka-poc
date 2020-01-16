@@ -305,4 +305,82 @@ First put 10 records to customer topic. Started order producer. Joining order & 
 2020-01-16 18:07:35.071 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 8, v: CustomerOrder(customer=Customer(customerId=8, orderId=8, customerName=c8, city=Vashi, country=Japan), order=Order(orderId=11, customerId=8, employeeID=11, orderDate=2020-01-16, shipperID=11))
 2020-01-16 18:22:25.026  INFO 16420 --- [ order-producer] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=producer-2] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
 2020-01-16 18:31:50.359  INFO 16420 --- [n(56)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+
+
+----------=----------
+OuterJoinService RUN 1: 1 instance (2 producers & 1 stream application)
+First put 10 records to customer topic. Started order producer. Joining order & customer streams (120 seconds window).
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --bootstrap-server localhost:7092 --create --topic customer17 --partitions 1 --replication-factor 1
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --bootstrap-server localhost:7092 --create --topic order17 --partitions 1 --replication-factor 1
+
+----------      
+
+2020-01-16 18:59:50.539  INFO 15888 --- [           main] poc.kafka.service.OuterJoinService       : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [customer17])
+      --> KSTREAM-WINDOWED-0000000007
+    Source: KSTREAM-SOURCE-0000000005 (topics: [KSTREAM-KEY-SELECT-0000000002-repartition])
+      --> KSTREAM-WINDOWED-0000000006
+    Processor: KSTREAM-WINDOWED-0000000006 (stores: [KSTREAM-OUTERTHIS-0000000008-store])
+      --> KSTREAM-OUTERTHIS-0000000008
+      <-- KSTREAM-SOURCE-0000000005
+    Processor: KSTREAM-WINDOWED-0000000007 (stores: [KSTREAM-OUTEROTHER-0000000009-store])
+      --> KSTREAM-OUTEROTHER-0000000009
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-OUTEROTHER-0000000009 (stores: [KSTREAM-OUTERTHIS-0000000008-store])
+      --> KSTREAM-MERGE-0000000010
+      <-- KSTREAM-WINDOWED-0000000007
+    Processor: KSTREAM-OUTERTHIS-0000000008 (stores: [KSTREAM-OUTEROTHER-0000000009-store])
+      --> KSTREAM-MERGE-0000000010
+      <-- KSTREAM-WINDOWED-0000000006
+    Processor: KSTREAM-MERGE-0000000010 (stores: [])
+      --> KSTREAM-PEEK-0000000011
+      <-- KSTREAM-OUTERTHIS-0000000008, KSTREAM-OUTEROTHER-0000000009
+    Processor: KSTREAM-PEEK-0000000011 (stores: [])
+      --> none
+      <-- KSTREAM-MERGE-0000000010
+
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000001 (topics: [order17])
+      --> KSTREAM-KEY-SELECT-0000000002
+    Processor: KSTREAM-KEY-SELECT-0000000002 (stores: [])
+      --> KSTREAM-FILTER-0000000004
+      <-- KSTREAM-SOURCE-0000000001
+    Processor: KSTREAM-FILTER-0000000004 (stores: [])
+      --> KSTREAM-SINK-0000000003
+      <-- KSTREAM-KEY-SELECT-0000000002
+    Sink: KSTREAM-SINK-0000000003 (topic: KSTREAM-KEY-SELECT-0000000002-repartition)
+      <-- KSTREAM-FILTER-0000000004
       
+2020-01-16 18:59:50.861 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 0, v: CustomerOrder(customer=Customer(customerId=0, orderId=0, customerName=c0, city=Nerul, country=India), order=null)
+2020-01-16 18:59:52.281 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 1, v: CustomerOrder(customer=Customer(customerId=1, orderId=1, customerName=c1, city=Kharghar, country=USA), order=null)
+2020-01-16 18:59:52.282 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 2, v: CustomerOrder(customer=Customer(customerId=2, orderId=2, customerName=c2, city=Sanpada, country=Japan), order=null)
+2020-01-16 18:59:52.282 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 3, v: CustomerOrder(customer=Customer(customerId=3, orderId=3, customerName=c3, city=Sanpada, country=UK), order=null)
+2020-01-16 18:59:52.282 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 4, v: CustomerOrder(customer=Customer(customerId=4, orderId=4, customerName=c4, city=Vashi, country=UK), order=null)
+2020-01-16 18:59:52.283 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 5, v: CustomerOrder(customer=Customer(customerId=5, orderId=5, customerName=c5, city=Kharghar, country=Japan), order=null)
+2020-01-16 18:59:52.283 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 6, v: CustomerOrder(customer=Customer(customerId=6, orderId=6, customerName=c6, city=Kharghar, country=UK), order=null)
+2020-01-16 18:59:52.283 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 7, v: CustomerOrder(customer=Customer(customerId=7, orderId=7, customerName=c7, city=Kamothe, country=Japan), order=null)
+2020-01-16 18:59:52.283 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 8, v: CustomerOrder(customer=Customer(customerId=8, orderId=8, customerName=c8, city=Kamothe, country=India), order=null)
+2020-01-16 18:59:52.283 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 9, v: CustomerOrder(customer=Customer(customerId=9, orderId=9, customerName=c9, city=Nerul, country=India), order=null)
+2020-01-16 18:59:55.982 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 5, v: CustomerOrder(customer=Customer(customerId=5, orderId=5, customerName=c5, city=Kharghar, country=Japan), order=Order(orderId=0, customerId=5, employeeID=0, orderDate=2020-01-16, shipperID=0))
+2020-01-16 19:00:05.976 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 5, v: CustomerOrder(customer=Customer(customerId=5, orderId=5, customerName=c5, city=Kharghar, country=Japan), order=Order(orderId=1, customerId=5, employeeID=1, orderDate=2020-01-16, shipperID=1))
+2020-01-16 19:00:15.979 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 8, v: CustomerOrder(customer=Customer(customerId=8, orderId=8, customerName=c8, city=Kamothe, country=India), order=Order(orderId=2, customerId=8, employeeID=2, orderDate=2020-01-16, shipperID=2))
+2020-01-16 19:00:25.977 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 4, v: CustomerOrder(customer=Customer(customerId=4, orderId=4, customerName=c4, city=Vashi, country=UK), order=Order(orderId=3, customerId=4, employeeID=3, orderDate=2020-01-16, shipperID=3))
+2020-01-16 19:00:35.979 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 9, v: CustomerOrder(customer=Customer(customerId=9, orderId=9, customerName=c9, city=Nerul, country=India), order=Order(orderId=4, customerId=9, employeeID=4, orderDate=2020-01-16, shipperID=4))
+2020-01-16 19:00:45.980 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 8, v: CustomerOrder(customer=Customer(customerId=8, orderId=8, customerName=c8, city=Kamothe, country=India), order=Order(orderId=5, customerId=8, employeeID=5, orderDate=2020-01-16, shipperID=5))
+2020-01-16 19:00:55.981 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 2, v: CustomerOrder(customer=Customer(customerId=2, orderId=2, customerName=c2, city=Sanpada, country=Japan), order=Order(orderId=6, customerId=2, employeeID=6, orderDate=2020-01-16, shipperID=6))
+2020-01-16 19:01:05.983 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 0, v: CustomerOrder(customer=Customer(customerId=0, orderId=0, customerName=c0, city=Nerul, country=India), order=Order(orderId=7, customerId=0, employeeID=7, orderDate=2020-01-16, shipperID=7))
+2020-01-16 19:01:15.982 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 2, v: CustomerOrder(customer=Customer(customerId=2, orderId=2, customerName=c2, city=Sanpada, country=Japan), order=Order(orderId=8, customerId=2, employeeID=8, orderDate=2020-01-16, shipperID=8))
+2020-01-16 19:01:25.982 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 3, v: CustomerOrder(customer=Customer(customerId=3, orderId=3, customerName=c3, city=Sanpada, country=UK), order=Order(orderId=9, customerId=3, employeeID=9, orderDate=2020-01-16, shipperID=9))
+2020-01-16 19:01:35.982 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 2, v: CustomerOrder(customer=Customer(customerId=2, orderId=2, customerName=c2, city=Sanpada, country=Japan), order=Order(orderId=10, customerId=2, employeeID=10, orderDate=2020-01-16, shipperID=10))
+2020-01-16 19:01:45.984 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 4, v: CustomerOrder(customer=Customer(customerId=4, orderId=4, customerName=c4, city=Vashi, country=UK), order=Order(orderId=11, customerId=4, employeeID=11, orderDate=2020-01-16, shipperID=11))
+2020-01-16 19:01:55.983 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 1, v: CustomerOrder(customer=null, order=Order(orderId=12, customerId=1, employeeID=12, orderDate=2020-01-16, shipperID=12))
+2020-01-16 19:02:05.983 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 9, v: CustomerOrder(customer=null, order=Order(orderId=13, customerId=9, employeeID=13, orderDate=2020-01-16, shipperID=13))
+2020-01-16 19:02:15.984 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 8, v: CustomerOrder(customer=null, order=Order(orderId=14, customerId=8, employeeID=14, orderDate=2020-01-16, shipperID=14))
+2020-01-16 19:02:25.984 DEBUG 15888 --- [-StreamThread-1] poc.kafka.service.OuterJoinService       : k: 3, v: CustomerOrder(customer=null, order=Order(orderId=15, customerId=3, employeeID=15, orderDate=2020-01-16, shipperID=15))
+.
+.
+.
+2020-01-16 19:16:35.916  INFO 15888 --- [ order-producer] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=producer-2] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2020-01-16 19:19:02.735  INFO 15888 --- [n(42)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
