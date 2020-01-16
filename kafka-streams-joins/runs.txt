@@ -232,3 +232,77 @@ First put 10 records to customer topic. Started order producer. Joining order & 
 2020-01-16 17:50:05.160 DEBUG 14396 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 5, v: CustomerOrder(customer=Customer(customerId=5, orderId=5, customerName=c5, city=Nerul, country=USA), order=Order(orderId=10, customerId=5, employeeID=10, orderDate=2020-01-16, shipperID=10))
 2020-01-16 17:50:15.161 DEBUG 14396 --- [-StreamThread-1] poc.kafka.service.InnerJoinService       : k: 6, v: CustomerOrder(customer=Customer(customerId=6, orderId=6, customerName=c6, city=Kamothe, country=USA), order=Order(orderId=11, customerId=6, employeeID=11, orderDate=2020-01-16, shipperID=11))
 2020-01-16 17:52:09.628  INFO 14396 --- [n(11)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+
+
+----------=----------
+RightJoinService RUN 1: 1 instance (2 producers & 1 stream application)
+First put 10 records to customer topic. Started order producer. Joining order & customer streams (120 seconds window).
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --bootstrap-server localhost:7092 --create  --partitions 1 --replication-factor 1 --topic order16
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --bootstrap-server localhost:7092 --create  --partitions 1 --replication-factor 1 --topic customer16
+
+----------
+
+2020-01-16 18:05:39.794  INFO 16420 --- [           main] poc.kafka.service.RightJoinService       : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [customer16])
+      --> KSTREAM-WINDOWED-0000000006
+    Source: KSTREAM-SOURCE-0000000005 (topics: [KSTREAM-KEY-SELECT-0000000002-repartition])
+      --> KSTREAM-WINDOWED-0000000007
+    Processor: KSTREAM-WINDOWED-0000000006 (stores: [KSTREAM-JOINTHIS-0000000008-store])
+      --> KSTREAM-JOINTHIS-0000000008
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-WINDOWED-0000000007 (stores: [KSTREAM-OUTEROTHER-0000000009-store])
+      --> KSTREAM-OUTEROTHER-0000000009
+      <-- KSTREAM-SOURCE-0000000005
+    Processor: KSTREAM-JOINTHIS-0000000008 (stores: [KSTREAM-OUTEROTHER-0000000009-store])
+      --> KSTREAM-MERGE-0000000010
+      <-- KSTREAM-WINDOWED-0000000006
+    Processor: KSTREAM-OUTEROTHER-0000000009 (stores: [KSTREAM-JOINTHIS-0000000008-store])
+      --> KSTREAM-MERGE-0000000010
+      <-- KSTREAM-WINDOWED-0000000007
+    Processor: KSTREAM-MERGE-0000000010 (stores: [])
+      --> KSTREAM-PEEK-0000000011
+      <-- KSTREAM-JOINTHIS-0000000008, KSTREAM-OUTEROTHER-0000000009
+    Processor: KSTREAM-PEEK-0000000011 (stores: [])
+      --> none
+      <-- KSTREAM-MERGE-0000000010
+
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000001 (topics: [order16])
+      --> KSTREAM-KEY-SELECT-0000000002
+    Processor: KSTREAM-KEY-SELECT-0000000002 (stores: [])
+      --> KSTREAM-FILTER-0000000004
+      <-- KSTREAM-SOURCE-0000000001
+    Processor: KSTREAM-FILTER-0000000004 (stores: [])
+      --> KSTREAM-SINK-0000000003
+      <-- KSTREAM-KEY-SELECT-0000000002
+    Sink: KSTREAM-SINK-0000000003 (topic: KSTREAM-KEY-SELECT-0000000002-repartition)
+      <-- KSTREAM-FILTER-0000000004
+      
+2020-01-16 18:05:41.045 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 0, v: CustomerOrder(customer=Customer(customerId=0, orderId=0, customerName=c0, city=Vashi, country=India), order=null)
+2020-01-16 18:05:41.423 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 1, v: CustomerOrder(customer=Customer(customerId=1, orderId=1, customerName=c1, city=Kharghar, country=UK), order=null)
+2020-01-16 18:05:41.424 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 2, v: CustomerOrder(customer=Customer(customerId=2, orderId=2, customerName=c2, city=Kharghar, country=India), order=null)
+2020-01-16 18:05:41.424 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 3, v: CustomerOrder(customer=Customer(customerId=3, orderId=3, customerName=c3, city=Sanpada, country=Japan), order=null)
+2020-01-16 18:05:41.425 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 4, v: CustomerOrder(customer=Customer(customerId=4, orderId=4, customerName=c4, city=Sanpada, country=UK), order=null)
+2020-01-16 18:05:41.425 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 5, v: CustomerOrder(customer=Customer(customerId=5, orderId=5, customerName=c5, city=Kamothe, country=USA), order=null)
+2020-01-16 18:05:41.425 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 6, v: CustomerOrder(customer=Customer(customerId=6, orderId=6, customerName=c6, city=Sanpada, country=India), order=null)
+2020-01-16 18:05:41.426 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 7, v: CustomerOrder(customer=Customer(customerId=7, orderId=7, customerName=c7, city=Kamothe, country=UK), order=null)
+2020-01-16 18:05:41.426 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 8, v: CustomerOrder(customer=Customer(customerId=8, orderId=8, customerName=c8, city=Vashi, country=Japan), order=null)
+2020-01-16 18:05:41.426 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 9, v: CustomerOrder(customer=Customer(customerId=9, orderId=9, customerName=c9, city=Vashi, country=UK), order=null)
+2020-01-16 18:05:44.944  INFO 16420 --- [ad | producer-2] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-2] Cluster ID: cMdW_kXwRq6Mxrigqjo55g
+2020-01-16 18:05:45.071 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 9, v: CustomerOrder(customer=Customer(customerId=9, orderId=9, customerName=c9, city=Vashi, country=UK), order=Order(orderId=0, customerId=9, employeeID=0, orderDate=2020-01-16, shipperID=0))
+2020-01-16 18:05:55.063 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 7, v: CustomerOrder(customer=Customer(customerId=7, orderId=7, customerName=c7, city=Kamothe, country=UK), order=Order(orderId=1, customerId=7, employeeID=1, orderDate=2020-01-16, shipperID=1))
+2020-01-16 18:06:05.064 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 7, v: CustomerOrder(customer=Customer(customerId=7, orderId=7, customerName=c7, city=Kamothe, country=UK), order=Order(orderId=2, customerId=7, employeeID=2, orderDate=2020-01-16, shipperID=2))
+2020-01-16 18:06:15.064 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 8, v: CustomerOrder(customer=Customer(customerId=8, orderId=8, customerName=c8, city=Vashi, country=Japan), order=Order(orderId=3, customerId=8, employeeID=3, orderDate=2020-01-16, shipperID=3))
+2020-01-16 18:06:25.067 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 7, v: CustomerOrder(customer=Customer(customerId=7, orderId=7, customerName=c7, city=Kamothe, country=UK), order=Order(orderId=4, customerId=7, employeeID=4, orderDate=2020-01-16, shipperID=4))
+2020-01-16 18:06:35.064 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 2, v: CustomerOrder(customer=Customer(customerId=2, orderId=2, customerName=c2, city=Kharghar, country=India), order=Order(orderId=5, customerId=2, employeeID=5, orderDate=2020-01-16, shipperID=5))
+2020-01-16 18:06:45.064 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 5, v: CustomerOrder(customer=Customer(customerId=5, orderId=5, customerName=c5, city=Kamothe, country=USA), order=Order(orderId=6, customerId=5, employeeID=6, orderDate=2020-01-16, shipperID=6))
+2020-01-16 18:06:55.069 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 7, v: CustomerOrder(customer=Customer(customerId=7, orderId=7, customerName=c7, city=Kamothe, country=UK), order=Order(orderId=7, customerId=7, employeeID=7, orderDate=2020-01-16, shipperID=7))
+2020-01-16 18:07:05.066 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 9, v: CustomerOrder(customer=Customer(customerId=9, orderId=9, customerName=c9, city=Vashi, country=UK), order=Order(orderId=8, customerId=9, employeeID=8, orderDate=2020-01-16, shipperID=8))
+2020-01-16 18:07:15.068 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 9, v: CustomerOrder(customer=Customer(customerId=9, orderId=9, customerName=c9, city=Vashi, country=UK), order=Order(orderId=9, customerId=9, employeeID=9, orderDate=2020-01-16, shipperID=9))
+2020-01-16 18:07:25.067 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 4, v: CustomerOrder(customer=Customer(customerId=4, orderId=4, customerName=c4, city=Sanpada, country=UK), order=Order(orderId=10, customerId=4, employeeID=10, orderDate=2020-01-16, shipperID=10))
+2020-01-16 18:07:35.071 DEBUG 16420 --- [-StreamThread-1] poc.kafka.service.RightJoinService       : k: 8, v: CustomerOrder(customer=Customer(customerId=8, orderId=8, customerName=c8, city=Vashi, country=Japan), order=Order(orderId=11, customerId=8, employeeID=11, orderDate=2020-01-16, shipperID=11))
+2020-01-16 18:22:25.026  INFO 16420 --- [ order-producer] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=producer-2] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2020-01-16 18:31:50.359  INFO 16420 --- [n(56)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+      
