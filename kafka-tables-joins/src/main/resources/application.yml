@@ -1,0 +1,31 @@
+spring:
+ application:
+  name: kafka-tables-joins
+
+logging:
+  level:    root: info
+    poc.kafka: debug  file: /var/log/apps/kafka-tables-joins/kafka-tables-joins
+
+kafka:
+  kafkaStreams:
+    bootstrap.servers: '172.17.5.36:7092'
+    application.id: 'kafka-tables-joins'
+    default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+    default.value.serde: org.apache.kafka.common.serialization.Serdes$DoubleSerde
+
+  kafkaProducer:
+    bootstrap.servers: '172.17.5.36:7092' #Brokers
+    acks: 'all'
+    batch.size: 150000
+    buffer.memory: 33554432
+    #client.id: 8
+    retries: 1
+    linger.ms: 10
+    compression.type: 'lz4'
+    key.serializer: 'org.apache.kafka.common.serialization.LongSerializer'
+    #value.serializer: 'poc.kafka.domain.serialization.OrderSerializer'
+    value.serializer: 'poc.kafka.domain.serialization.CustomerSerializer'
+    
+  metaData:
+    topic: order2 #Topic to send data
+    records: 100
