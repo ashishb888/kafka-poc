@@ -1,0 +1,46 @@
+RUN 1
+
+Local state store
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092   --from-beginning --topic kss-customer1
+{"customerId":0,"orderId":0,"customerName":"c0","city":"Kharghar","country":"India"}
+{"customerId":1,"orderId":1,"customerName":"c1","city":"Kamothe","country":"USA"}
+{"customerId":2,"orderId":2,"customerName":"c2","city":"Kamothe","country":"USA"}
+{"customerId":3,"orderId":3,"customerName":"c3","city":"Nerul","country":"UK"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Kharghar","country":"UK"}
+{"customerId":5,"orderId":5,"customerName":"c5","city":"Sanpada","country":"USA"}
+{"customerId":6,"orderId":6,"customerName":"c6","city":"Kharghar","country":"USA"}
+{"customerId":7,"orderId":7,"customerName":"c7","city":"Vashi","country":"India"}
+{"customerId":8,"orderId":8,"customerName":"c8","city":"Kharghar","country":"UK"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Nerul","country":"USA"}
+
+----------
+
+2020-01-24 19:47:31.495  INFO 9108 --- [           main] p.kafka.service.LocalStateStoreService   : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [kss-customer1])
+      --> KSTREAM-KEY-SELECT-0000000001
+    Processor: KSTREAM-KEY-SELECT-0000000001 (stores: [])
+      --> KSTREAM-FILTER-0000000004
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-FILTER-0000000004 (stores: [])
+      --> KSTREAM-SINK-0000000003
+      <-- KSTREAM-KEY-SELECT-0000000001
+    Sink: KSTREAM-SINK-0000000003 (topic: GroupedByCity-repartition)
+      <-- KSTREAM-FILTER-0000000004
+
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000005 (topics: [GroupedByCity-repartition])
+      --> KSTREAM-AGGREGATE-0000000002
+    Processor: KSTREAM-AGGREGATE-0000000002 (stores: [GroupedByCity])
+      --> none
+      <-- KSTREAM-SOURCE-0000000005
+
+2020-01-24 19:47:32.503 DEBUG 9108 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kamothe, v: 2
+2020-01-24 19:47:32.503 DEBUG 9108 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 4
+2020-01-24 19:47:32.504 DEBUG 9108 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Nerul, v: 2
+2020-01-24 19:47:32.504 DEBUG 9108 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 1
+2020-01-24 19:47:32.504 DEBUG 9108 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 1
+
+----------==----------
+
