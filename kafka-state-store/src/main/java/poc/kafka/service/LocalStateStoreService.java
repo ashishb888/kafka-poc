@@ -58,12 +58,24 @@ public class LocalStateStoreService {
 
 		log.info("topology: " + topology.describe());
 
-		ReadOnlyKeyValueStore<String, Customer> keyValueStore = streams.store(storeName,
-				QueryableStoreTypes.keyValueStore());
+		new Thread(() -> {
 
-		keyValueStore.all().forEachRemaining(r -> {
-			log.debug("k: " + r.key + ", v: " + r.value);
-		});
+			while (!streams.state().equals(KafkaStreams.State.RUNNING)) {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}
+
+			ReadOnlyKeyValueStore<String, Customer> keyValueStore = streams.store(storeName,
+					QueryableStoreTypes.keyValueStore());
+
+			keyValueStore.all().forEachRemaining(r -> {
+				log.debug("k: " + r.key + ", v: " + r.value);
+			});
+
+		}, "state-store").start();
 
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
 			streams.close();
