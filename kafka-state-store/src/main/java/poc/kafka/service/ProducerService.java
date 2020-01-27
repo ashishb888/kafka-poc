@@ -71,7 +71,8 @@ public class ProducerService {
 
 	public void main() {
 		log.debug("main service");
-
-		produceCustomers();
+		new Thread(() -> {
+			produceCustomers();
+		}, "producer").start();
 	}
 }

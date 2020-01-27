@@ -44,3 +44,77 @@ Local state store
 
 ----------==----------
 
+RUN 2
+
+Local state store: Get data at intervals
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092   --from-beginning --topic kss-customer7
+{"customerId":0,"orderId":0,"customerName":"c0","city":"Kharghar","country":"USA"}
+{"customerId":1,"orderId":1,"customerName":"c1","city":"Vashi","country":"India"}
+{"customerId":2,"orderId":2,"customerName":"c2","city":"Sanpada","country":"UK"}
+{"customerId":3,"orderId":3,"customerName":"c3","city":"Sanpada","country":"UK"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Sanpada","country":"USA"}
+{"customerId":5,"orderId":5,"customerName":"c5","city":"Vashi","country":"UK"}
+{"customerId":6,"orderId":6,"customerName":"c6","city":"Kharghar","country":"Japan"}
+{"customerId":7,"orderId":7,"customerName":"c7","city":"Kharghar","country":"USA"}
+{"customerId":8,"orderId":8,"customerName":"c8","city":"Nerul","country":"Japan"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Nerul","country":"UK"}
+
+----------
+
+2020-01-27 12:10:14.737  INFO 8568 --- [           main] p.kafka.service.LocalStateStoreService   : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [kss-customer7])
+      --> KSTREAM-KEY-SELECT-0000000001
+    Processor: KSTREAM-KEY-SELECT-0000000001 (stores: [])
+      --> KSTREAM-FILTER-0000000004
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KSTREAM-FILTER-0000000004 (stores: [])
+      --> KSTREAM-SINK-0000000003
+      <-- KSTREAM-KEY-SELECT-0000000001
+    Sink: KSTREAM-SINK-0000000003 (topic: GroupedByCity-repartition)
+      <-- KSTREAM-FILTER-0000000004
+
+  Sub-topology: 1
+    Source: KSTREAM-SOURCE-0000000005 (topics: [GroupedByCity-repartition])
+      --> KSTREAM-AGGREGATE-0000000002
+    Processor: KSTREAM-AGGREGATE-0000000002 (stores: [GroupedByCity])
+      --> none
+      <-- KSTREAM-SOURCE-0000000005
+      
+2020-01-27 12:10:15.536  INFO 8568 --- [-StreamThread-1] org.apache.kafka.streams.KafkaStreams    : stream-client [kafka-state-store7-223ae6c1-91a3-416e-86cc-3def64a63f4a] State transition from REBALANCING to RUNNING
+2020-01-27 12:10:15.755 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 1
+2020-01-27 12:10:25.780 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 1
+2020-01-27 12:10:25.782 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 1
+2020-01-27 12:10:35.807 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 1
+2020-01-27 12:10:35.809 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 1
+2020-01-27 12:10:35.809 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 1
+2020-01-27 12:10:45.833 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 1
+2020-01-27 12:10:45.834 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 2
+2020-01-27 12:10:45.834 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 1
+2020-01-27 12:10:55.866 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 1
+2020-01-27 12:10:55.866 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 3
+2020-01-27 12:10:55.866 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 1
+2020-01-27 12:11:05.879 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 1
+2020-01-27 12:11:05.879 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 3
+2020-01-27 12:11:05.880 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 2
+2020-01-27 12:11:15.895 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 2
+2020-01-27 12:11:15.895 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 3
+2020-01-27 12:11:15.895 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 2
+2020-01-27 12:11:25.918 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 3
+2020-01-27 12:11:25.918 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 3
+2020-01-27 12:11:25.918 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 2
+2020-01-27 12:11:35.940 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 3
+2020-01-27 12:11:35.941 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Nerul, v: 1
+2020-01-27 12:11:35.941 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 3
+2020-01-27 12:11:35.941 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 2
+2020-01-27 12:11:45.957 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 3
+2020-01-27 12:11:45.957 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Nerul, v: 2
+2020-01-27 12:11:45.957 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 3
+2020-01-27 12:11:45.957 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 2
+2020-01-27 12:11:55.021  INFO 8568 --- [       producer] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=producer-1] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2020-01-27 12:11:55.979 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Kharghar, v: 3
+2020-01-27 12:11:55.979 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Nerul, v: 2
+2020-01-27 12:11:55.979 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Sanpada, v: 3
+2020-01-27 12:11:55.979 DEBUG 8568 --- [    state-store] p.kafka.service.LocalStateStoreService   : k: Vashi, v: 2
+2020-01-27 12:11:59.654  INFO 8568 --- [on(3)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.

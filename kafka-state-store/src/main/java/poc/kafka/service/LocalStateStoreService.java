@@ -71,9 +71,17 @@ public class LocalStateStoreService {
 			ReadOnlyKeyValueStore<String, Customer> keyValueStore = streams.store(storeName,
 					QueryableStoreTypes.keyValueStore());
 
-			keyValueStore.all().forEachRemaining(r -> {
-				log.debug("k: " + r.key + ", v: " + r.value);
-			});
+			while (true) {
+				keyValueStore.all().forEachRemaining(r -> {
+					log.debug("k: " + r.key + ", v: " + r.value);
+				});
+
+				try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					Thread.currentThread().interrupt();
+				}
+			}
 
 		}, "state-store").start();
 
