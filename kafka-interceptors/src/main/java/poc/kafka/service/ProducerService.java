@@ -34,7 +34,7 @@ public class ProducerService {
 			// long records = Long.valueOf(kp.getMetaData().get("records"));
 			// String topic = kp.getMetaData().get("topic");
 			long records = 10L;
-			String topic = "";
+			String topic = "ki-1";
 			List<String> cities = Arrays.asList("Kamothe", "Kharghar", "Vashi", "Sanpada", "Nerul");
 			List<String> countries = Arrays.asList("India", "USA", "UK", "Japan");
 

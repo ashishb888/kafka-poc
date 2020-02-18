@@ -1,0 +1,44 @@
+RUN 1
+
+2020-02-18 14:26:02.327  INFO 16108 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka version: 2.3.0
+2020-02-18 14:26:02.328  INFO 16108 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka commitId: fc1aaa116b661c8a
+2020-02-18 14:26:02.328  INFO 16108 --- [           main] o.a.kafka.common.utils.AppInfoParser     : Kafka startTimeMs: 1582016162325
+2020-02-18 14:26:02.348 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=0, orderId=0, customerName=c0, city=Vashi, country=India)
+2020-02-18 14:26:02.539  INFO 16108 --- [ad | producer-1] org.apache.kafka.clients.Metadata        : [Producer clientId=producer-1] Cluster ID: cMdW_kXwRq6Mxrigqjo55g
+2020-02-18 14:26:02.719 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=1, orderId=1, customerName=c1, city=Kamothe, country=India)
+2020-02-18 14:26:02.720 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=2, orderId=2, customerName=c2, city=Sanpada, country=UK)
+2020-02-18 14:26:02.721 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=3, orderId=3, customerName=c3, city=Kamothe, country=USA)
+2020-02-18 14:26:02.721 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=4, orderId=4, customerName=c4, city=Vashi, country=Japan)
+2020-02-18 14:26:02.721 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=5, orderId=5, customerName=c5, city=Kharghar, country=USA)
+2020-02-18 14:26:02.721 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=6, orderId=6, customerName=c6, city=Kharghar, country=Japan)
+2020-02-18 14:26:02.722 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=7, orderId=7, customerName=c7, city=Sanpada, country=UK)
+2020-02-18 14:26:02.722 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=8, orderId=8, customerName=c8, city=Kharghar, country=UK)
+2020-02-18 14:26:02.722 DEBUG 16108 --- [           main] poc.kafka.interceptor.PInterceptor       : record#value: Customer(customerId=9, orderId=9, customerName=c9, city=Kharghar, country=India)
+2020-02-18 14:26:02.723  INFO 16108 --- [           main] o.a.k.clients.producer.KafkaProducer     : [Producer clientId=producer-1] Closing the Kafka producer with timeoutMillis = 9223372036854775807 ms.
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@0
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@1
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@2
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@3
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@4
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@5
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@6
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@7
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@8
+2020-02-18 14:26:02.737 DEBUG 16108 --- [ad | producer-1] poc.kafka.interceptor.PInterceptor       : metadata: ki-1-0@9
+
+----------
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092   --from-beginning --topic ki-1
+
+{"customerId":0,"orderId":0,"customerName":"c0","city":"Updated from Interceptor","country":"India"}
+{"customerId":1,"orderId":1,"customerName":"c1","city":"Updated from Interceptor","country":"India"}
+{"customerId":2,"orderId":2,"customerName":"c2","city":"Updated from Interceptor","country":"UK"}
+{"customerId":3,"orderId":3,"customerName":"c3","city":"Updated from Interceptor","country":"USA"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Updated from Interceptor","country":"Japan"}
+{"customerId":5,"orderId":5,"customerName":"c5","city":"Updated from Interceptor","country":"USA"}
+{"customerId":6,"orderId":6,"customerName":"c6","city":"Updated from Interceptor","country":"Japan"}
+{"customerId":7,"orderId":7,"customerName":"c7","city":"Updated from Interceptor","country":"UK"}
+{"customerId":8,"orderId":8,"customerName":"c8","city":"Updated from Interceptor","country":"UK"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Updated from Interceptor","country":"India"}
+
+----------==----------

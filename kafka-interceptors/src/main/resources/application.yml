@@ -22,6 +22,7 @@ kafka:
     retries: 1
     linger.ms: 10
     compression.type: 'lz4'
+    interceptor.classes: 'poc.kafka.interceptor.PInterceptor'
     key.serializer: 'org.apache.kafka.common.serialization.LongSerializer'
     #value.serializer: 'poc.kafka.domain.serialization.OrderSerializer'
     value.serializer: 'poc.kafka.domain.serialization.CustomerSerializer'
