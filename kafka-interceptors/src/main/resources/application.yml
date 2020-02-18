@@ -27,6 +27,19 @@ kafka:
     #value.serializer: 'poc.kafka.domain.serialization.OrderSerializer'
     value.serializer: 'poc.kafka.domain.serialization.CustomerSerializer'
     
+  kafkaConsumer:
+    bootstrap.servers: '172.17.5.36:7092' #Brokers
+    #client.id: 8
+    group.id: 'kafka-interceptor'
+    enable.auto.commit: true
+    #auto.commit.interval.ms: 5000
+    fetch.min.bytes: 100000
+    session.timeout.ms: 60000
+    auto.offset.reset: 'earliest'
+    max.poll.records: 5000
+    interceptor.classes: 'poc.kafka.interceptor.CInterceptor'
+    key.deserializer: 'org.apache.kafka.common.serialization.LongDeserializer'
+    value.deserializer: 'poc.kafka.domain.serialization.CustomerDeserializer'    
+    
   metaData:
-    topic: order2 #Topic to send data
-    records: 100
+    topic: ki-1

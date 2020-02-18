@@ -15,5 +15,6 @@ import lombok.Setter;
 public class KafkaProperties {
 	private Map<String, String> kafkaStreams;
 	private Map<String, String> kafkaProducer;
+	private Map<String, String> kafkaConsumer;
 	private Map<String, String> metaData;
 }

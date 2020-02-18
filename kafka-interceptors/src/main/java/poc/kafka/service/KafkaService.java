@@ -15,10 +15,13 @@ public class KafkaService {
 
 	@Autowired
 	private ProducerService ps;
+	@Autowired
+	private ConsumerService cs;
 
 	public void main() {
 		log.debug("main service");
 
-		ps.main();
+		// ps.main();
+		cs.main();
 	}
 }
