@@ -2,6 +2,7 @@ package poc.kafka.service;
 
 import java.util.Properties;
 import java.util.concurrent.CountDownLatch;
+import java.util.regex.Pattern;
 
 import org.apache.kafka.common.serialization.Serde;
 import org.apache.kafka.common.serialization.Serdes;
@@ -47,7 +48,9 @@ public class LocalStateStoreService {
 		String storeName = "GroupedByCity";
 		String topic = Constants.CUSTOMER_TOPIC;
 
-		KStream<Long, Customer> source = builder.stream(topic, Consumed.with(longSerde, customerSerde));
+		Pattern topicPattern = Pattern.compile(topic + "*");
+
+		KStream<Long, Customer> source = builder.stream(topicPattern, Consumed.with(longSerde, customerSerde));
 		KGroupedStream<String, Customer> groupedByCity = source.selectKey((k, v) -> v.getCity())
 				.groupByKey(Grouped.with(stringSerde, customerSerde));
 		groupedByCity.count(Materialized.as(storeName));

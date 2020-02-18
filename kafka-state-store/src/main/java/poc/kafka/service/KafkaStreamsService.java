@@ -22,6 +22,6 @@ public class KafkaStreamsService {
 		log.debug("main service");
 
 		ps.main();
-		lsss.main();
+		// lsss.main();
 	}
 }

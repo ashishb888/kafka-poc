@@ -46,7 +46,7 @@ public class ProducerService {
 				producer.send(new ProducerRecord<Long, Customer>(topic, i,
 						new Customer(i, i, "c" + i, cities.get(0), countries.get(0))));
 
-				Thread.sleep(10000);
+				// Thread.sleep(10000);
 			}
 
 			producer.close();

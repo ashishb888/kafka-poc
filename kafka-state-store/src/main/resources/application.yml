@@ -9,7 +9,7 @@ logging:
 kafka:
   kafkaStreams:
     bootstrap.servers: '172.17.5.36:7092'
-    application.id: 'kafka-state-store7'
+    application.id: 'kafka-state-store11'
     default.key.serde: org.apache.kafka.common.serialization.Serdes$StringSerde
     default.value.serde: org.apache.kafka.common.serialization.Serdes$DoubleSerde
 
