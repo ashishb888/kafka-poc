@@ -24,7 +24,7 @@ public class KafkaStreamsApp implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		log.info("run service");
+		log.debug("run service");
 
 		kss.main();
 	}
