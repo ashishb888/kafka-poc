@@ -24,7 +24,7 @@ kafka:
     compression.type: 'lz4'
     key.serializer: 'org.apache.kafka.common.serialization.LongSerializer'
     #value.serializer: 'poc.kafka.domain.serialization.OrderSerializer'
-    value.serializer: 'poc.kafka.domain.serialization.CustomerSerializer'
+    value.serializer: 'poc.kafka.domain.serialization.CustomerJsonSerializer'
     
   metaData:
     topic: cust1 #Topic to send data

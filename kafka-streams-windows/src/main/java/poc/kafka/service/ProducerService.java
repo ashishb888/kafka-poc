@@ -105,7 +105,7 @@ public class ProducerService {
 			configs.put(k, v);
 		});
 
-		configs.put("value.serializer", "poc.kafka.domain.serialization.CustomerSerializer");
+		configs.put("value.serializer", "poc.kafka.domain.serialization.CustomerJsonSerializer");
 
 		return new KafkaProducer<>(configs);
 	}

@@ -55,3 +55,66 @@ RUN 1
 2020-03-03 17:24:12.384 DEBUG 5592 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [4@1583236440000/1583236500000], v: 1
 
 ----------=----------
+RUN 2
+
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-topics.sh --bootstrap-server localhost:7092 --create --partitions 1 --replication-factor 1 --topic customer-tw3
+[user@host kafka_2.12-2.3.0]$ ./bin/kafka-console-consumer.sh --bootstrap-server localhost:7092 --topic customer-tw3
+{"customerId":6,"orderId":6,"customerName":"c6","city":"Nerul","country":"India"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Sanpada","country":"USA"}
+{"customerId":1,"orderId":1,"customerName":"c1","city":"Nerul","country":"USA"}
+{"customerId":6,"orderId":6,"customerName":"c6","city":"Kamothe","country":"USA"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Kharghar","country":"India"}
+{"customerId":0,"orderId":0,"customerName":"c0","city":"Kharghar","country":"UK"}
+{"customerId":2,"orderId":2,"customerName":"c2","city":"Vashi","country":"Japan"}
+{"customerId":2,"orderId":2,"customerName":"c2","city":"Sanpada","country":"Japan"}
+{"customerId":3,"orderId":3,"customerName":"c3","city":"Sanpada","country":"Japan"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Vashi","country":"India"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Sanpada","country":"Japan"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Kharghar","country":"Japan"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Sanpada","country":"UK"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Nerul","country":"USA"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Nerul","country":"USA"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Sanpada","country":"India"}
+{"customerId":8,"orderId":8,"customerName":"c8","city":"Kamothe","country":"India"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Kharghar","country":"India"}
+{"customerId":9,"orderId":9,"customerName":"c9","city":"Sanpada","country":"USA"}
+{"customerId":7,"orderId":7,"customerName":"c7","city":"Sanpada","country":"Japan"}
+{"customerId":1,"orderId":1,"customerName":"c1","city":"Kamothe","country":"UK"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Vashi","country":"UK"}
+{"customerId":2,"orderId":2,"customerName":"c2","city":"Kharghar","country":"India"}
+{"customerId":7,"orderId":7,"customerName":"c7","city":"Vashi","country":"India"}
+{"customerId":4,"orderId":4,"customerName":"c4","city":"Sanpada","country":"UK"}
+
+----------
+
+2020-03-03 18:33:38.635  INFO 12028 --- [           main] poc.kafka.service.TumblingWindowService  : topology: Topologies:
+   Sub-topology: 0
+    Source: KSTREAM-SOURCE-0000000000 (topics: [customer-tw3])
+      --> KSTREAM-AGGREGATE-0000000002
+    Processor: KSTREAM-AGGREGATE-0000000002 (stores: [KSTREAM-AGGREGATE-STATE-STORE-0000000001])
+      --> KTABLE-TOSTREAM-0000000003
+      <-- KSTREAM-SOURCE-0000000000
+    Processor: KTABLE-TOSTREAM-0000000003 (stores: [])
+      --> KSTREAM-PEEK-0000000004
+      <-- KSTREAM-AGGREGATE-0000000002
+    Processor: KSTREAM-PEEK-0000000004 (stores: [])
+      --> none
+      <-- KTABLE-TOSTREAM-0000000003
+
+2020-03-03 18:34:09.509 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [1@1583240580000/1583240640000], v: 1
+2020-03-03 18:34:09.509 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [6@1583240580000/1583240640000], v: 2
+2020-03-03 18:34:09.509 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [9@1583240580000/1583240640000], v: 2
+2020-03-03 18:34:09.509 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [0@1583240580000/1583240640000], v: 1
+2020-03-03 18:34:09.509 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [2@1583240580000/1583240640000], v: 1
+2020-03-03 18:34:09.510 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [2@1583240640000/1583240700000], v: 1
+2020-03-03 18:34:09.510 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [3@1583240640000/1583240700000], v: 1
+2020-03-03 18:34:09.510 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [4@1583240640000/1583240700000], v: 2
+2020-03-03 18:34:09.510 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [9@1583240640000/1583240700000], v: 1
+2020-03-03 18:34:39.644 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [8@1583240640000/1583240700000], v: 1
+2020-03-03 18:34:39.644 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [9@1583240640000/1583240700000], v: 4
+2020-03-03 18:34:39.645 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [7@1583240640000/1583240700000], v: 1
+2020-03-03 18:34:39.645 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [1@1583240640000/1583240700000], v: 1
+2020-03-03 18:34:39.646 DEBUG 12028 --- [-StreamThread-1] poc.kafka.service.TumblingWindowService  : k: [4@1583240640000/1583240700000], v: 6
+2020-03-03 18:34:48.076  INFO 12028 --- [on(2)-127.0.0.1] inMXBeanRegistrar$SpringApplicationAdmin : Application shutdown requested.
+
+----------=----------

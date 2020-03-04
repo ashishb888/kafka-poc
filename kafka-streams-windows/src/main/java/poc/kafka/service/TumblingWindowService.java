@@ -20,8 +20,8 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 import poc.kafka.domain.Customer;
-import poc.kafka.domain.serialization.CustomerDeserializer;
-import poc.kafka.domain.serialization.CustomerSerializer;
+import poc.kafka.domain.serialization.CustomerJsonDeserializer;
+import poc.kafka.domain.serialization.CustomerJsonSerializer;
 import poc.kafka.properties.KafkaProperties;
 import poc.kafka.service.constants.Constants;
 
@@ -43,7 +43,9 @@ public class TumblingWindowService {
 		// String topic = kp.getMetaData().get("topic");
 		final String customerTopic = Constants.CUSTOMER_TOPIC;
 
-		Serde<Customer> customerSerde = Serdes.serdeFrom(new CustomerSerializer(), new CustomerDeserializer());
+		// Serde<Customer> customerSerde = Serdes.serdeFrom(new CustomerSerializer(),
+		// new CustomerDeserializer());
+		Serde<Customer> customerSerde = Serdes.serdeFrom(new CustomerJsonSerializer(), new CustomerJsonDeserializer());
 		Serde<Long> longSerde = Serdes.Long();
 
 		KStream<Long, Customer> customerStream = builder.stream(customerTopic, Consumed.with(longSerde, customerSerde));
